@@ -11,22 +11,249 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
     }
+    /**
+     * 关闭静态检测
+     */
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    /**
+     * 签名配置
+     */
+    signingConfigs {
+        release {
+            storeFile file("key/enjoy_keystore.jks")
+            storePassword "kufeng123"
+            keyAlias "kufeng"
+            keyPassword "kufeng123"
+        }
+
+        debug {
+            storeFile file("key/enjoy_keystore.jks")
+            storePassword "kufeng123"
+            keyAlias "kufeng"
+            keyPassword "kufeng123"
+        }
+    }
+
+    /**
+     * 构建缟译配置
+     */
     buildTypes {
         release {
+            //指定签名
+            signingConfig signingConfigs.release
+            //混淆压缩编译源码
+            minifyEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            //混淆压缩编译源码
             minifyEnabled false
+            //移除无用的resource文件
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+    dexOptions {
+        // 使用增量模式构建
+        incremental true
+        // 最大堆内存
+        javaMaxHeapSize "4g"
+        // 预编译
+        preDexLibraries = false
+        // 线程数
+        threadCount = 6
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+
+
+}
+ext {
+    SUPPORT_LIB_VERSION = '26.+'
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    /** google基础支持库及测试库*************************************************************/
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support:support-vector-drawable:26.+'
+    compile 'com.android.support:appcompat-v7:'+SUPPORT_LIB_VERSION
+    compile 'com.android.support:design:'+SUPPORT_LIB_VERSION
+    compile 'com.android.support:support-vector-drawable:'+SUPPORT_LIB_VERSION
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
+    //依赖冲突解决  强制使用统一版本
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:appcompat-v7:'+SUPPORT_LIB_VERSION
+            force 'com.android.support:design:'+SUPPORT_LIB_VERSION
+            force 'com.android.support:support-vector-drawable:'+SUPPORT_LIB_VERSION
+        }
+    }
+
+    /** 第三方类库*************************************************************/
+    compile 'com.google.code.gson:gson:2.8.1'
+
+
+
+
+
+}
+/**
+ * 打包命名
+ */
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def outputFile = output.outputFile
+        if (outputFile != null && outputFile.name.endsWith('.apk')) {
+
+            def fileName = outputFile.name.replace(".apk", "_" + android.defaultConfig.versionName + ".apk").replace("app-", "fitness_").replaceAll("-", "_")
+            output.outputFile = new File(outputFile.parent, fileName)
+        }
+    }
+
+}
+/**
+ * 多渠道打包配置
+ */
+android.productFlavors {
+    //开发测试专用渠道
+    dev {}
+    /*
+    //基本渠道
+    lvshou {}
+    official {}
+    yingyongbao {}
+    baidu {}
+    _360 {}
+    xiaomi {}
+    huawei {}
+    oppo {}
+    vivo {}
+    wandoujia {}
+    samsung {}
+    anzhi {}
+    pp {}
+    meizu {}
+    leshi {}
+    sogou {}
+    gionee {}
+    lenovo {}
+    liqucn {}
+    gfan {}
+    //以上是基本渠道
+
+    //省广诺时独立推广渠道
+    sgns {}
+
+    //蘑菇刷机推广渠道
+    mogu {}
+
+    //全盟渠道
+    quanmeng {}
+    quanmeng1 {}
+    quanmeng2 {}
+    quanmeng3 {}
+    quanmeng4 {}
+    quanmeng5 {}
+    quanmeng6 {}
+    quanmeng7 {}
+    quanmeng8 {}
+    quanmeng9 {}
+    quanmeng10 {}
+    quanmeng11 {}
+    quanmeng12 {}
+    quanmeng13 {}
+
+    //有米渠道
+    youmi {}
+    youmi1 {}
+    youmi2 {}
+    youmi3 {}
+    youmi4 {}
+    youmi5 {}
+    youmi6 {}
+
+    //多萌渠道
+    duomeng {}
+    duomeng1 {}
+    duomeng2 {}
+    duomeng3 { }
+    duomeng4 {}
+    duomeng5 {}
+    duomeng6 {}
+
+    //中亿渠道
+    zhongyi {}
+    zhongyi1 {}
+    zhongyi2 {}
+    zhongyi3 {}
+    zhongyi4 {}
+    zhongyi5 {}
+    zhongyi6 {}
+
+    //和聚渠道
+    heju {}
+    heju1 {}
+    heju2 {}
+    heju3 {}
+    heju4 {}
+    heju5 {}
+    heju6 {}
+    heju7 {}
+    heju8 {}
+    heju9 {}
+    heju10 {}
+    heju11 {}
+    heju12 {}
+    heju13 {}
+    heju14 {}
+    heju15 {}
+    heju16 {}
+    heju17 {}
+    heju18 {}
+    heju19 {}
+    heju20 {}
+    heju21 {}
+    heju22 {}
+
+    //指点渠道
+    zhidian {}
+    zhidian1 {}
+    zhidian2 {}
+    zhidian3 {}
+    zhidian4 {}
+    zhidian5 {}
+    zhidian6 {}
+    zhidian7 {}
+    zhidian8 {}
+
+    //淘米渠道
+    taomi {}
+    taomi1 {}
+    taomi2 {}
+    taomi3 {}
+    taomi4 {}
+    taomi5 {}
+    taomi6 {}
+    taomi7 {}
+    taomi8 {}
+    taomi9 {}
+*/
+
+
 }

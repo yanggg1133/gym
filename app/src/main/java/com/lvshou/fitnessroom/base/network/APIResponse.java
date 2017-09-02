@@ -5,14 +5,17 @@ package com.lvshou.fitnessroom.base.network;
  */
 public class APIResponse<T>
 {
-	public static final String RET_SUCCESS = "success"; //请求成功
-	public static final int  STATE_SUCCESS = 1; //请求成功
-	public static final int  STATE_SUCCESS2 = 0; //请求成功
 
-	public static final String STATE_SUCCESS_STR = "0"; //请求成功
-	public static final String STATE_SUCCESS2_STR = "1"; //请求成功
+	private static final String STATE_SUCCESS = "200"; //请求成功
+	private static final String STATE_TOKEN_EXPIRED = "401"; //登录过期
 
-	private String msg;
+	public String msg;
+	public String code;
 	public T data;
+
+    public boolean isSuccess()
+    {
+        return STATE_SUCCESS.equals(code);
+    }
 
 }

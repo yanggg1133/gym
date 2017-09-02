@@ -11,7 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
+        buildConfigField "boolean", "LOG_DEBUG", "false" //默认渠道不输出log
     }
     /**
      * 关闭静态检测
@@ -107,8 +107,9 @@ dependencies {
 
     /** 第三方类库*************************************************************/
     compile 'com.google.code.gson:gson:2.8.1'
-
-
+    //图片加载
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 
 
 
@@ -132,7 +133,9 @@ android.applicationVariants.all { variant ->
  */
 android.productFlavors {
     //开发测试专用渠道
-    dev {}
+    dev {
+        buildConfigField "boolean", "LOG_DEBUG", "true" //只在开发渠道中输出log
+    }
     /*
     //基本渠道
     lvshou {}

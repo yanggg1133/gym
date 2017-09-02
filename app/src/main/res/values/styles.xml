@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DialogStyle" parent="Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="listPreferredItemPaddingLeft">40dip</item>
+    </style>
 </resources>

@@ -1,19 +1,26 @@
 package com.lvshou.fitnessroom.base.network;
 
 import android.accounts.NetworkErrorException;
+import android.content.Context;
+import android.net.http.HttpResponseCache;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.lvshou.fitnessroom.util.LogUtil;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
@@ -34,9 +41,32 @@ public class APIHttpClient
     public static final String CONTENT_TYPE_URLENCODED = "application/x-www-form-urlencoded";
     public static final String REQUEST_METHOD = "POST";
 
-    public static  <T> T post(String url,String params,Class<T> tclass) throws NetworkErrorException {
+
+    public static void appInitialization(final Context context)
+    {
+        /**
+         * 开启http缓存
+         */
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    long httpCacheSize = 20 * 1024 * 1024;// 20M
+                    File httpCacheDir = new File(context.getCacheDir(), "httpCacheSize");
+                    HttpResponseCache.install(httpCacheDir,httpCacheSize);
+                } catch (Exception e) {
+                    LogUtil.e(e.getMessage());
+                }
+            }
+        }.start();
+
+    }
+
+
+    public static  <T> APIResponse<T> postForm(String url, ParamsBuilder params,Type typeToken) throws NetworkErrorException {
         try {
-            return new Gson().fromJson(post(url,params), tclass);
+            APIResponse<T> apiResponse = new Gson().fromJson(post(url,params.toParamsStr()), typeToken);
+            return apiResponse;
         } catch (NetworkErrorException e) {
             throw e;
         } catch (JsonSyntaxException e) {
@@ -62,7 +92,7 @@ public class APIHttpClient
                 VerifyHttps((HttpsURLConnection) httpConn);
             }
 
-            ////设置连接属性
+            //设置连接属性
             httpConn.setDoOutput(true);//使用 URL 连接进行输出
             httpConn.setDoInput(true);//使用 URL 连接进行输入
             httpConn.setUseCaches(true);//忽略缓存
@@ -73,8 +103,8 @@ public class APIHttpClient
             //设置请求属性
             //获得数据字节数据，请求数据流的编码，必须和下面服务器端处理请求流的编码一致
             byte[] requestStringBytes = requestString.getBytes("UTF-8");
-            httpConn.setRequestProperty("Content-length", "" + requestStringBytes.length);
-            httpConn.setRequestProperty("Content-Type",CONTENT_TYPE_JSON);
+            httpConn.setRequestProperty("Content-length", String.valueOf(requestStringBytes.length));
+            httpConn.setRequestProperty("Content-Type",CONTENT_TYPE_URLENCODED);
             httpConn.setRequestProperty("Connection", "Keep-Alive");// 维持长连接
             httpConn.setRequestProperty("Charset", "UTF-8");
 

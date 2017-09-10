@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#cc3"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </com.hxs.fitnessroom.widget.MyToolbar>
+    <TextView
+        android:id="@+id/codeScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:text="二维码扫描"
+        />
+</LinearLayout>

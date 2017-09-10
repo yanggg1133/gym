@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "com.lvshou.fitnessroom"
+        applicationId "com.hxs.fitnessroom"
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -25,14 +25,14 @@ android {
      */
     signingConfigs {
         release {
-            storeFile file("key/enjoy_keystore.jks")
+            storeFile file("../key/enjoy_keystore.jks")
             storePassword "kufeng123"
             keyAlias "kufeng"
             keyPassword "kufeng123"
         }
 
         debug {
-            storeFile file("key/enjoy_keystore.jks")
+            storeFile file("../key/enjoy_keystore.jks")
             storePassword "kufeng123"
             keyAlias "kufeng"
             keyPassword "kufeng123"
@@ -53,6 +53,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            signingConfig signingConfigs.release
             //混淆压缩编译源码
             minifyEnabled false
             //移除无用的resource文件
@@ -63,7 +64,7 @@ android {
 
     dexOptions {
         // 使用增量模式构建
-        incremental true
+        //incremental true
         // 最大堆内存
         javaMaxHeapSize "4g"
         // 预编译
@@ -110,8 +111,11 @@ dependencies {
     //图片加载
     compile 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
-
-
+    compile 'jp.wasabeef:glide-transformations:3.0.0'
+    //二维码扫描
+    compile project(":codescan")
+    //第三方支付
+    compile project(":paylib")
 
 }
 /**

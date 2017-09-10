@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.hxs.fitnessroom.widget.MyToolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle"
+        >
+    </com.hxs.fitnessroom.widget.MyToolbar>
+    <RelativeLayout
+        android:id="@+id/citySelect"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        >
+        <TextView
+            android:id="@+id/city_item_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广州"
+            android:background="@drawable/bg_btn_r_primary"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorTextDark"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="2dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+            android:drawableTint="@color/colorTextDark"
+            />
+        <TextView
+            android:id="@+id/county_item_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/city_item_select"
+            android:text="全部门店"
+            android:background="@drawable/bg_btn_r_primary"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorTextDark"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="2dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+            android:drawableTint="@color/colorTextDark"
+            />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/citySelect"
+        >
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

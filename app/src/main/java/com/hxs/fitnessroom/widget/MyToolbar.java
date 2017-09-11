@@ -1,11 +1,14 @@
 package com.hxs.fitnessroom.widget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.util.ViewUitl;
@@ -17,6 +20,9 @@ import com.hxs.fitnessroom.util.ViewUitl;
  */
 public class MyToolbar extends Toolbar
 {
+    private TextView toolbar_title;
+    private ViewGroup toolbar_layout;
+
     public MyToolbar(Context context)
     {
         this(context, null);
@@ -47,6 +53,22 @@ public class MyToolbar extends Toolbar
         {
             setElevation(ViewUitl.dpToPx(0,getContext()));
         }
-        setBackgroundResource(R.color.colorPrimary);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
+        toolbar_layout = (ViewGroup) findViewById(R.id.toolbar_layout);
+    }
+
+    public void setTitle(String title)
+    {
+        toolbar_title.setText(title);
+    }
+
+    public void setTitleColor(@ColorInt int color)
+    {
+        toolbar_title.setTextColor(color);
+    }
+
+    public void setBackground(Drawable background)
+    {
+        toolbar_layout.setBackground(background);
     }
 }

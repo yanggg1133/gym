@@ -106,8 +106,8 @@ public class MainActivity extends BaseActivity
                 new int[]{android.R.attr.state_checked},
                 new int[]{-android.R.attr.state_empty}
         }, new int[]{
-                getResources().getColor(R.color.menuColor),
-                getResources().getColor(R.color.menuColorDark)
+                getResources().getColor(R.color.colorMenu),
+                getResources().getColor(R.color.colorMenuDark)
         });
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

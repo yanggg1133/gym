@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#cc3"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/colorPrimary"
     >
     <com.hxs.fitnessroom.widget.MyToolbar
         android:layout_width="wrap_content"
@@ -15,4 +16,45 @@
         android:layout_marginTop="90dp"
         android:text="二维码扫描"
         />
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="horizontal"
+        >
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+            android:id="@+id/picker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:npv_ItemPaddingHorizontal="5dp"
+            app:npv_ItemPaddingVertical="5dp"
+            app:npv_ShowCount="5"
+            app:npv_RespondChangeOnDetached="false"
+            app:npv_TextSizeNormal="16sp"
+            app:npv_TextSizeSelected="20sp"
+            app:npv_WrapSelectorWheel="true"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="225dp"/>
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="225dp"/>
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="225dp"/>
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
+        android:background="@drawable/boy"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

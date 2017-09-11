@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +15,9 @@ import com.google.zxing.activity.CaptureActivity;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 
+import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 import fitnessroom.hxs.com.codescan.CameraUtil;
+
 
 
 /**
@@ -36,7 +39,7 @@ public class ScanMainFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        TextView textView = (TextView) findViewById(R.id.codeScan);
+        TextView textView = findViewById(R.id.codeScan);
         textView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -50,6 +53,17 @@ public class ScanMainFragment extends BaseFragment
                 }
             }
         });
+
+        NumberPickerView numberPicker = findViewById(R.id.picker);
+        String[] ssss = new String[]{"1990 年","1991 年","1992 年","1993 年","1994 年","1995 年","1996 年"};
+        numberPicker.setDisplayedValues(ssss);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(ssss.length-1);
+//        NumberPicker numberPicker2 = findViewById(R.id.NumberPicker2);
+//        String[] ssss2 = new String[]{"1 月","2 月","3 月","4 月"};
+//        numberPicker2.setMinValue(0);
+//        numberPicker2.setMaxValue(ssss2.length-1);
+//        numberPicker2.setDisplayedValues(ssss2);
 
     }
 

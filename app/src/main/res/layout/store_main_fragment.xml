@@ -10,52 +10,74 @@
         style="@style/ToolbarStyle"
         >
     </com.hxs.fitnessroom.widget.MyToolbar>
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/citySelect"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/toolbar"
         android:background="@color/colorPrimary"
         >
+
         <TextView
             android:id="@+id/city_item_select"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="广州"
-            android:background="@drawable/bg_btn_r_primary"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:textSize="16dp"
             android:textColor="@color/colorTextDark"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="2dp"
-            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-            android:drawableTint="@color/colorTextDark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/dividerline"
+            />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/ic_drop_down"
+            android:tint="@color/colorTextDark"
+            app:layout_constraintLeft_toRightOf="@+id/city_item_select"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <View
+            android:id="@+id/dividerline"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/colorDividerLine"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
         <TextView
             android:id="@+id/county_item_select"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/city_item_select"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:layout_constraintLeft_toRightOf="@+id/dividerline"
+            app:layout_constraintRight_toRightOf="parent"
             android:text="全部门店"
-            android:background="@drawable/bg_btn_r_primary"
-            android:layout_centerVertical="true"
+            android:textSize="16dp"
             android:textColor="@color/colorTextDark"
-            android:layout_marginLeft="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="2dp"
-            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-            android:drawableTint="@color/colorTextDark"
             />
-    </RelativeLayout>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/ic_drop_down"
+            android:tint="@color/colorTextDark"
+            app:layout_constraintLeft_toRightOf="@+id/county_item_select"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/citySelect"
+        android:background="@color/colorPrimary"
         >
 
 

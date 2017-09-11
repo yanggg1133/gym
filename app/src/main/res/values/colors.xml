@@ -4,13 +4,27 @@
     <color name="colorPrimaryDark">#22253e</color>
     <color name="colorAccent">#ffa3e4</color>
 
-    <color name="colorText">#ffff9ae1</color>
+    <color name="colorText">#ffffa3e4</color>
     <color name="colorTextDark">#ffd8abff</color>
 
+    <!-- 列表文字 一级标题 -->
+    <color name="colorListItemTitleText">#FFC7D0FF</color>
+    <!-- 列表文字 二级标题 -->
+    <color name="colorListItemSubTitleText">#FF8B92B8</color>
+    <!-- 列表文字 辅助性文字 -->
+    <color name="colorListItemContentText">#FF656c91</color>
 
     <!-- 导航栏 选中时 -->
-    <color name="menuColor">@color/colorText</color>
+    <color name="colorMenu">@color/colorText</color>
     <!-- 导航栏 未选中时 -->
-    <color name="menuColorDark">@color/colorTextDark</color>
+    <color name="colorMenuDark">@color/colorTextDark</color>
+
+    <!-- 分割线 -->
+    <color name="colorDividerLine">#33C7D0FF</color>
+
+
+
+
+
 
 </resources>

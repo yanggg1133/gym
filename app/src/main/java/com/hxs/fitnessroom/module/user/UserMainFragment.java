@@ -1,5 +1,6 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -18,6 +19,7 @@ import com.hxs.fitnessroom.module.home.widget.RulerViewLayout;
 import com.hxs.fitnessroom.module.home.widget.ruler.VerticalScaleView;
 import com.hxs.fitnessroom.module.pay.mode.RechargeModel;
 import com.hxs.fitnessroom.module.pay.mode.entity.RechargeBean;
+import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 
 import java.util.ArrayList;
 
@@ -30,8 +32,10 @@ import fitnessroom.hxs.com.paylib.PayFactory;
  * Created by je on 9/2/17.
  */
 
-public class UserMainFragment extends BaseFragment
+public class UserMainFragment extends BaseFragment implements View.OnClickListener
 {
+    private UserMainUi mUserMainUi;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -43,26 +47,20 @@ public class UserMainFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        final TextView textView = findViewById(R.id.body_height);
-        RulerViewLayout rulerViewLayout = findViewById(R.id.rulerViewLayout);
-        rulerViewLayout.setOnChengedListener(new RulerViewLayout.OnChengedListener()
-        {
-            @Override
-            public void onChenged(int height)
-            {
-                textView.setText("身高"+height+"cm");
-            }
-        });
-//        textView.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//
-//                AreaSelectDialogFragment.show(getFragmentManager(), new ArrayList<String>());
-//
-//            }
-//        });
+        mUserMainUi = new UserMainUi(this);
 
+        mUserMainUi.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.user_avatar:
+                startActivity(new Intent(v.getContext(),LoginActivity.class));
+                break;
+        }
     }
 }

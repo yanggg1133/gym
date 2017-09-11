@@ -116,6 +116,8 @@ dependencies {
     compile project(":codescan")
     //第三方支付
     compile project(":paylib")
+    //上下滚动选择器
+    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 
 }
 /**

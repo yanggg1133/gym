@@ -39,7 +39,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".base.baseclass.BaseApplication"
@@ -57,8 +56,10 @@
         <activity android:name=".module.main.MainActivity">
         </activity>
 
-        <activity android:name="com.google.zxing.activity.CaptureActivity">
-        </activity>
+        <activity android:name=".module.user.LoginActivity"></activity>
+
+        <!-- 扫描二维码 -->
+        <activity android:name="com.google.zxing.activity.CaptureActivity"></activity>
 
         <!-- 微信相关回调 -->
         <activity android:name=".wxapi.WXPayEntryActivity"

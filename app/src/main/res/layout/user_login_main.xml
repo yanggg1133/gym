@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/activity_vertical_margin"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="登录"
+        android:textColor="@color/colorListItemTitleText"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_close"
+        android:tint="@color/colorListItemSubTitleText"
+        />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phone_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="44dp"
+        app:theme="@style/TextInputStyle"
+        >
+
+        <EditText
+            android:id="@+id/phone_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="18dp"
+            android:textSize="16dp"
+            android:hint="请输入手机号码"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:id="@+id/send_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/phone_text_layout"
+        android:layout_alignBottom="@+id/phone_text_layout"
+        android:text="发送验证码"
+        android:background="@drawable/bg_stroke_d8abff"
+        android:textColor="@color/colorTextDark"
+        android:textSize="13dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="3dp"
+        />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/password_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone_text_layout"
+        app:theme="@style/TextInputStyle"
+        android:layout_marginTop="18dp"
+        >
+        <EditText
+            android:id="@+id/password_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="18dp"
+            android:textSize="16dp"
+            android:hint="请输入验证码"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="登录"
+            android:imeOptions="actionUnspecified"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/login_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:layout_below="@+id/password_text_layout"
+        android:layout_marginTop="116dp"
+        android:text="登录"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

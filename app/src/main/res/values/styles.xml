@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="DialogStyle" parent="Base.V7.Theme.AppCompat.Light.Dialog">
@@ -16,9 +16,22 @@
     </style>
 
     <style name="ToolbarStyle" parent="Base.V7.Theme.AppCompat.Light">
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
+    <style name="TextInputStyle" parent="Base.V7.Theme.AppCompat.Light">
+        <!-- 未获取焦点时，提示文案颜色 -->
+        <item name="android:textColorHint">@color/colorListItemContentText</item>
+        <!-- 未获取焦点时，下划线颜色 -->
+        <item name="android:textColorSecondary">@color/colorListItemContentText</item>
+        <!-- 获取焦点时，提示文案和下划线颜色 -->
+        <item name="colorAccent">@color/colorListItemTitleText</item>
+        <!-- 录入文字颜色 -->
+        <item name="android:textColorPrimary">@color/colorListItemTitleText</item>
+    </style>
+
+
 
 
 

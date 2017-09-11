@@ -2,6 +2,7 @@ package com.hxs.fitnessroom.base.baseclass;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.util.LocationUtil;
@@ -18,7 +19,6 @@ public class BaseApplication extends Application
     @Override
     public void onCreate() {
         super.onCreate();
-
         APIHttpClient.appInitialization(this);
         LocationUtil.appInitialization(this);
 

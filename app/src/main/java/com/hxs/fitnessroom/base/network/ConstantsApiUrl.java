@@ -6,42 +6,29 @@ package com.hxs.fitnessroom.base.network;
  */
 public enum ConstantsApiUrl
 {
-
     //测试
     TestUrl("api/Test/api"),
-    //门店列表
-    StoreList("server/Store/storeList"),
-    //所有城市列表
-    AreaList("server/Store/areaList"),
-    //发起充值
-    AddRecharge("server/Order/addRecharge"),
+    /** gym **************************************************/
+    StoreList("https://gym.hxsapp.com/server/Store/storeList"),//门店列表
+    AreaList("https://gym.hxsapp.com/server/Store/areaList"),//所有城市列表
+    AddRecharge("https://gym.hxsapp.com/server/Order/addRecharge"),//发起充值
 
+    /** account **************************************************/
+    SendSMS("https://account.hxsapp.com/user/userAccount/sendSMS"),//发验证码
+    Register("https://account.hxsapp.com/user/userAccount/register"),//注册
+    Login("https://account.hxsapp.com/user/userAccount/login"),//注册
+    ThirdPartyLogin("https://account.hxsapp.com/user/userAccount/thirdPartyLogin"),//第三方登录
+    GetSelfUserInfo("https://account.hxsapp.com/user/userInfo/getSelfUserInfo"),//获取用户信息
     ;
+
     private String linkAddress;
     ConstantsApiUrl(String linkAddress)
     {
         this.linkAddress = linkAddress;
     }
 
-    /**
-     * 普通接口域名
-     * @return
-     */
-    private static String API_ROOT = "http://gym.hxsapp.com/";
-
-    public String getAPIRootUrl()
+    public String getUrl()
     {
-        return API_ROOT + this.linkAddress;
+        return  this.linkAddress;
     }
-
-    /**
-     * H5 页面域名
-     * @return
-     */
-    public String getH5RootUrl()
-    {
-        return "" + this.linkAddress;
-    }
-
-
 }

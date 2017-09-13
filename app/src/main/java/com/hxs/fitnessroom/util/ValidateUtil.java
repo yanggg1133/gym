@@ -1,8 +1,13 @@
 package com.hxs.fitnessroom.util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 数据类型验证
@@ -58,6 +63,57 @@ public class ValidateUtil
         catch (Exception e)
         {
             return false;
+        }
+    }
+
+
+    /**
+     * 检查是否电话号码
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobileNumber(String mobiles) {
+        Pattern p = Pattern.compile("^((1[0-9][0-9]))\\d{8}$");
+        Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
+
+
+    /**
+     * md5加密
+     * @param info
+     * @return
+     */
+    public static String getMD5(String info)
+    {
+        try
+        {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(info.getBytes("UTF-8"));
+            byte[] encryption = md5.digest();
+
+            StringBuffer strBuf = new StringBuffer();
+            for (int i = 0; i < encryption.length; i++)
+            {
+                if (Integer.toHexString(0xff & encryption[i]).length() == 1)
+                {
+                    strBuf.append("0").append(Integer.toHexString(0xff & encryption[i]));
+                }
+                else
+                {
+                    strBuf.append(Integer.toHexString(0xff & encryption[i]));
+                }
+            }
+
+            return strBuf.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            return "";
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            return "";
         }
     }
 

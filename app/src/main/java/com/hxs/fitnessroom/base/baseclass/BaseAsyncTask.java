@@ -3,6 +3,7 @@ package com.hxs.fitnessroom.base.baseclass;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
@@ -111,7 +112,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
         {
             if(!apiResponse.isSuccess())
             {
-                Toast.makeText(mBaseActivity.get(),apiResponse.msg,Toast.LENGTH_SHORT);
+                onAPIError(apiResponse);
                 return ;
             }
             onSuccess(apiResponse);
@@ -123,18 +124,35 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
 
     }
 
-    protected void onError(Exception e)
+    /**
+     * 其他异常
+     * @param e
+     */
+    protected void onError(@Nullable Exception e)
     {
         if(null != mBaseActivity.get())
             Toast.makeText(mBaseActivity.get(),"数据加载出错！",Toast.LENGTH_SHORT).show();
-        e.printStackTrace();
+        if(null != e)
+            e.printStackTrace();
     }
 
+    /**
+     * 如果是服务器请求功能，但返回 非 200 码，调用此函数
+     * @param apiResponse
+     */
+    protected void onAPIError(APIResponse apiResponse)
+    {
+        Toast.makeText(mBaseActivity.get(),apiResponse.msg,Toast.LENGTH_SHORT);
+        onError(null);
+    }
+
+    /**
+     * 网络请求异常 ，调用此函数
+     */
     protected void onNetworkError(NetworkErrorException e)
     {
         onError(e);
     }
-
 
     protected abstract APIResponse doWorkBackground() throws Exception;
 

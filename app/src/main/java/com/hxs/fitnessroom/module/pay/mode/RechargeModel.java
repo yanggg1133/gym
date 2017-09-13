@@ -22,7 +22,7 @@ public class RechargeModel
      */
     public static APIResponse<RechargeBean> addRecharge(int type, String amount)
     {
-        return APIHttpClient.postForm(ConstantsApiUrl.AddRecharge.getAPIRootUrl(),
+        return APIHttpClient.postForm(ConstantsApiUrl.AddRecharge.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("payMode",type)
                         .putParam("amount",amount),

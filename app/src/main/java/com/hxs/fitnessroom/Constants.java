@@ -16,6 +16,11 @@ public class Constants
      * 在下面的函数中已经硬编码
      * @see com.hxs.fitnessroom.base.network.APIHttpClient#postForm(String, ParamsBuilder, Type)
      */
-    public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 10;
+
+    /**
+     * 接口验签密钥
+     */
+    public static String SIGN_KEY = "acol$!z%wh";
 
 }

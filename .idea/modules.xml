@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CodeScan/CodeScan.iml" filepath="$PROJECT_DIR$/CodeScan/CodeScan.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fitness.iml" filepath="$PROJECT_DIR$/Fitness.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/codescan/codescan.iml" filepath="$PROJECT_DIR$/codescan/codescan.iml" />
-      <module fileurl="file://$PROJECT_DIR$/paylib/paylib.iml" filepath="$PROJECT_DIR$/paylib/paylib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_codescan/module_codescan.iml" filepath="$PROJECT_DIR$/module_codescan/module_codescan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_paylib/module_paylib.iml" filepath="$PROJECT_DIR$/module_paylib/module_paylib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" filepath="$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_ushare/module_ushare.iml" filepath="$PROJECT_DIR$/module_ushare/module_ushare.iml" />
     </modules>
   </component>
 </project>

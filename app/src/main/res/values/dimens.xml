@@ -8,4 +8,8 @@
     <dimen name="setting_item_icon_size">24dp</dimen>
     <dimen name="setting_item_text_size">16dp</dimen>
     <dimen name="setting_item_sub_text_size">14dp</dimen>
+
+    <!-- 登录相关 -->
+    <dimen name="login_title_size">28dp</dimen>
+
 </resources>

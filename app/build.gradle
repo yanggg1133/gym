@@ -8,10 +8,11 @@ android {
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         buildConfigField "boolean", "LOG_DEBUG", "false" //默认渠道不输出log
+
     }
     /**
      * 关闭静态检测
@@ -20,6 +21,8 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+
     /**
      * 签名配置
      */
@@ -64,7 +67,7 @@ android {
 
     dexOptions {
         // 使用增量模式构建
-        //incremental true
+        incremental true
         // 最大堆内存
         javaMaxHeapSize "4g"
         // 预编译
@@ -113,9 +116,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     compile 'jp.wasabeef:glide-transformations:3.0.0'
     //二维码扫描
-    compile project(":codescan")
+    compile project(':module_codescan')
     //第三方支付
-    compile project(":paylib")
+    compile project(':module_paylib')
+    //友盟第三方登录及分享
+    //compile project(':module_ushare')
     //上下滚动选择器
     compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 

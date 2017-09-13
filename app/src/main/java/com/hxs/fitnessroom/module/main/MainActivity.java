@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +26,12 @@ import com.hxs.fitnessroom.module.home.StoreListFragment;
  */
 public class MainActivity extends BaseActivity
 {
+
+    public static final Intent getNewIntent(Context context)
+    {
+        return new Intent(context,MainActivity.class);
+    }
+
 
     private BottomNavigationView navigation;
     private ViewPager viewPager;

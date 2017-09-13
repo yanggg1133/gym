@@ -12,7 +12,6 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
-import com.hxs.fitnessroom.util.ViewUitl;
 import com.hxs.fitnessroom.util.image.ImageLoader;
 import com.hxs.fitnessroom.widget.AdapterWrapper.LoadMoreAdapterWrapper;
 

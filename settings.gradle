@@ -1,1 +1,1 @@
-include ':app', ':codescan', ':paylib'
+include ':app', ':module_codescan', ':module_paylib', ':module_sharesdk', ':module_ushare'

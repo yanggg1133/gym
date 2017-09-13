@@ -1,29 +1,14 @@
 package com.hxs.fitnessroom.module.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
-import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
-import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.home.widget.AreaSelectDialogFragment;
-import com.hxs.fitnessroom.module.home.widget.RulerViewLayout;
-import com.hxs.fitnessroom.module.home.widget.ruler.VerticalScaleView;
-import com.hxs.fitnessroom.module.pay.mode.RechargeModel;
-import com.hxs.fitnessroom.module.pay.mode.entity.RechargeBean;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
-
-import java.util.ArrayList;
-
-import fitnessroom.hxs.com.paylib.PayFactory;
 
 
 
@@ -59,7 +44,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         switch (v.getId())
         {
             case R.id.user_avatar:
-                startActivity(new Intent(v.getContext(),LoginActivity.class));
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
         }
     }

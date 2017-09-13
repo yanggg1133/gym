@@ -67,6 +67,8 @@ public abstract class ParamsBuilder
      */
     static class JsonParamsBuilder extends  ParamsBuilder
     {
+
+
         @Override
         public ParamsBuilder putParam(String key, Object value)
         {

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
-import com.hxs.fitnessroom.util.ViewUitl;
+import com.hxs.fitnessroom.util.ViewUtil;
 
 
 /**
@@ -51,7 +51,7 @@ public class MyToolbar extends Toolbar
         inflate(getContext(),R.layout.my_toolbar_inner,this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            setElevation(ViewUitl.dpToPx(0,getContext()));
+            setElevation(ViewUtil.dpToPx(0,getContext()));
         }
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar_layout = (ViewGroup) findViewById(R.id.toolbar_layout);

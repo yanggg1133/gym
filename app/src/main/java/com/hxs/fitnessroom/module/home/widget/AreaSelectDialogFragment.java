@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.util.LogUtil;
-import com.hxs.fitnessroom.util.ViewUitl;
+import com.hxs.fitnessroom.util.ViewUtil;
 
 import java.util.ArrayList;
 
@@ -90,7 +90,7 @@ public class AreaSelectDialogFragment extends DialogFragment
         view1 = view.findViewById(R.id.view);
         view1.animate()
                 .alpha(1)
-                .translationY(-ViewUitl.dpToPx(50, getActivity()))
+                .translationY(-ViewUtil.dpToPx(50, getActivity()))
                 .setInterpolator(new FastOutSlowInInterpolator())
                 .setDuration(500).start();
 
@@ -102,7 +102,7 @@ public class AreaSelectDialogFragment extends DialogFragment
     {
         view1.animate()
                 .alpha(0)
-                .translationY(ViewUitl.dpToPx(50, getActivity()))
+                .translationY(ViewUtil.dpToPx(50, getActivity()))
                 .setInterpolator(new FastOutSlowInInterpolator())
                 .setDuration(500).setListener(new AnimatorListenerAdapter()
         {

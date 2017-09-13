@@ -30,7 +30,7 @@ public class StoreModel
      */
     public static APIResponse<List<StoreBean>> storeList(@Nullable String filter, @Nullable String location, int page_index)
     {
-        return APIHttpClient.postForm(ConstantsApiUrl.StoreList.getAPIRootUrl(),
+        return APIHttpClient.postForm(ConstantsApiUrl.StoreList.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("filter",filter)
                         .putParam("location",location),
@@ -45,7 +45,7 @@ public class StoreModel
      */
     public static APIResponse<List<AreaBean>> areaList(@Nullable String location)
     {
-        return APIHttpClient.postForm(ConstantsApiUrl.AreaList.getAPIRootUrl(),
+        return APIHttpClient.postForm(ConstantsApiUrl.AreaList.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("location",location),
                 new TypeToken<APIResponse<List<AreaBean>>>(){}.getType()

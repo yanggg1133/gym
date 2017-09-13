@@ -5,8 +5,10 @@ import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.bumptech.glide.Glide;
+import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
+import com.hxs.fitnessroom.util.PhoneInfoUtil;
 
 /**
  * Application基类
@@ -19,8 +21,16 @@ public class BaseApplication extends Application
     @Override
     public void onCreate() {
         super.onCreate();
+
+        /**********************************
+         * 一些需要在app启动时预先初始化的操作
+         **********************************/
         APIHttpClient.appInitialization(this);
         LocationUtil.appInitialization(this);
+        PhoneInfoUtil.appInitialization(this);
+        HXSUser.appInitialization(this);
+
+
 
 //        initJpush();
 //        com.saidian.zuqiukong.login.user.AVUser.initialize(this);

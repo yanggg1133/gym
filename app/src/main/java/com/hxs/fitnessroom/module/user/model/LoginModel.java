@@ -79,4 +79,20 @@ public class LoginModel
         );
     }
 
+    /**
+     * 获取用户信息
+     */
+    public static APIResponse<UserBean> saveSelfUserInfo(UserBean user)
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.SaveUserInfo.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("head_img",user.head_img)
+                        .putParam("body_high",user.body_high)
+                        .putParam("sex",user.sex)
+                        .putParam("nickname",user.nickname)
+                        .putParam("birthday",user.birthday),
+                new TypeToken<APIResponse<UserBean>>(){}.getType()
+        );
+    }
+
 }

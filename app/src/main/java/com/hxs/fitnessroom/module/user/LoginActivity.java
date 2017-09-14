@@ -12,10 +12,12 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.main.MainActivity;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.LoginUi;
 import com.hxs.fitnessroom.util.ValidateUtil;
+import com.hxs.fitnessroom.widget.body.BodyDataDialogFragment;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,13 +28,14 @@ import java.lang.annotation.RetentionPolicy;
  * Created by je on 9/11/17.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener
+public class LoginActivity extends BaseActivity implements View.OnClickListener,BodyDataDialogFragment.OnNextStepCallBack
 {
     public static final String KEY_TYPE = "KEY_TYPE";//界面显示类型
 
     public static final String VALUE_TYPE_LOGIN = "login";//登录
     public static final String VALUE_TYPE_REGISTER = "register";//注册
     public static final String VALUE_TYPE_BINDPHONE = "bindMobile";//绑定手机(第三方登录)
+
 
     @StringDef({VALUE_TYPE_LOGIN, VALUE_TYPE_REGISTER, VALUE_TYPE_BINDPHONE})
     @Retention(RetentionPolicy.SOURCE)
@@ -60,7 +63,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
         mLoginUi = new LoginUi(this);
         mLoginUi.setOnClick(this);
         mSendType = getIntent().getStringExtra(KEY_TYPE);
-
+        HXSUser.signOut();
         mLoginUi.setLoginType(mSendType);
     }
 
@@ -89,6 +92,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
                     new LoginTask().execute(LoginActivity.this);
                 }
                 break;
+            case R.id.close_button:
+                finish();
             case R.id.use_agreement1:
             case R.id.use_agreement2:
                 // TODO: 9/13/17 跳转用户协议
@@ -172,13 +177,44 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
             APIResponse<UserBean> response = data;
             HXSUser.saveCurrentUser(response.data);
             setResult(RESULT_OK);
-            //如果身高数据为空，统一跳转设置身高，生日流程
-            if(ValidateUtil.isEmpty(response.data.body_high))
+            //如果身高数据为0，统一跳转设置身高，生日流程
+            if("0".equals(response.data.body_high))
             {
-
+                BodyDataDialogFragment.show(getSupportFragmentManager(), LoginActivity.this);
             }
+            else
+            {
+                finish();
+            }
+        }
+    }
+
+    private int bodyHeight;
+    @UserBean.SexType
+    private int sex;
+    private int year;
+    private int month;
+
+    @Override
+    public void onBodyInfo(int bodyHeight, @UserBean.SexType int sex)
+    {
+        this.bodyHeight = bodyHeight;
+        this.sex = sex;
+    }
+
+    @Override
+    public void onBirthday(String year, String month)
+    {
+        this.year = new Integer(year.split(" ")[0].trim());
+        this.month= new Integer(month.split(" ")[0].trim());
+        HXSUser hxsUser = HXSUser.getHXSUser();
+        if(null != HXSUser.getHXSUser())
+        {
+            hxsUser.setSex(this.sex);
+            hxsUser.setBirthday(this.year,this.month);
+            hxsUser.setBodyHigh(this.bodyHeight);
+            hxsUser.saveUserInfoAsync();
             finish();
-            mLoginUi.setIsLoggingIn(false);
         }
     }
 

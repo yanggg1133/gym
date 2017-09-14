@@ -17,7 +17,7 @@ public class TestStoreModel
     @Test
     public void testStoreList() throws Exception
     {
-        APIResponse<List<StoreBean>> apiResponse = StoreModel.storeList("π„÷›",null,1);
+        APIResponse<List<StoreBean>> apiResponse = StoreModel.storeList(null,null,1);
         System.out.println(apiResponse.data.get(0).name);
     }
 

@@ -19,6 +19,7 @@ public enum ConstantsApiUrl
     Login("https://account.hxsapp.com/user/userAccount/login"),//注册
     ThirdPartyLogin("https://account.hxsapp.com/user/userAccount/thirdPartyLogin"),//第三方登录
     GetSelfUserInfo("https://account.hxsapp.com/user/userInfo/getSelfUserInfo"),//获取用户信息
+    SaveUserInfo("https://account.hxsapp.com/user/userInfo/saveInfo"),//保存用户信息
     ;
 
     private String linkAddress;

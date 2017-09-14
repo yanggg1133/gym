@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
+import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.WelcomeActivity;
 import com.hxs.fitnessroom.util.LocationUtil;
 
@@ -40,7 +41,10 @@ public class LoadingScreenActivity extends BaseActivity
             @Override
             public void run()
             {
-                startActivity(WelcomeActivity.getNewIntent(LoadingScreenActivity.this));
+                if(HXSUser.isLogin())
+                    startActivity(MainActivity.getNewIntent(LoadingScreenActivity.this));
+                else
+                    startActivity(WelcomeActivity.getNewIntent(LoadingScreenActivity.this));
                 finish();
             }
         },1000);

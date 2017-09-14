@@ -33,6 +33,7 @@ public class LoginUi extends BaseUi
     private final View use_agreement1;
     private final View use_agreement2;
     private final TextView title;
+    private final View close_button;
 
     public LoginUi(BaseActivity baseActivity)
     {
@@ -47,6 +48,7 @@ public class LoginUi extends BaseUi
         login_sub_button = findViewById(R.id.login_sub_button);
         use_agreement1 = findViewById(R.id.use_agreement1);
         use_agreement2 = findViewById(R.id.use_agreement2);
+        close_button = findViewById(R.id.close_button);
         title = findViewById(R.id.title);
         initEditText();
     }
@@ -66,6 +68,7 @@ public class LoginUi extends BaseUi
         use_agreement1.setOnClickListener(onClick);
         use_agreement2.setOnClickListener(onClick);
         login_sub_button.setOnClickListener(onClick);
+        close_button.setOnClickListener(onClick);
     }
 
     public String getPhoneNum()

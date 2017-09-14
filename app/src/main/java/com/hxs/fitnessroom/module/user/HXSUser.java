@@ -2,8 +2,13 @@ package com.hxs.fitnessroom.module.user;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
@@ -19,7 +24,8 @@ import static android.R.attr.level;
 
 public class HXSUser
 {
-    private HXSUser(){}
+    private HXSUser() {}
+
     public String user_id;   //用户账号
     @UserBean.SexType
     public int sex;       //用户性别
@@ -44,12 +50,12 @@ public class HXSUser
     {
         mContext = context;
         SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
-        if(null == currentUser && ValidateUtil.isNotEmpty(sp.getString("user_id", "")))
+        if (null == currentUser && ValidateUtil.isNotEmpty(sp.getString("user_id", "")))
         {
             HXSUser user = new HXSUser();
             user.user_id = sp.getString("user_id", "");
             //noinspection WrongConstant
-            user.sex = sp.getInt("sex",0);
+            user.sex = sp.getInt("sex", 0);
             user.head_img = sp.getString("head_img", "");
             user.nickname = sp.getString("nickname", "");
             user.realname = sp.getString("realname", "");
@@ -68,14 +74,15 @@ public class HXSUser
 
     /**
      * 用户信息缓存更新
+     *
      * @param userBean
      */
     public static void saveCurrentUser(@Nullable UserBean userBean)
     {
-        if(null == userBean)
+        if (null == userBean)
             return;
 
-        if(currentUser == null)
+        if (currentUser == null)
             currentUser = new HXSUser();
 
         currentUser.user_id = userBean.user_id;
@@ -91,13 +98,13 @@ public class HXSUser
         currentUser.province = userBean.province;
         currentUser.city = userBean.city;
         currentUser.vocation = userBean.vocation;
-        if(ValidateUtil.isNotEmpty(userBean.sess_token))
+        if (ValidateUtil.isNotEmpty(userBean.sess_token))
             currentUser.sess_token = userBean.sess_token;
 
         SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("user_id", userBean.user_id);
-        editor.putInt("sex",userBean.sex);
+        editor.putInt("sex", userBean.sex);
         editor.putString("head_img", userBean.head_img);
         editor.putString("nickname", userBean.nickname);
         editor.putString("realname", userBean.realname);
@@ -109,7 +116,7 @@ public class HXSUser
         editor.putString("province", userBean.province);
         editor.putString("city", userBean.city);
         editor.putString("vocation", userBean.vocation);
-        if(ValidateUtil.isNotEmpty(userBean.sess_token))
+        if (ValidateUtil.isNotEmpty(userBean.sess_token))
             editor.putString("sess_token", userBean.sess_token);
         editor.apply();
     }
@@ -122,6 +129,77 @@ public class HXSUser
 
     public static String getUserSessToken()
     {
-        return null == currentUser?"":currentUser.sess_token;
+        return null == currentUser ? "" : currentUser.sess_token;
     }
+
+    public static boolean isLogin()
+    {
+        return  currentUser != null;
+    }
+
+    public void setBodyHigh(int bodyHigh)
+    {
+        this.body_high = ""+bodyHigh;
+    }
+
+    public void setSex(@UserBean.SexType int sex)
+    {
+        this.sex = sex;
+    }
+
+    public void setBirthday(int year, int month)
+    {
+        this.birthday = year + "-" + month;
+    }
+
+    /**
+     * 把本地的用户信息更新到服务器
+     */
+    public void saveUserInfoAsync()
+    {
+        new AsyncTask<Void,Void,APIResponse<UserBean>>()
+        {
+            @Override
+            protected APIResponse<UserBean> doInBackground(Void... params)
+            {
+                UserBean userBean = new UserBean();
+                userBean.birthday = birthday;
+                userBean.head_img = head_img;
+                userBean.body_high = body_high;
+                userBean.sex = sex;
+                userBean.nickname = nickname;
+                try
+                {
+                    APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
+                    return apiResponse;
+                }
+                catch (Exception e)
+                {
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(APIResponse<UserBean> userBeanAPIResponse)
+            {
+                if(null != userBeanAPIResponse && userBeanAPIResponse.isSuccess() )
+                    HXSUser.saveCurrentUser(userBeanAPIResponse.data);
+                else
+                    Toast.makeText(mContext,"用户信息保存失败",Toast.LENGTH_SHORT).show();
+            }
+        }.execute();
+    }
+
+
+    /**
+     * 退出登录
+     */
+    public static void signOut()
+    {
+        currentUser = null;
+        SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().apply();
+    }
+
 }

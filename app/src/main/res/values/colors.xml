@@ -22,9 +22,7 @@
     <!-- 分割线 -->
     <color name="colorDividerLine">#33C7D0FF</color>
 
-
-
-
-
+    <!-- 弹框的透明背景 -->
+    <color name="colorDialogBackground">#7f262a45</color>
 
 </resources>

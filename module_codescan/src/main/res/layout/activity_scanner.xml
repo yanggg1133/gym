@@ -5,7 +5,32 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/scanner_toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimaryDark"
+        >
+        <ImageView
+            android:id="@+id/scanner_toolbar_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/ic_left_goto"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:tint="@color/colorAccent"
+            />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="健身房"
+            android:textColor="@color/colorAccent"
+            android:textSize="18dp"
+            />
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,11 +46,12 @@
             android:id="@+id/viewfinder_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:corner_color="@color/corner_color"
-            app:frame_color="@color/viewfinder_frame"
-            app:label_text="二维码/条形码扫描"
-            app:label_text_color="@color/colorAccent"
-            app:laser_color="@color/laser_color"
+            app:corner_color="@color/colorAccent"
+            app:frame_color="@color/colorAccent"
+            app:label_text="将二维码放入框内，即可自动扫描"
+            app:label_text_color="#FFC7D0FF"
+            app:label_text_size="60"
+            app:laser_color="@color/colorAccent"
             app:mask_color="@color/viewfinder_mask"
             app:result_color="@color/result_view"
             app:result_point_color="@color/result_point_color"/>

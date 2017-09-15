@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="广州"
+            android:text="城市"
             android:textSize="16dp"
             android:textColor="@color/colorTextDark"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -44,8 +44,8 @@
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="@color/colorDividerLine"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,6 +71,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorDividerLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
     </android.support.constraint.ConstraintLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -79,8 +85,13 @@
         android:layout_below="@+id/citySelect"
         android:background="@color/colorPrimary"
         >
-
-
     </android.support.v7.widget.RecyclerView>
 
+    <com.hxs.fitnessroom.widget.LoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        >
+    </com.hxs.fitnessroom.widget.LoadingView>
 </RelativeLayout>

@@ -96,22 +96,8 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
 
-        //添加toolbar
-//        addToolbar();
     }
 
-    private void addToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        ImageView more = (ImageView) findViewById(R.id.scanner_toolbar_more);
-//        assert more != null;
-//        more.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-        setSupportActionBar(toolbar);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -12,10 +12,23 @@
     <style name="DialogStyle" parent="Base.V7.Theme.AppCompat.Light.Dialog">
         <item name="listPreferredItemPaddingLeft">40dip</item>
     </style>
-    <style name="DialogFragmentTheme" parent="android:Theme.Translucent.NoTitleBar">
+    <style name="DialogFragmentTheme" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <!--   这个如果开启，dialog会带有默认的padding值
+        <item name="android:windowIsFloating">true</item>
+        -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="ToolbarStyle" parent="Base.V7.Theme.AppCompat.Light">
+
+        <item name="android:id">@id/toolbar</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>

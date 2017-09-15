@@ -33,7 +33,8 @@ public class StoreModel
         return APIHttpClient.postForm(ConstantsApiUrl.StoreList.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("filter",filter)
-                        .putParam("location",location),
+                        .putParam("location",location)
+                        .putParam("page_index",page_index),
                 new TypeToken<APIResponse<List<StoreBean>>>(){}.getType()
                 );
     }

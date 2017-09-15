@@ -25,9 +25,6 @@ import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class BodyDataDialogFragment extends DialogFragment implements View.OnClickListener
 {
-
-
-
     public static void show(FragmentManager fragmentManager, OnNextStepCallBack onNextStepCallBack)
     {
         FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -96,7 +93,7 @@ public class BodyDataDialogFragment extends DialogFragment implements View.OnCli
         toolbar = (MyToolbar) view.findViewById(R.id.toolbar);
         body_height_text = (TextView) view.findViewById(R.id.body_height_text);
 
-        picker_year = (NumberPickerView) view.findViewById(R.id.picker_year);
+        picker_year = (NumberPickerView) view.findViewById(R.id.picker_area);
         picker_month = (NumberPickerView) view.findViewById(R.id.picker_month);
         birthday_layout =  view.findViewById(R.id.birthday_layout);
 

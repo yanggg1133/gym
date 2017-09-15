@@ -7,34 +7,40 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.hxs.fitnessroom.R;
-import com.hxs.fitnessroom.module.scan.ScanMainFragment;
+import com.hxs.fitnessroom.module.sports.SportsMainFragment;
 import com.hxs.fitnessroom.module.user.UserMainFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.module.home.StoreListFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * APP 主入口 Activity
+ *
  * @author shaojunjie on 9/2/17
  * @Email fgnna@qq.com
- *
  */
 public class MainActivity extends BaseActivity
 {
 
+
     public static final Intent getNewIntent(Context context)
     {
-        return new Intent(context,MainActivity.class);
+        return new Intent(context, MainActivity.class);
     }
 
 
     private BottomNavigationView navigation;
-    private ViewPager viewPager;
+    private Fragment mNowShowFragment;
+    private List<Fragment> mFragmentStack = new ArrayList<>();
+    private StoreListFragment mStoreListFragment;
+    private SportsMainFragment mSportsMainFragment;
+    private UserMainFragment mUserMainFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener()
@@ -43,22 +49,44 @@ public class MainActivity extends BaseActivity
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item)
         {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             switch (item.getItemId())
             {
                 case R.id.navigation_home:
-                        viewPager.setCurrentItem(0);
+                    if (null == mStoreListFragment)
+                    {
+                        mStoreListFragment = new StoreListFragment();
+                        addFragment(mStoreListFragment, fragmentTransaction);
+                    } else
+                    {
+                        showFragment(mStoreListFragment, fragmentTransaction);
+                    }
                     return true;
                 case R.id.navigation_scan_code:
-                        viewPager.setCurrentItem(1);
+                    if (null == mSportsMainFragment)
+                    {
+                        mSportsMainFragment = new SportsMainFragment();
+                        addFragment(mSportsMainFragment, fragmentTransaction);
+                    } else
+                    {
+                        showFragment(mSportsMainFragment, fragmentTransaction);
+                    }
                     return true;
                 case R.id.navigation_user:
-                        viewPager.setCurrentItem(2);
+                    if (null == mUserMainFragment)
+                    {
+                        mUserMainFragment = new UserMainFragment();
+                        addFragment(mUserMainFragment, fragmentTransaction);
+                    }
+                    else
+                    {
+                        showFragment(mUserMainFragment, fragmentTransaction);
+                    }
                     return true;
             }
             return false;
         }
-
 
 
     };
@@ -70,38 +98,18 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        setupViewPager();
-        setupNavigation();
-    }
-
-
-    private void setupViewPager()
-    {
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager())
+        if (savedInstanceState != null)
         {
-            @Override
-            public Fragment getItem(int position)
-            {
-                switch (position)
-                {
-                    case 0:
-                        return new StoreListFragment();
-                    case 1:
-                        return new ScanMainFragment();
-                    case 2:
-                        return new UserMainFragment();
-                }
-                return null;
-            }
-
-            @Override
-            public int getCount()
-            {
-                return 3;
-            }
-        });
+            mFragmentStack.clear();
+            mStoreListFragment = (StoreListFragment) getSupportFragmentManager().findFragmentByTag(StoreListFragment.class.getSimpleName());
+            mSportsMainFragment = (SportsMainFragment) getSupportFragmentManager().findFragmentByTag(SportsMainFragment.class.getSimpleName());
+            mUserMainFragment = (UserMainFragment) getSupportFragmentManager().findFragmentByTag(UserMainFragment.class.getSimpleName());
+            addToStack(mStoreListFragment);
+            addToStack(mSportsMainFragment);
+            addToStack(mUserMainFragment);
+        }
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        setupNavigation();
 
     }
 
@@ -121,27 +129,43 @@ public class MainActivity extends BaseActivity
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(colorStateList);
         navigation.setItemTextColor(colorStateList);
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
+        navigation.post(new Runnable()
         {
-
             @Override
-            public void onPageSelected(int position)
+            public void run()
             {
-                switch (position)
-                {
-                    case 0:
-                        navigation.setSelectedItemId(R.id.navigation_home);
-                        break;
-                    case 1:
-                        navigation.setSelectedItemId(R.id.navigation_scan_code);
-                        break;
-                    case 2:
-                        navigation.setSelectedItemId(R.id.navigation_user);
-                        break;
-                }
-
+                navigation.setSelectedItemId(R.id.navigation_home);
             }
         });
     }
 
+
+    private void addFragment(Fragment fragment, FragmentTransaction fragmentTransaction)
+    {
+        fragmentTransaction.add(R.id.m_home_fragment, fragment, fragment.getClass().getSimpleName());
+        mFragmentStack.add(fragment);
+        mNowShowFragment = fragment;
+        showFragment(fragment, fragmentTransaction);
+    }
+    private void addToStack(Fragment fragment) {
+        if (fragment != null) {
+            mFragmentStack.add(fragment);
+        }
+    }
+    private void showFragment(Fragment currentFragment, FragmentTransaction fragmentTransaction)
+    {
+
+        for (int i = 0, n = mFragmentStack.size(); i < n; i++)
+        {
+            if (mFragmentStack.get(i).equals(currentFragment))
+            {
+                fragmentTransaction.show(mFragmentStack.get(i));
+            } else
+            {
+                fragmentTransaction.hide(mFragmentStack.get(i));
+            }
+        }
+        fragmentTransaction.commitAllowingStateLoss();
+        mNowShowFragment = currentFragment;
+    }
 }

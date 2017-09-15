@@ -1,6 +1,5 @@
 package com.hxs.fitnessroom.base.baseclass;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,15 +10,11 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hxs.fitnessroom.R;
-import com.hxs.fitnessroom.util.DialogUtil;
-import com.hxs.fitnessroom.widget.MyToolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +33,6 @@ public class BaseActivity extends AppCompatActivity
     public void setContentView(@LayoutRes int layoutResID)
     {
         super.setContentView(layoutResID);
-//        MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
-//        if (null != myToolbar)
-//        {
-//            setSupportActionBar(myToolbar);
-//            ActionBar actionbar = getSupportActionBar();
-//            actionbar.setHomeAsUpIndicator(R.mipmap.nav_icon_back);
-//            actionbar.setDisplayHomeAsUpEnabled(true);
-//        }
-
     }
 
     public <T extends View> T findViewByIdAuto(@IdRes int id)
@@ -183,23 +169,23 @@ public class BaseActivity extends AppCompatActivity
 
                 if(!isPass)
                 {
-                    DialogUtil.showConfirmationDialog(this, "运行权限", "应用正常运行需要获取相应的权限！", new DialogUtil.OnConfirmCallback()
-                    {
-                        @Override
-                        public void onConfirm()
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                            {
-                                retryRequestPermission(permissions);
-                            }
-                        }
-
-                        @Override
-                        public void onCancel(DialogInterface dialog)
-                        {
-                            finish();
-                        }
-                    },"设置","取消");
+//                    DialogUtil.showConfirmationDialog(this, "运行权限", "应用正常运行需要获取相应的权限！", new DialogUtil.OnConfirmCallback()
+//                    {
+//                        @Override
+//                        public void onConfirm()
+//                        {
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//                            {
+//                                retryRequestPermission(permissions);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancel(DialogInterface dialog)
+//                        {
+//                            finish();
+//                        }
+//                    },"设置","取消");
                 }
                 else
                 {

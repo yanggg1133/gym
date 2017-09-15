@@ -126,7 +126,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         @Override
         protected void onError(Exception e)
         {
-            Toast.makeText(LoginActivity.this,"不明异常",Toast.LENGTH_SHORT).show();
+            super.onError(e);
             mLoginUi.setVerifyCodeIsSended(false);
         }
 
@@ -168,6 +168,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         @Override
         protected void onError(@Nullable Exception e)
         {
+            super.onError(e);
             mLoginUi.setIsLoggingIn(false);
         }
 

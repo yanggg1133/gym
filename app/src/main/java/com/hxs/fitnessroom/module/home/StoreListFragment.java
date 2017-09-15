@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
@@ -15,9 +14,12 @@ import com.hxs.fitnessroom.module.home.model.StoreModel;
 import com.hxs.fitnessroom.module.home.model.entity.AreaBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.module.home.ui.StoreListUi;
+import com.hxs.fitnessroom.module.home.widget.AreaSelectDialogFragment;
+import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.widget.AdapterWrapper.LoadMoreAdapterWrapper;
+import com.hxs.fitnessroom.widget.LoadingView;
 
 import java.util.List;
 
@@ -27,17 +29,26 @@ import java.util.List;
  * Created by je on 9/2/17.
  */
 
-public class StoreListFragment extends BaseFragment
+public class StoreListFragment extends BaseFragment implements LoadingView.OnReloadListener, View.OnClickListener
 {
 
     private WorkAsyncTask mWorkAsyncTask;
     private StoreListUi mStoreListUi;
+
+    private List<AreaBean> mAreas;
+    private int mCurrentCityIndex = 0;
+    private int mCurrentCountyIndex = -1;
+    private String mCurrentUserSelectCity = "";
+    private String mCurrentUserSelectCounty = "";
+    private int mPageIndex = 1;
+
     private LoadMoreAdapterWrapper.RequestToLoadMoreListener mRequestToLoadMoreListener = new LoadMoreAdapterWrapper.RequestToLoadMoreListener()
     {
         @Override
         public void onLoadMoreRequested()
         {
-
+            ++mPageIndex;
+            doWork();
         }
     };
 
@@ -53,26 +64,73 @@ public class StoreListFragment extends BaseFragment
     {
         super.onViewCreated(view, savedInstanceState);
         mStoreListUi = new StoreListUi(this);
+        mStoreListUi.setTitle("健身房");
         mStoreListUi.setLoadmoremListener(mRequestToLoadMoreListener);
-        TextView textView = new TextView(getContext());
-
+        mStoreListUi.setOnclick(this);
         doWork();
     }
 
     private void doWork()
     {
-        if(null == mWorkAsyncTask)
+        if (null == mWorkAsyncTask)
         {
             mWorkAsyncTask = new WorkAsyncTask();
             mWorkAsyncTask.execute(getBaseActivity());
         }
     }
 
-    private List<AreaBean> mAreas;
+    @Override
+    public void onReload()
+    {
+        mPageIndex = 1;
+        doWork();
+    }
 
-    private String mCurrentUserSelectCity = "";
-    private String mCurrentUserSelectCounty = "";
-    private int mPageIndex = 1;
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.city_item_select:
+                AreaSelectDialogFragment.show(getFragmentManager(), AreaSelectDialogFragment.SELECT_TYPE_CITY,
+                        mCurrentCityIndex, mCurrentCountyIndex, mAreas,
+                        new AreaSelectDialogFragment.OnSelectCallBack()
+                        {
+                            @Override
+                            public void onSelect(int cityIndex, int countyIndex)
+                            {
+                                mCurrentCityIndex = cityIndex;
+                                mCurrentCountyIndex = -1;
+                                mCurrentUserSelectCity = mAreas.get(cityIndex).city;
+                                mCurrentUserSelectCounty = "";
+                                mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
+                                mStoreListUi.getLoadingView().showByNullBackground();
+                                mPageIndex = 1;
+                                doWork();
+                            }
+                        });
+                break;
+            case R.id.county_item_select:
+                AreaSelectDialogFragment.show(getFragmentManager(), AreaSelectDialogFragment.SELECT_TYPE_COUNTY,
+                        mCurrentCityIndex, mCurrentCountyIndex, mAreas,
+                        new AreaSelectDialogFragment.OnSelectCallBack()
+                        {
+                            @Override
+                            public void onSelect(int cityIndex, int countyIndex)
+                            {
+                                mCurrentCountyIndex = countyIndex;
+                                mCurrentUserSelectCounty = mCurrentCountyIndex == -1 ? "" : mAreas.get(mCurrentCityIndex).county[mCurrentCountyIndex];
+                                mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
+                                mStoreListUi.getLoadingView().showByNullBackground();
+                                mPageIndex = 1;
+                                doWork();
+                            }
+                        });
+                break;
+        }
+    }
+
+
     /**
      * 查询城市列表及门店地址
      */
@@ -82,28 +140,30 @@ public class StoreListFragment extends BaseFragment
         protected APIResponse doWorkBackground() throws Exception
         {
             APIResponse<List<AreaBean>> areas = StoreModel.areaList(LocationUtil.getLastLocationPoints());
-            if(areas.isSuccess())
+            if (areas.isSuccess())
             {
                 mAreas = areas.data;
             }
-            return StoreModel.storeList(mCurrentUserSelectCity+mCurrentUserSelectCounty,LocationUtil.getLastLocationPoints(),mPageIndex);
+            return StoreModel.storeList(mCurrentUserSelectCity + mCurrentUserSelectCounty, LocationUtil.getLastLocationPoints(), mPageIndex);
+        }
+
+        @Override
+        protected void onError(@Nullable Exception e)
+        {
+            mStoreListUi.getLoadingView().showError();
+            mWorkAsyncTask = null;
         }
 
         @Override
         protected void onSuccess(APIResponse data)
         {
             APIResponse<List<StoreBean>> stores = data;
-            if(ValidateUtil.isNotEmpty(stores.data))
+            if (ValidateUtil.isNotEmpty(stores.data))
             {
                 mStoreListUi.addStoreList(stores.data);
             }
-        }
-
-        @Override
-        protected void onCancelled()
-        {
-            super.onCancelled();
             mWorkAsyncTask = null;
+            mStoreListUi.getLoadingView().hide();
         }
     }
 
@@ -112,9 +172,12 @@ public class StoreListFragment extends BaseFragment
     public void onDestroyView()
     {
         super.onDestroyView();
-        if(null != mWorkAsyncTask && !mWorkAsyncTask.isCancelled())
+        if (null != mWorkAsyncTask && !mWorkAsyncTask.isCancelled())
         {
             mWorkAsyncTask.cancel(true);
+            mWorkAsyncTask = null;
         }
     }
+
+
 }

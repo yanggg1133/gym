@@ -4,24 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.ValidateUtil;
-import com.hxs.fitnessroom.util.image.ImageUtil;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 好享瘦用户信息处理类

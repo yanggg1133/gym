@@ -13,7 +13,7 @@ import com.hxs.fitnessroom.widget.MyToolbar;
  * 加载等待显示
  * Created by Administrator on 2015/11/4.
  */
-public abstract class BaseUi
+public class BaseUi
 {
     private BaseActivity mBaseActivity;
     private BaseFragment mBaseFragment;
@@ -85,6 +85,11 @@ public abstract class BaseUi
     {
         if(myToolbar != null)
             myToolbar.setTitle(title);
+    }
+
+    public MyToolbar getMyToolbar()
+    {
+        return myToolbar;
     }
 
     public void startLoading()

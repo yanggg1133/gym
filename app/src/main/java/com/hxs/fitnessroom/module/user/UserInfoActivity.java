@@ -15,6 +15,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
+import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.UserInfoUi;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
@@ -52,13 +53,16 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     {
         switch (v.getId())
         {
-            case R.id.user_avatar:
+            case R.id.user_avatar: //头像
                 PhotoPicker.builder()
                         .setPhotoCount(1)
                         .setShowCamera(true)
                         .setShowGif(false)
                         .setPreviewEnabled(false)
                         .start(this, PhotoPicker.REQUEST_CODE);
+                break;
+            case R.id.user_nickname: //昵称
+                startActivity(UserNicknameActivity.getNewIntent(v.getContext()));
                 break;
 
 
@@ -71,6 +75,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     {
         super.onActivityResult(requestCode, resultCode, data);
 
+        /**
+         * 头像选择回调
+         */
         if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE)
         {
             if (data != null)
@@ -87,19 +94,26 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      */
     private void upLoadHeadImage(String imagePath)
     {
+        mUserInfoUi.getLoadingView().showByNullBackground();
+
         ImageUtil.uploadImg(this, imagePath, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>()
         {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result)
             {
-                //头像名
-                HXSUser.saveUserHeadImageAsync(request.getObjectKey(), new BaseCallBack()
+                /**
+                 * 向后台接交新的头像地址
+                 */
+                UserBean userBean = new UserBean();
+                userBean.head_img = request.getObjectKey();
+                HXSUser.saveUserInfoAsync(userBean, new BaseCallBack()
                 {
                     @Override
                     public void onSuccess(Object o)
                     {
-                        if(!isDestroyed())
+                        if (!isDestroyed())
                         {
+                            mUserInfoUi.getLoadingView().hide();
                             mUserInfoUi.updateHeadImg();
                         }
                     }
@@ -107,6 +121,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onFailure(Object o)
                     {
+                        mUserInfoUi.getLoadingView().hide();
                         ToastUtil.toastShort("头像上传失败");
                     }
                 });
@@ -115,10 +130,17 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException)
             {
+                mUserInfoUi.getLoadingView().hide();
                 ToastUtil.toastShort("头像上传失败");
             }
         });
 
     }
 
+    @Override
+    public void onUserUpdate()
+    {
+        super.onUserUpdate();
+        mUserInfoUi.updateUserInfo();
+    }
 }

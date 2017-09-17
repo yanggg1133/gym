@@ -5,21 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.main.MainActivity;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.LoginUi;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.widget.body.BodyDataDialogFragment;
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -28,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
  * Created by je on 9/11/17.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener,BodyDataDialogFragment.OnNextStepCallBack
+public class LoginActivity extends BaseActivity implements View.OnClickListener,BodyDataDialogFragment.OnNextStepCallBack,TextView.OnEditorActionListener
 {
     public static final String KEY_TYPE = "KEY_TYPE";//界面显示类型
 
@@ -60,13 +61,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.user_login_main);
         mLoginUi = new LoginUi(this);
         mLoginUi.setOnClick(this);
         mSendType = getIntent().getStringExtra(KEY_TYPE);
-        HXSUser.signOut();
         mLoginUi.setLoginType(mSendType);
     }
 
+    /**
+     * 处理键盘登记键行为
+     */
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+    {
+        if( actionId == EditorInfo.IME_ACTION_UNSPECIFIED)
+        {
+            onClick(findViewById(R.id.login_button));
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void onClick(View v)
@@ -176,7 +190,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         protected void onSuccess(APIResponse data)
         {
             APIResponse<UserBean> response = data;
-            HXSUser.saveCurrentUser(response.data);
+            HXSUser.saveCurrentUserForLocal(response.data);
             setResult(RESULT_OK);
             //如果身高数据为0，统一跳转设置身高，生日流程
             if("0".equals(response.data.body_high))

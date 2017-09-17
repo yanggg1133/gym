@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,7 +13,6 @@ import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 
 
-
 /**
  * 我的 主界面
  * Created by je on 9/2/17.
@@ -21,11 +22,13 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
 {
     private UserMainUi mUserMainUi;
 
+    private final int RequestCode_Login = 21;//登录跳转
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.user_main_fragment,container,false);
+        return inflater.inflate(R.layout.user_main_fragment, container, false);
     }
 
     @Override
@@ -34,18 +37,25 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         mUserMainUi = new UserMainUi(this);
         mUserMainUi.setOnClickListener();
+        registerUserUpdateBroadcastReceiver();
     }
 
     @Override
     public void onClick(View v)
     {
+        /**
+         * 所有入口都要先判断是否登录
+         */
+        if (!HXSUser.isLogin())
+            startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
+
         switch (v.getId())
         {
             case R.id.user_avatar://头像
                 startActivity(UserInfoActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_wallet://钱包
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                startActivity(UserWalletActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_tutorial://教程 H5
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
@@ -66,5 +76,21 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
         }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == RequestCode_Login && resultCode == Activity.RESULT_OK)
+        {
+            mUserMainUi.initUserInfo();
+        }
+    }
+
+    @Override
+    public void onUserUpdate()
+    {
+        mUserMainUi.initUserInfo();
     }
 }

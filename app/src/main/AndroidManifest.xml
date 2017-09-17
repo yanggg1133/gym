@@ -78,6 +78,8 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".module.user.UserInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
 
 
         <!-- ***************************************************** -->
@@ -107,13 +109,14 @@
             android:value="HqpXG3RQcXFxYypEj8Kzs8OBpsZhz8Su"
             />
         <!-- ^^^^^^^^^^^ -->
+
         <!-- 本地图片选择器 -->
         <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-                  android:theme="@style/AppTheme"
+                  android:theme="@style/PhotoPickerAppTheme"
             />
 
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-                  android:theme="@style/AppTheme"/>
+                  android:theme="@style/PhotoPickerAppTheme"/>
         <!-- ^^^^^^^^^^^ -->
 
         <!-- 友盟SDK ****************************************

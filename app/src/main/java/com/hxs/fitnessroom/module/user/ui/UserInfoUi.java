@@ -43,7 +43,7 @@ public class UserInfoUi extends BaseUi
     private void initView()
     {
         user_avatar.setValue("头像", "");
-        ImageLoader.loadCircleCrop(HXSUser.getHeadImg(),user_avatar.getRightImageView());
+        ImageLoader.loadHeadImageCircleCrop(HXSUser.getHeadImg(),user_avatar.getRightImageView());
         user_nickname.setValue("昵称",HXSUser.getNickname());
         user_sex.setValue("性别",HXSUser.getSexname());
         user_phone.setValue("手机号","");
@@ -66,6 +66,11 @@ public class UserInfoUi extends BaseUi
     public  void updateHeadImg()
     {
         Glide.with(getBaseActivity()).clear(user_avatar.getRightImageView());
-        ImageLoader.loadCircleCrop(HXSUser.getHeadImg(),user_avatar.getRightImageView());
+        ImageLoader.loadHeadImageCircleCrop(HXSUser.getHeadImg(),user_avatar.getRightImageView());
+    }
+
+    public void updateUserInfo()
+    {
+        initView();
     }
 }

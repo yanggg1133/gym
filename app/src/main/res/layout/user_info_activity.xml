@@ -68,5 +68,6 @@
 
 
 
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
 
 </RelativeLayout>

@@ -80,10 +80,9 @@ public class ImageUtil
         });
 
         OSSAsyncTask task = oss.asyncPutObject(put, callback);
-        return task;
         // task.cancel(); // 可以取消任务
-
         // task.waitUntilFinished(); // 可以等待直到任务完成
+        return task;
     }
 
 

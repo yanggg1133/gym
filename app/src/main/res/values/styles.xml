@@ -1,6 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
+    <!-- APP主题. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -9,9 +9,7 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="DialogStyle" parent="Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="listPreferredItemPaddingLeft">40dip</item>
-    </style>
+    <!-- DialogFragment统一主题样式   无过场动画  -->
     <style name="DialogFragmentTheme" parent="@style/AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -26,13 +24,21 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!-- 顶栏 Mytoobar 统一样式 -->
     <style name="ToolbarStyle" parent="Base.V7.Theme.AppCompat.Light">
-
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+    <!-- LoadingView 统一样式 -->
+    <style name="LoadingViewStyle" >
+        <item name="android:id">@id/loading_view</item>
+        <item name="android:layout_below">@id/toolbar</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
 
+    <!-- 文字输入框的统一样式 -->
     <style name="TextInputStyle" parent="Base.V7.Theme.AppCompat.Light">
         <!-- 未获取焦点时，提示文案颜色 -->
         <item name="android:textColorHint">@color/colorListItemContentText</item>
@@ -44,8 +50,9 @@
         <item name="android:textColorPrimary">@color/colorListItemTitleText</item>
     </style>
 
-
-
-
+    <!-- PhotoPicker 图片选择器样式 -->
+    <style name="PhotoPickerAppTheme" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
 
 </resources>

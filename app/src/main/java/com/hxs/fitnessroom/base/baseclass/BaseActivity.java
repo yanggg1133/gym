@@ -1,5 +1,6 @@
 package com.hxs.fitnessroom.base.baseclass;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,6 +16,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.hxs.fitnessroom.module.user.HXSUser;
+import com.hxs.fitnessroom.util.DialogUtil;
+import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity
 {
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 111;
+    private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID)
@@ -39,11 +44,17 @@ public class BaseActivity extends AppCompatActivity
     {
         return (T) super.findViewById(id);
     }
+
     @Override
-    public void finish()
+    protected void onDestroy()
     {
-        Glide.with(this).onDestroy();
-        super.finish();
+        super.onDestroy();
+        try {Glide.with(this).onDestroy();}catch (Exception e) {}
+        if(null != mUserUpdateBroadcastReceiver)
+        {
+            unregisterReceiver(mUserUpdateBroadcastReceiver);
+            mUserUpdateBroadcastReceiver = null;
+        }
     }
 
     @Override
@@ -56,8 +67,8 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onStop()
     {
-        Glide.with(this).onStop();
         super.onStop();
+        Glide.with(this).onStop();
     }
 
     @Override
@@ -169,23 +180,20 @@ public class BaseActivity extends AppCompatActivity
 
                 if(!isPass)
                 {
-//                    DialogUtil.showConfirmationDialog(this, "运行权限", "应用正常运行需要获取相应的权限！", new DialogUtil.OnConfirmCallback()
-//                    {
-//                        @Override
-//                        public void onConfirm()
-//                        {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-//                            {
-//                                retryRequestPermission(permissions);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancel(DialogInterface dialog)
-//                        {
-//                            finish();
-//                        }
-//                    },"设置","取消");
+                    DialogUtil.showConfirmDialog("应用正常运行需要获取相应的权限！", "取消", "去设置", getSupportFragmentManager(), new ConfirmDialog.OnDialogCallbackAdapter()
+                    {
+                        @Override
+                        public void onCancel()
+                        {
+                            finish();
+                        }
+
+                        @Override
+                        public void onConfirm()
+                        {
+                            retryRequestPermission(permissions);
+                        }
+                    });
                 }
                 else
                 {
@@ -205,6 +213,43 @@ public class BaseActivity extends AppCompatActivity
     {
         Toast.makeText(this,"权限通过",Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * 监听用户信息变化广播
+     * 确保开启监听后，重写{@link #onUserUpdate()}方法
+     *
+     * @see #onUserUpdate()
+     */
+    public void registerUserUpdateBroadcastReceiver()
+    {
+        try
+        {
+            if(null != mUserUpdateBroadcastReceiver)
+                unregisterReceiver(mUserUpdateBroadcastReceiver);
+        }catch (Exception e)
+        {
+            //预防某种未情况引发的异常
+        }
+
+        mUserUpdateBroadcastReceiver = new HXSUser.UserUpdateBroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                onUserUpdate();
+            }
+        };
+        HXSUser.registerUserUpateBroadcastReceiver(this,mUserUpdateBroadcastReceiver);
+    }
+
+
+    /**
+     * 接收到用户信息变化后的广播回调
+     */
+    public void onUserUpdate()
+    {
+
+    }
+
 
 
 }

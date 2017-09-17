@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <declare-styleable name="SettingItemView">
+        <!--点赞或者黄牌-->
+        <attr name="layoutType" format="enum">
+            <enum name="setting" value="1" />
+            <enum name="userinfo" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

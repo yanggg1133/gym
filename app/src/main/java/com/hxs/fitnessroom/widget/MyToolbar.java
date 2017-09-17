@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
@@ -22,6 +23,7 @@ public class MyToolbar extends Toolbar
 {
     private TextView toolbar_title;
     private ViewGroup toolbar_layout;
+    private ImageView toolbar_left_back;
 
     public MyToolbar(Context context)
     {
@@ -39,12 +41,6 @@ public class MyToolbar extends Toolbar
         initializa();
     }
 
-//    android:layout_height="?attr/actionBarSize"
-//    android:background="?attr/colorPrimary"
-//    android:elevation="4dp"
-//    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-//    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-//    app:contentInsetStart="0dp"
     private void initializa()
     {
         setContentInsetsAbsolute(0,0);
@@ -54,6 +50,7 @@ public class MyToolbar extends Toolbar
             setElevation(ViewUtil.dpToPx(0,getContext()));
         }
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
+        toolbar_left_back = (ImageView) findViewById(R.id.toolbar_left_back);
         toolbar_layout = (ViewGroup) findViewById(R.id.toolbar_layout);
     }
 
@@ -70,5 +67,15 @@ public class MyToolbar extends Toolbar
     public void setBackground(Drawable background)
     {
         toolbar_layout.setBackground(background);
+    }
+
+    public void setBack(boolean canBack,@Nullable OnClickListener onClickListener)
+    {
+        if(canBack)
+            toolbar_left_back.setVisibility(VISIBLE);
+        else
+            toolbar_left_back.setVisibility(GONE);
+
+        toolbar_left_back.setOnClickListener(onClickListener);
     }
 }

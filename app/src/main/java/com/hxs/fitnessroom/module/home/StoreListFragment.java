@@ -15,10 +15,9 @@ import com.hxs.fitnessroom.module.home.model.entity.AreaBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.module.home.ui.StoreListUi;
 import com.hxs.fitnessroom.module.home.widget.AreaSelectDialogFragment;
-import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
-import com.hxs.fitnessroom.widget.AdapterWrapper.LoadMoreAdapterWrapper;
+import com.hxs.fitnessroom.widget.adapterwrapper.LoadMoreAdapterWrapper;
 import com.hxs.fitnessroom.widget.LoadingView;
 
 import java.util.List;

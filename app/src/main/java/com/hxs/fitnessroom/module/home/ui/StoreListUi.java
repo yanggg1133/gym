@@ -14,7 +14,7 @@ import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.image.ImageLoader;
-import com.hxs.fitnessroom.widget.AdapterWrapper.LoadMoreAdapterWrapper;
+import com.hxs.fitnessroom.widget.adapterwrapper.LoadMoreAdapterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,6 @@ public class StoreListUi extends BaseUi
     private final TextView county_item_select;
     private final RecyclerView recyclerView;
 
-
-
     public StoreListUi(BaseFragment baseFragment)
     {
         super(baseFragment);
@@ -43,7 +41,6 @@ public class StoreListUi extends BaseUi
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
 
     }
-
 
     public void setOnclick(View.OnClickListener onclick)
     {
@@ -57,11 +54,10 @@ public class StoreListUi extends BaseUi
         county_item_select.setText(ValidateUtil.isEmpty(countyName) ? "全部门店" : countyName);
     }
 
-
-
     public void setLoadmoremListener(LoadMoreAdapterWrapper.RequestToLoadMoreListener requestToLoadMoreListener)
     {
-        recyclerView.setAdapter(new LoadMoreAdapterWrapper(new StoreRecyclerViewAdapter(),requestToLoadMoreListener));
+        recyclerView.setAdapter(new StoreRecyclerViewAdapter());
+//        recyclerView.setAdapter(new LoadMoreAdapterWrapper(new StoreRecyclerViewAdapter(),requestToLoadMoreListener));
     }
 
     public void addStoreList(List<StoreBean> loadMoreData)
@@ -70,12 +66,10 @@ public class StoreListUi extends BaseUi
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
-
     private List<StoreBean> storeBeanList = new ArrayList<>();
 
     class StoreRecyclerViewAdapter extends RecyclerView.Adapter
     {
-
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {

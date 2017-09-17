@@ -9,6 +9,7 @@ import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
+import com.hxs.fitnessroom.util.ToastUtil;
 
 /**
  * Application基类
@@ -29,6 +30,7 @@ public class BaseApplication extends Application
         LocationUtil.appInitialization(this);
         PhoneInfoUtil.appInitialization(this);
         HXSUser.appInitialization(this);
+        ToastUtil.appInitialization(this);
 
 
 

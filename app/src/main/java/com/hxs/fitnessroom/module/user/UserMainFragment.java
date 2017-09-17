@@ -33,17 +33,36 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
     {
         super.onViewCreated(view, savedInstanceState);
         mUserMainUi = new UserMainUi(this);
-
-        mUserMainUi.setOnClickListener(this);
+        mUserMainUi.setOnClickListener();
     }
-
 
     @Override
     public void onClick(View v)
     {
         switch (v.getId())
         {
-            case R.id.user_avatar:
+            case R.id.user_avatar://头像
+                startActivity(UserInfoActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_wallet://钱包
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_tutorial://教程 H5
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_exercise://锻炼 H5
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_service://客服
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_message://消息
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.setting_system://设置
+                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.goto_recharge://去充值
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
         }

@@ -1,7 +1,9 @@
 package com.hxs.fitnessroom.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
@@ -11,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.util.ViewUtil;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 
 /**
@@ -21,6 +27,19 @@ import com.hxs.fitnessroom.R;
 
 public class SettingItemView extends ConstraintLayout
 {
+    @SettingLayoutType
+    private int mSettingLayoutType;
+
+
+    public static final int TYPE_SETTING = 1;
+    public static final int TYPE_USERINFO = 2;
+    private ImageView setting_right_image;
+
+    @IntDef({TYPE_SETTING, TYPE_USERINFO})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SettingLayoutType {}
+
+
     private ImageView setting_icon;
     private TextView setting_name;
     private TextView setting_content;
@@ -29,31 +48,53 @@ public class SettingItemView extends ConstraintLayout
     public SettingItemView(Context context)
     {
         super(context);
-        initializa();
+        initializa(null);
     }
 
     public SettingItemView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        initializa();
+        initializa(attrs);
     }
 
     public SettingItemView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
-        initializa();
+        initializa(attrs);
     }
 
-    private void initializa()
+    private void initializa(AttributeSet attrs)
     {
         inflate(getContext(), R.layout.widget_setting_item,this);
+        if (attrs != null) {
+            final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SettingItemView);
+            //noinspection WrongConstant
+            mSettingLayoutType = typedArray.getInt(R.styleable.SettingItemView_layoutType,TYPE_SETTING);
+            typedArray.recycle();
+        }
+
+
         setting_icon = (ImageView) findViewById(R.id.setting_icon);
         setting_name = (TextView) findViewById(R.id.setting_name);
         setting_content = (TextView) findViewById(R.id.setting_content);
         bottom_line =  findViewById(R.id.bottom_line);
+        setting_right_image = (ImageView) findViewById(R.id.setting_right_image);
+
         TypedValue typedValue = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
         setBackgroundResource(typedValue.resourceId);
+
+        if(mSettingLayoutType == TYPE_USERINFO)
+        {
+            setting_right_image.setVisibility(VISIBLE);
+            setting_content.setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
+            setting_content.setTextColor(getResources().getColor(R.color.colorListItemTitleText));
+            setting_name.setTextColor(getResources().getColor(R.color.colorListItemContentText));
+            setting_icon.setVisibility(GONE);
+            setPadding(ViewUtil.dpToPx(4,getContext()),0,0,0);
+        }
+
+
     }
 
     /**
@@ -68,6 +109,22 @@ public class SettingItemView extends ConstraintLayout
         setting_name.setText(name);
         if(null != content)
             setting_content.setText(content);
+    }
+    /**
+     * 设置各值
+     * @param name       名字
+     * @param content    右侧的内容，如果没有可传空
+     */
+    public void setValue(String name, @Nullable  String content)
+    {
+        setting_name.setText(name);
+        if(null != content)
+            setting_content.setText(content);
+    }
+
+    public ImageView getRightImageView()
+    {
+        return setting_right_image;
     }
 
     public void hideLine()

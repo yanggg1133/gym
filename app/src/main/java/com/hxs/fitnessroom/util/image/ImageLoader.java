@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
@@ -44,7 +45,7 @@ public class ImageLoader
      * @param url
      * @param into
      */
-    public static void loadCorners(String url, ImageView into)
+    public static void loadCircleCrop(String url, ImageView into)
     {
         glideWithMain(into.getContext(), url, into,true);
     }
@@ -60,7 +61,7 @@ public class ImageLoader
             RequestBuilder<Drawable> glideRequest = Glide.with(context).load(url);
             if(isCorners)
             {
-                glideRequest.apply(bitmapTransform(new RoundedCorners(20)));
+                glideRequest.apply(bitmapTransform(new CircleCrop()));
             }
             glideRequest.into(into);
         } catch (Exception e)

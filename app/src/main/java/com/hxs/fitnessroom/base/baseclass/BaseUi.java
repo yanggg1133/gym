@@ -27,7 +27,7 @@ public abstract class BaseUi
         mBaseActivity = baseActivity;
         mReloadListener = mBaseActivity instanceof LoadingView.OnReloadListener ? (LoadingView.OnReloadListener)mBaseActivity:null;
         mOnClickListener = mBaseActivity instanceof View.OnClickListener ? (View.OnClickListener) mBaseActivity :null;
-        initView();
+        baseInitView();
     }
 
     public BaseUi(BaseFragment baseFragment)
@@ -35,10 +35,10 @@ public abstract class BaseUi
         mBaseFragment = baseFragment;
         mReloadListener = mBaseFragment instanceof LoadingView.OnReloadListener ? (LoadingView.OnReloadListener)mBaseFragment:null;
         mOnClickListener = mBaseFragment instanceof View.OnClickListener ? (View.OnClickListener) mBaseFragment :null;
-        initView();
+        baseInitView();
     }
 
-    private void initView()
+    private void baseInitView()
     {
         initMyToolbar();
         initLoadingView();
@@ -100,5 +100,21 @@ public abstract class BaseUi
     public LoadingView getLoadingView()
     {
         return loading_view;
+    }
+
+    public void setBackAction(boolean isCanBack)
+    {
+        if(myToolbar != null)
+        {
+            myToolbar.setBack(isCanBack, new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if(mBaseActivity != null)
+                        mBaseActivity.finish();
+                }
+            });
+        }
     }
 }

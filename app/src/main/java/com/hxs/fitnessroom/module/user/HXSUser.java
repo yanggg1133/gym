@@ -4,15 +4,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.ValidateUtil;
+import com.hxs.fitnessroom.util.image.ImageUtil;
 
-import static android.R.attr.level;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 好享瘦用户信息处理类
@@ -24,6 +33,7 @@ import static android.R.attr.level;
 
 public class HXSUser
 {
+
     private HXSUser() {}
 
     public String user_id;   //用户账号
@@ -131,11 +141,33 @@ public class HXSUser
     {
         return null == currentUser ? "" : currentUser.sess_token;
     }
+    public static String getHeadImg()
+    {
+        return null == currentUser ? "" : currentUser.head_img;
+    }
+    public static String getNickname()
+    {
+        return null == currentUser ? "" : currentUser.nickname;
+    }
+    public static String getSexname()
+    {
+        return null == currentUser ? "" : currentUser.sex == UserBean.SEX_TYPE_BOY ? "男" : "女" ;
+    }
+    public static String getUserId()
+    {
+        return null == currentUser ? "" : currentUser.user_id;
+    }
+
+    public static String getRealname()
+    {
+        return null == currentUser ? "" : currentUser.realname;
+    }
 
     public static boolean isLogin()
     {
         return  currentUser != null;
     }
+
 
     public void setBodyHigh(int bodyHigh)
     {
@@ -164,7 +196,6 @@ public class HXSUser
             {
                 UserBean userBean = new UserBean();
                 userBean.birthday = birthday;
-                userBean.head_img = head_img;
                 userBean.body_high = body_high;
                 userBean.sex = sex;
                 userBean.nickname = nickname;
@@ -190,6 +221,45 @@ public class HXSUser
         }.execute();
     }
 
+    /**
+     * 上传用户头像
+     */
+    public static void saveUserHeadImageAsync(final String head_img , final BaseCallBack baseCallBack)
+    {
+        new AsyncTask<Void,Void,APIResponse<UserBean>>()
+        {
+            @Override
+            protected APIResponse<UserBean> doInBackground(Void... params)
+            {
+                UserBean userBean = new UserBean();
+                userBean.head_img = head_img;
+                try
+                {
+                    APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
+                    return apiResponse;
+                }
+                catch (Exception e)
+                {
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(APIResponse<UserBean> userBeanAPIResponse)
+            {
+                if(null != userBeanAPIResponse && userBeanAPIResponse.isSuccess() )
+                {
+                    baseCallBack.onSuccess(null);
+                    HXSUser.saveCurrentUser(userBeanAPIResponse.data);
+                }
+                else
+                {
+                    baseCallBack.onFailure(null);
+                }
+            }
+        }.execute();
+    }
+
 
     /**
      * 退出登录
@@ -201,5 +271,7 @@ public class HXSUser
         SharedPreferences.Editor editor = sp.edit();
         editor.clear().apply();
     }
+
+
 
 }

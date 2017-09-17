@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.module.user.HXSUser;
+import com.hxs.fitnessroom.util.DialogUtil;
+import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,23 +180,20 @@ public class BaseActivity extends AppCompatActivity
 
                 if(!isPass)
                 {
-//                    DialogUtil.showConfirmationDialog(this, "运行权限", "应用正常运行需要获取相应的权限！", new DialogUtil.OnConfirmCallback()
-//                    {
-//                        @Override
-//                        public void onConfirm()
-//                        {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-//                            {
-//                                retryRequestPermission(permissions);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancel(DialogInterface dialog)
-//                        {
-//                            finish();
-//                        }
-//                    },"设置","取消");
+                    DialogUtil.showConfirmDialog("应用正常运行需要获取相应的权限！", "取消", "去设置", getSupportFragmentManager(), new ConfirmDialog.OnDialogCallbackAdapter()
+                    {
+                        @Override
+                        public void onCancel()
+                        {
+                            finish();
+                        }
+
+                        @Override
+                        public void onConfirm()
+                        {
+                            retryRequestPermission(permissions);
+                        }
+                    });
                 }
                 else
                 {

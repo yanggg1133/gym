@@ -65,7 +65,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLoginUi = new LoginUi(this);
         mLoginUi.setOnClick(this);
         mSendType = getIntent().getStringExtra(KEY_TYPE);
-        HXSUser.signOut();
         mLoginUi.setLoginType(mSendType);
     }
 

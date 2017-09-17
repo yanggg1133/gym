@@ -86,7 +86,7 @@ public class UserMainUi extends BaseUi
     {
         if(HXSUser.isLogin())
         {
-            ImageLoader.loadCircleCrop(HXSUser.getHXSUser().head_img,user_avatar);
+            ImageLoader.loadHeadImageCircleCrop(HXSUser.getHXSUser().head_img,user_avatar);
             user_name.setText(HXSUser.getHXSUser().nickname);
             user_authenticate.setText("已认证");
             not_login_tip.setVisibility(View.GONE);

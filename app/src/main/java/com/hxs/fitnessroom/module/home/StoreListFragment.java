@@ -66,6 +66,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         mStoreListUi.setTitle("健身房");
         mStoreListUi.setLoadmoremListener(mRequestToLoadMoreListener);
         mStoreListUi.setOnclick(this);
+        mStoreListUi.getLoadingView().show();
         doWork();
     }
 

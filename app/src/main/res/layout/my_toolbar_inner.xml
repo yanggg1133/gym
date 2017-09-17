@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/toolbar_left_back"
         android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/ic_left_goto"
         android:layout_centerVertical="true"
         android:tint="@color/colorAccent"
@@ -31,4 +31,17 @@
         android:textSize="18dp"
         />
 
+
+    <TextView
+        android:id="@+id/toolbar_right_text_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textSize="16dp"
+        android:visibility="gone"
+        />
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,6 +23,8 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
 {
     private UserMainUi mUserMainUi;
 
+    private final int RequestCode_Login = 21;//登录跳转
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -34,6 +38,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         mUserMainUi = new UserMainUi(this);
         mUserMainUi.setOnClickListener();
+        registerUserUpdateBroadcastReceiver();
     }
 
     @Override
@@ -42,7 +47,10 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         switch (v.getId())
         {
             case R.id.user_avatar://头像
-                startActivity(UserInfoActivity.getNewIntent(v.getContext()));
+                if(HXSUser.isLogin())
+                    startActivity(UserInfoActivity.getNewIntent(v.getContext()));
+                else
+                    startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_LOGIN),RequestCode_Login);
                 break;
             case R.id.setting_wallet://钱包
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
@@ -66,5 +74,21 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
         }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == RequestCode_Login && resultCode == Activity.RESULT_OK)
+        {
+            mUserMainUi.initUserInfo();
+        }
+    }
+
+    @Override
+    public void onUserUpdate()
+    {
+        mUserMainUi.initUserInfo();
     }
 }

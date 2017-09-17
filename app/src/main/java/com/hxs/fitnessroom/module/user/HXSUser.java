@@ -1,27 +1,19 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.ValidateUtil;
-import com.hxs.fitnessroom.util.image.ImageUtil;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 好享瘦用户信息处理类
@@ -34,7 +26,9 @@ import java.util.Date;
 public class HXSUser
 {
 
-    private HXSUser() {}
+    private HXSUser()
+    {
+    }
 
     public String user_id;   //用户账号
     @UserBean.SexType
@@ -87,7 +81,7 @@ public class HXSUser
      *
      * @param userBean
      */
-    public static void saveCurrentUser(@Nullable UserBean userBean)
+    public static void saveCurrentUserForLocal(@Nullable UserBean userBean)
     {
         if (null == userBean)
             return;
@@ -128,6 +122,7 @@ public class HXSUser
         editor.putString("vocation", userBean.vocation);
         if (ValidateUtil.isNotEmpty(userBean.sess_token))
             editor.putString("sess_token", userBean.sess_token);
+        editor.commit();
         editor.apply();
     }
 
@@ -141,18 +136,22 @@ public class HXSUser
     {
         return null == currentUser ? "" : currentUser.sess_token;
     }
+
     public static String getHeadImg()
     {
         return null == currentUser ? "" : currentUser.head_img;
     }
+
     public static String getNickname()
     {
         return null == currentUser ? "" : currentUser.nickname;
     }
+
     public static String getSexname()
     {
-        return null == currentUser ? "" : currentUser.sex == UserBean.SEX_TYPE_BOY ? "男" : "女" ;
+        return null == currentUser ? "" : currentUser.sex == UserBean.SEX_TYPE_BOY ? "男" : "女";
     }
+
     public static String getUserId()
     {
         return null == currentUser ? "" : currentUser.user_id;
@@ -165,13 +164,13 @@ public class HXSUser
 
     public static boolean isLogin()
     {
-        return  currentUser != null;
+        return currentUser != null;
     }
 
 
     public void setBodyHigh(int bodyHigh)
     {
-        this.body_high = ""+bodyHigh;
+        this.body_high = "" + bodyHigh;
     }
 
     public void setSex(@UserBean.SexType int sex)
@@ -189,7 +188,7 @@ public class HXSUser
      */
     public void saveUserInfoAsync()
     {
-        new AsyncTask<Void,Void,APIResponse<UserBean>>()
+        new AsyncTask<Void, Void, APIResponse<UserBean>>()
         {
             @Override
             protected APIResponse<UserBean> doInBackground(Void... params)
@@ -203,8 +202,7 @@ public class HXSUser
                 {
                     APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
                     return apiResponse;
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                 }
                 return null;
@@ -213,32 +211,30 @@ public class HXSUser
             @Override
             protected void onPostExecute(APIResponse<UserBean> userBeanAPIResponse)
             {
-                if(null != userBeanAPIResponse && userBeanAPIResponse.isSuccess() )
-                    HXSUser.saveCurrentUser(userBeanAPIResponse.data);
+                if (null != userBeanAPIResponse && userBeanAPIResponse.isSuccess())
+                    HXSUser.saveCurrentUserForLocal(userBeanAPIResponse.data);
                 else
-                    Toast.makeText(mContext,"用户信息保存失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "用户信息保存失败", Toast.LENGTH_SHORT).show();
             }
         }.execute();
     }
 
+
     /**
-     * 上传用户头像
+     * 保存用户信息
      */
-    public static void saveUserHeadImageAsync(final String head_img , final BaseCallBack baseCallBack)
+    public static void saveUserInfoAsync(final UserBean userBean, @Nullable final BaseCallBack baseCallBack)
     {
-        new AsyncTask<Void,Void,APIResponse<UserBean>>()
+        new AsyncTask<Void, Void, APIResponse<UserBean>>()
         {
             @Override
             protected APIResponse<UserBean> doInBackground(Void... params)
             {
-                UserBean userBean = new UserBean();
-                userBean.head_img = head_img;
                 try
                 {
                     APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
                     return apiResponse;
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                 }
                 return null;
@@ -247,14 +243,16 @@ public class HXSUser
             @Override
             protected void onPostExecute(APIResponse<UserBean> userBeanAPIResponse)
             {
-                if(null != userBeanAPIResponse && userBeanAPIResponse.isSuccess() )
+                if (null != userBeanAPIResponse && userBeanAPIResponse.isSuccess())
                 {
-                    baseCallBack.onSuccess(null);
-                    HXSUser.saveCurrentUser(userBeanAPIResponse.data);
-                }
-                else
+                    HXSUser.saveCurrentUserForLocal(userBeanAPIResponse.data);
+                    if (null != baseCallBack)
+                        baseCallBack.onSuccess(null);
+                    HXSUser.sendUserInfoUpdateBroadcastReceiver();
+                } else
                 {
-                    baseCallBack.onFailure(null);
+                    if (null != baseCallBack)
+                        baseCallBack.onFailure(null != userBeanAPIResponse ? userBeanAPIResponse.msg : null);
                 }
             }
         }.execute();
@@ -272,6 +270,40 @@ public class HXSUser
         editor.clear().apply();
     }
 
+
+    /**
+     * 发送用户信息更新广播
+     */
+    public static void sendUserInfoUpdateBroadcastReceiver()
+    {
+        mContext.sendBroadcast(new Intent(HXSUser.class.getName()));
+    }
+
+    /**
+     * 注册用户更新广播
+     *
+     * @param context
+     * @param userUpdateBroadcastReceiver
+     * @return
+     */
+    public static UserUpdateBroadcastReceiver registerUserUpateBroadcastReceiver(Context context, UserUpdateBroadcastReceiver userUpdateBroadcastReceiver)
+    {
+        context.registerReceiver(userUpdateBroadcastReceiver, new IntentFilter(HXSUser.class.getName()));
+        return userUpdateBroadcastReceiver;
+    }
+
+    /**
+     * 用户数据产生变化时的广播
+     */
+    public static class UserUpdateBroadcastReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+
+        }
+    }
 
 
 }

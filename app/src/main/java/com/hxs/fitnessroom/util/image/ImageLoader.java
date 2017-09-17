@@ -3,12 +3,16 @@ package com.hxs.fitnessroom.util.image;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
@@ -41,16 +45,20 @@ public class ImageLoader
     }
 
     /**
-     * 加载圆角图
+     * 加载圆型头像
      * @param url
      * @param into
      */
-    public static void loadCircleCrop(String url, ImageView into)
+    public static void loadHeadImageCircleCrop(String url, ImageView into)
     {
-        glideWithMain(into.getContext(), url, into,true);
+        glideWithMain(into.getContext(), url, into,true,R.mipmap.ic_user_def_head);
     }
 
-    private static void glideWithMain(Context context, String url, ImageView into,boolean isCorners)
+    private static void glideWithMain(Context context, String url, ImageView into, boolean isCorners )
+    {
+        glideWithMain(context, url, into, isCorners,-1);
+    }
+    private static void glideWithMain(Context context, String url, ImageView into, boolean isCorners,@DrawableRes int errorResId )
     {
         if (ValidateUtil.isEmpty(context) || ValidateUtil.isEmpty(url))
         {
@@ -62,6 +70,10 @@ public class ImageLoader
             if(isCorners)
             {
                 glideRequest.apply(bitmapTransform(new CircleCrop()));
+            }
+            if(-1 != errorResId)
+            {
+                glideRequest.apply(new RequestOptions().error(errorResId));
             }
             glideRequest.into(into);
         } catch (Exception e)

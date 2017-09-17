@@ -38,7 +38,6 @@ public class LoginUi extends BaseUi
     public LoginUi(BaseActivity baseActivity)
     {
         super(baseActivity);
-        baseActivity.setContentView(R.layout.user_login_main);
         phone_text_layout = findViewById(R.id.phone_text_layout);
         phone_text = findViewById(R.id.phone_text);
         verifycode_text_layout = findViewById(R.id.verifycode_text_layout);
@@ -59,6 +58,7 @@ public class LoginUi extends BaseUi
         verifycode_text.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         phone_text.addTextChangedListener(new ViewUtil.ClearErrorTextWatcher(phone_text_layout));
         verifycode_text.addTextChangedListener(new ViewUtil.ClearErrorTextWatcher(verifycode_text_layout));
+        verifycode_text.setOnEditorActionListener((TextView.OnEditorActionListener) getBaseActivity());
     }
 
     public void setOnClick(View.OnClickListener onClick)
@@ -75,6 +75,7 @@ public class LoginUi extends BaseUi
     {
         if(!ValidateUtil.isMobileNumber(phone_text.getText().toString()))
         {
+            phone_text.requestFocus();
             phone_text_layout.setError("手机号码不正确");
             return null;
         }
@@ -83,13 +84,23 @@ public class LoginUi extends BaseUi
 
     public void setPhoneError(String phoneError)
     {
-        phone_text_layout.setError(phoneError);
+        if(phoneError.indexOf("验证码") != -1)
+        {
+            verifycode_text.requestFocus();
+            verifycode_text_layout.setError(phoneError);
+        }
+        else
+        {
+            phone_text.requestFocus();
+            phone_text_layout.setError(phoneError);
+        }
     }
 
     public String getVerifyCode()
     {
         if(verifycode_text.getText().toString().length() != 4)
         {
+            verifycode_text.requestFocus();
             verifycode_text_layout.setError("验证码不正确");
             return null;
         }
@@ -117,8 +128,8 @@ public class LoginUi extends BaseUi
     {
         if(LoginActivity.VALUE_TYPE_LOGIN.equals(loginType))
         {
-            title.setText("录登");
-            login_button.setText("录登");
+            title.setText("登录");
+            login_button.setText("登录");
             login_sub_button.setText("没有帐号?");
         }
         else if(LoginActivity.VALUE_TYPE_REGISTER.equals(loginType))

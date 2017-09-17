@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar
+        style="@style/ToolbarStyle">
+    </com.hxs.fitnessroom.widget.MyToolbar>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/user_nickname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        app:theme="@style/TextInputStyle"
+        >
+
+        <EditText
+            android:id="@+id/user_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="18dp"
+            android:textSize="16dp"
+            android:hint="请输入新的昵称"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeActionId="@+id/save"
+            android:imeActionLabel="保存"
+            android:imeOptions="actionUnspecified"
+            android:singleLine="true"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
+
+</RelativeLayout>

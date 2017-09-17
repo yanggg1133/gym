@@ -5,10 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.hxs.fitnessroom.widget.MyToolbar
-        android:id="@+id/toolbar"
-        style="@style/ToolbarStyle"
-        >
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle">
     </com.hxs.fitnessroom.widget.MyToolbar>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/citySelect"
@@ -87,11 +84,5 @@
         >
     </android.support.v7.widget.RecyclerView>
 
-    <com.hxs.fitnessroom.widget.LoadingView
-        android:id="@+id/loading_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        >
-    </com.hxs.fitnessroom.widget.LoadingView>
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
 </RelativeLayout>

@@ -47,7 +47,10 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
          * 所有入口都要先判断是否登录
          */
         if (!HXSUser.isLogin())
+        {
             startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
+            return;
+        }
 
         switch (v.getId())
         {

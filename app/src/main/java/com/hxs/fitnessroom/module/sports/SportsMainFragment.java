@@ -3,6 +3,7 @@ package com.hxs.fitnessroom.module.sports;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,16 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.pay.mode.PayDepositActivity;
 import com.hxs.fitnessroom.module.sports.model.QRCodeModel;
 import com.hxs.fitnessroom.module.sports.model.entity.QRCodeBean;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
+import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
+import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import fitnessroom.hxs.com.codescan.CameraUtil;
 
@@ -43,14 +47,31 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         return inflater.inflate(R.layout.sports_main_fragment, container, false);
     }
 
+    private long elapsedRealtime;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
         mSportsMainUi = new SportsMainUi(this);
         mSportsMainUi.setTitle("运动");
+
+        elapsedRealtime = SystemClock.elapsedRealtime()-1000*60*60;
     }
 
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mSportsMainUi.getSportUsingTimeView().setBase(elapsedRealtime);
+        mSportsMainUi.getSportUsingTimeView().start();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mSportsMainUi.getSportUsingTimeView().stop();
+    }
 
     @Override
     public void onClick(View v)
@@ -77,7 +98,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     private void step1_checkLogin()
     {
         if (HXSUser.isLogin())
-            step3_scan_open_door();
+            error_not_deposit();
+            //step3_scan_open_door();
         else
             startActivityForResult(LoginActivity.getNewIntent(getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
     }
@@ -87,23 +109,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void step2_checkDeposit()
     {
-//        DialogUtil.showConfirmDialog("你尚未交押金\n暂时无法使用健身房", "取消", "去缴费",
-//                getFragmentManager(),
-//                new ConfirmDialog.OnDialogCallbackAdapter()
-//                {
-//                    @Override
-//                    public void onConfirm()
-//                    {
-//                        if(CameraUtil.isCameraCanUse()){
-//                            Intent intent = new Intent(getActivity(), CaptureActivity.class);
-//                            startActivityForResult(intent, 10);
-//                        }else{
-//                            Toast.makeText(getContext(),"请打开此应用的摄像头权限！",Toast.LENGTH_SHORT).show();
-//                        }
-//                        LogUtil.dClass("onConfirm");
-//                    }
-//                });
-
+        //暂跳过，直接在二维码请求的返回中判断
     }
 
 
@@ -159,7 +165,21 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_not_deposit()
     {
+        DialogUtil.showConfirmDialog("你尚未交押金\n暂时无法使用健身房", "取消", "去缴费",
+                getFragmentManager(),
+                new ConfirmDialog.OnDialogCallbackAdapter()
+                {
+                    @Override
+                    public void onConfirm()
+                    {
+                        startActivity(PayDepositActivity.getNewIntent(getBaseActivity()));
+                    }
 
+                    @Override
+                    public void onCancel()
+                    {
+                    }
+                });
     }
 
     /**
@@ -210,10 +230,35 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         }
 
         @Override
+        protected void onAPIError(APIResponse apiResponse)
+        {
+            if(APIResponse.error_order_is_not_settled.equals(apiResponse.code))
+            {
+                error_order_is_not_settled();
+            }
+            else if (APIResponse.error_insufficient_balance.equals(apiResponse.code))
+            {
+                error_insufficient_balance();
+            }
+            else if (APIResponse.error_not_deposit.equals(apiResponse.code))
+            {
+                error_not_deposit();
+            }
+            else
+            {
+                super.onAPIError(apiResponse);
+            }
+        }
+
+
+        @Override
         protected void onSuccess(APIResponse data)
         {
             mSportsMainUi.getLoadingView().hide();
             step5_start_using();
         }
     }
+
+
+
 }

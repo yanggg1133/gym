@@ -8,6 +8,7 @@
     android:background="@color/colorPrimary"
     app:layout_constraintTop_toBottomOf="@+id/toolbar"
     tool:showIn="@layout/sports_main_fragment"
+    android:visibility="gone"
     >
 
     <View
@@ -82,7 +83,6 @@
         app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
         app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
         app:layout_constraintRight_toRightOf="@+id/sport_store_name"
-        android:format="hh:mm:ss"
         android:textColor="@color/colorAccent"
         android:textSize="14dp"
         />
@@ -227,47 +227,109 @@
         android:id="@+id/sport_action_opendoor"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/selector_sport_kaimen"
+        android:background="@mipmap/ic_sport_kaimen"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/sport_action_lockers"
-        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="48dp"
         />
 
     <TextView
+        android:id="@+id/sport_action_opendoor_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="开门"
-
+        android:textSize="14dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintLeft_toLeftOf="@id/sport_action_opendoor"
+        app:layout_constraintRight_toRightOf="@id/sport_action_opendoor"
+        app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:minWidth="70dp"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp"
+        android:background="?android:attr/selectableItemBackground"
         />
 
     <ImageView
         android:id="@+id/sport_action_lockers"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/selector_sport_chuwu"
+        android:background="@mipmap/ic_sport_chuwu"
         app:layout_constraintLeft_toRightOf="@id/sport_action_opendoor"
         app:layout_constraintRight_toLeftOf="@+id/sport_action_readmill"
         app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor"
         />
+
+    <TextView
+        android:id="@+id/sport_action_lockers_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="储物柜"
+        android:textSize="14dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintLeft_toLeftOf="@id/sport_action_lockers"
+        app:layout_constraintRight_toRightOf="@id/sport_action_lockers"
+        app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor_text"
+        app:layout_constraintBottom_toBottomOf="@+id/sport_action_opendoor_text"
+        android:minWidth="70dp"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        />
+
     <ImageView
         android:id="@+id/sport_action_readmill"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/selector_sport_qixie"
+        android:background="@mipmap/ic_sport_qixie"
         app:layout_constraintLeft_toRightOf="@id/sport_action_lockers"
         app:layout_constraintRight_toLeftOf="@+id/sport_action_shop"
         app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor"
+        />
+
+    <TextView
+        android:id="@+id/sport_action_readmill_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="器械"
+        android:textSize="14dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintLeft_toLeftOf="@id/sport_action_readmill"
+        app:layout_constraintRight_toRightOf="@id/sport_action_readmill"
+        app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor_text"
+        app:layout_constraintBottom_toBottomOf="@+id/sport_action_opendoor_text"
+        android:minWidth="70dp"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp"
+        android:background="?android:attr/selectableItemBackground"
         />
     <ImageView
         android:id="@+id/sport_action_shop"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/selector_sport_gouwu"
+        android:background="@mipmap/ic_sport_gouwu"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sport_action_readmill"
         app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor"
+        android:layout_marginRight="30dp"
         />
-
+    <TextView
+        android:id="@+id/sport_action_shop_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="自动售货机"
+        android:textSize="14dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintLeft_toLeftOf="@id/sport_action_shop"
+        app:layout_constraintRight_toRightOf="@id/sport_action_shop"
+        app:layout_constraintTop_toTopOf="@+id/sport_action_opendoor_text"
+        app:layout_constraintBottom_toBottomOf="@+id/sport_action_opendoor_text"
+        android:minWidth="70dp"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        />
 </android.support.constraint.ConstraintLayout>

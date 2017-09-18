@@ -62,14 +62,16 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             >
+
+        </activity>
+
+        <activity android:name=".module.main.MainActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".module.main.MainActivity" android:screenOrientation="portrait" />
         <activity android:name=".module.user.LoginActivity" android:screenOrientation="portrait" />
         <activity android:name=".module.user.WelcomeActivity" android:screenOrientation="portrait" />
         <activity
@@ -81,6 +83,7 @@
         <activity android:name=".module.user.UserInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.pay.mode.PayDepositActivity" android:screenOrientation="portrait"/>
 
 
         <!-- ***************************************************** -->

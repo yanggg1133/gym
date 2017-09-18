@@ -13,9 +13,6 @@ public enum ConstantsApiUrl
     AreaList("https://gym.hxsapp.com/server/Store/areaList"),//所有城市列表
 
     AddRecharge("https://gym.hxsapp.com/server/Order/addRecharge"),//发起充值
-
-
-
     RechargeList("https://api.hxsapp.com/gym/Order/rechargeList"),//充值金额列表
     DeQRCode("https://api.hxsapp.com/gym/Dispatcher/deQRCode"), //二维码扫描通用此入口
     Deposit("https://api.hxsapp.com/gym/Order/deposit"), //获取押金金额

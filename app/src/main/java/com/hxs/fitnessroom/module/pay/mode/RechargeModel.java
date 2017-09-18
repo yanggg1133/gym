@@ -19,30 +19,32 @@ public class RechargeModel
 {
     /**
      * 获取新的充值订单信息
+     *
      * @param payMode 支付类型
-     * @param amount 金额
-     * @param type 支付动作
+     * @param amount  金额
+     * @param type    支付动作
      * @return
      */
     public static APIResponse<RechargeBean> addRecharge(int payMode, String amount, int type)
     {
         return APIHttpClient.postForm(ConstantsApiUrl.AddRecharge.getUrl(),
                 ParamsBuilder.buildFormParam()
-                        .putParam("payMode",payMode)
+                        .putParam("payMode", payMode)
                         .putParam("type", type)
-                        .putParam("amount",amount),
+                        .putParam("amount", amount),
                 new TypeToken<APIResponse<RechargeBean>>(){}.getType()
         );
     }
 
     /**
      * 获取充值金额列表
+     *
      * @return
      */
-    public static APIResponse<List<TopupAmountBean>> rechargeList(){
+    public static APIResponse<List<TopupAmountBean>> rechargeList()
+    {
         return APIHttpClient.postForm(ConstantsApiUrl.RechargeList.getUrl(),
                 ParamsBuilder.buildFormParam(),
                 new TypeToken<APIResponse<List<TopupAmountBean>>>(){}.getType());
-
     }
 }

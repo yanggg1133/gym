@@ -45,6 +45,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
         contentLoadingProgressBar = (ContentLoadingProgressBar) findViewById(R.id.contentLoadingProgressBar);
         network_error_tip = (TextView) findViewById(R.id.network_error_tip);
         network_error_tip.setOnClickListener(this);
+        setOnClickListener(this);
         hide();
     }
 
@@ -79,11 +80,20 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        contentLoadingProgressBar.show();
-        network_error_tip.setVisibility(GONE);
-        if(null != mOnReloadListener)
+        switch (v.getId())
         {
-            mOnReloadListener.onReload();
+            case R.id.network_error_tip:
+            {
+                contentLoadingProgressBar.show();
+                network_error_tip.setVisibility(GONE);
+                if(null != mOnReloadListener)
+                {
+                    mOnReloadListener.onReload();
+                }
+                break;
+            }
+            default:
+                break;
         }
     }
 

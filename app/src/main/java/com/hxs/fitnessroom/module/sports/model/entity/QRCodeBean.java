@@ -14,10 +14,5 @@ public class QRCodeBean {
      * status : 0
      */
 
-   public String data;
-   public String code;
-   public String msg;
-   public int status;
-
 
 }

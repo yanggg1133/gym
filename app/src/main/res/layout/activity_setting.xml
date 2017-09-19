@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hxs.fitnessroom.module.setting.SettingActivity">
+
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
+    
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_protocol"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/deposit_statement"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_protocol"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_protocol"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+</android.support.constraint.ConstraintLayout>

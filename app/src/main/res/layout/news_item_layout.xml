@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorPrimary"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+    <TextView
+        android:id="@+id/news_date"
+        android:layout_width="73dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/bg_round_22253e_r5"
+        android:gravity="center_horizontal"
+        android:text="08月04日"
+        android:textColor="@color/colorListItemSubTitleText"
+        android:textSize="14dp"/>
+
+    <RelativeLayout
+        android:layout_width="345dp"
+        android:layout_height="91dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/bg_round_353957_r5"
+    >
+
+        <TextView
+            android:id="@+id/news_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:maxLines="1"
+            android:text="小积分抽大奖"
+            android:textColor="@color/colorListItemTitleText"/>
+
+        <TextView
+            android:id="@+id/news_item_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="40dp"
+            android:maxLines="2"
+            android:maxLength="49"
+            android:ellipsize="end"
+            android:text="小积分抽大奖, 绿瘦智能手环任你选。小积分抽大奖, 绿瘦智能手环任你选。小积分抽大奖, 绿瘦智能手环任你选。小积分抽大奖, 积分抽大奖，绿瘦智能手环任你挑选，赶快把你的积分统统砸出来吧，让奖品的潮流迎头痛击你吧…。"
+            android:textColor="@color/colorListItemSubTitleText"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

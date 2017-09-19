@@ -22,7 +22,6 @@ android {
         abortOnError false
     }
 
-
     /**
      * 签名配置
      */
@@ -82,7 +81,6 @@ android {
     }
 
 
-
 }
 ext {
     SUPPORT_LIB_VERSION = '26.+'
@@ -94,27 +92,20 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:'+SUPPORT_LIB_VERSION
-    compile 'com.android.support:design:'+SUPPORT_LIB_VERSION
-    compile 'com.android.support:support-vector-drawable:'+SUPPORT_LIB_VERSION
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:multidex:1.0.1'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:' + SUPPORT_LIB_VERSION
+    compile 'com.android.support:design:' + SUPPORT_LIB_VERSION
+    compile 'com.android.support:support-vector-drawable:' + SUPPORT_LIB_VERSION
     //依赖冲突解决  强制使用统一版本
     configurations.all {
         resolutionStrategy {
-            force 'com.android.support:appcompat-v7:'+SUPPORT_LIB_VERSION
-            force 'com.android.support:design:'+SUPPORT_LIB_VERSION
-            force 'com.android.support:support-vector-drawable:'+SUPPORT_LIB_VERSION
+            force 'com.android.support:appcompat-v7:' + SUPPORT_LIB_VERSION
+            force 'com.android.support:design:' + SUPPORT_LIB_VERSION
+            force 'com.android.support:support-vector-drawable:' + SUPPORT_LIB_VERSION
         }
     }
 
     /** 第三方类库*************************************************************/
-    compile 'com.google.code.gson:gson:2.8.1'
     //图片加载
-    compile 'com.github.bumptech.glide:glide:4.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
-    compile 'jp.wasabeef:glide-transformations:3.0.0'
     //二维码扫描
     compile project(':module_codescan')
     //第三方支付
@@ -122,18 +113,24 @@ dependencies {
     //友盟第三方登录及分享
     //compile project(':module_ushare')
     //上下滚动选择器
-    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 
     //阿里云图片上传
+
+    //本地图片选择器
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'jp.wasabeef:glide-transformations:3.0.0'
+    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.3'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okio:okio:1.9.0'
-
-
-    //本地图片选择器
     compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
-
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 /**
  * 打包命名

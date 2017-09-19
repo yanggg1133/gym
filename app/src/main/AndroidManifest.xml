@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hxs.fitnessroom"
-    >
+          package="com.hxs.fitnessroom">
 
     <!-- ************ -->
     <!-- 直接获取的权限 -->
@@ -28,9 +27,9 @@
     <!-- 百度定位SDK ************************************************************************ -->
     <!-- 这个权限用于进行网络定位   组：LOCATION -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 这个权限用于访问GPS定位    组：LOCATION  -->
+    <!-- 这个权限用于访问GPS定位    组：LOCATION -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 用于读取手机当前的状态       组：PHONE  -->
+    <!-- 用于读取手机当前的状态       组：PHONE -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据   组：STORAGE -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -42,11 +41,10 @@
     <!-- 扫二维码，摄像头权限  组：CAMERA -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
-    <!-- 友盟第三方登录分享SDK 组：STORAGE  -->
+    <!-- 友盟第三方登录分享SDK 组：STORAGE -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- 友盟第三方登录分享SDK  组：LOCATION  -->
+    <!-- 友盟第三方登录分享SDK  组：LOCATION -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-
 
     <application
         android:name=".base.baseclass.BaseApplication"
@@ -54,33 +52,35 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".module.main.LoadingScreenActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            android:screenOrientation="portrait">
         </activity>
-
-        <activity android:name=".module.main.MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".module.user.LoginActivity" android:screenOrientation="portrait" />
-        <activity android:name=".module.user.WelcomeActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.main.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".module.user.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".module.user.WelcomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".module.web.WebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.user.UserInfoActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".module.user.UserInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".module.user.UserNicknameActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".module.user.UserWalletActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- ***************************************************** -->
         <!-- *********************其他第三方配置******************** -->
@@ -92,8 +92,7 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
         </activity>
         <!-- ^^^^^^^^^^^ -->
 
@@ -102,24 +101,26 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"
-            />
+            android:process=":remote"/>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="HqpXG3RQcXFxYypEj8Kzs8OBpsZhz8Su"
-            />
+            android:value="HqpXG3RQcXFxYypEj8Kzs8OBpsZhz8Su"/>
         <!-- ^^^^^^^^^^^ -->
+
 
         <!-- 本地图片选择器 -->
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-                  android:theme="@style/PhotoPickerAppTheme"
-            />
-
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-                  android:theme="@style/PhotoPickerAppTheme"/>
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/PhotoPickerAppTheme"/>
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/PhotoPickerAppTheme"/>
         <!-- ^^^^^^^^^^^ -->
 
-        <!-- 友盟SDK ****************************************
+
+        <!--
+        友盟SDK ****************************************
         <activity
             android:name="fitnessroom.hxs.com.ushare.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -164,9 +165,23 @@
             android:name="com.umeng.qq.tencent.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        -->
         <!-- ^^^^^^^^^^^ -->
 
+        <activity android:name=".module.user.AboutActivity">
+        </activity>
+        <activity android:name=".module.user.NewsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".module.user.WalletDetailActivity">
+        </activity>
+        <activity android:name=".module.setting.SettingActivity">
+        </activity>
     </application>
 
 </manifest>

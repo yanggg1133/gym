@@ -32,7 +32,7 @@ public class RechargeModel
                 ParamsBuilder.buildFormParam()
                         .putParam("payMode", payMode)
                         .putParam("type", type)
-                        .putParam("amount", amount),
+                        .putParam("goods_id", amount),
                 new TypeToken<APIResponse<RechargeBean>>(){}.getType()
         );
     }
@@ -47,5 +47,18 @@ public class RechargeModel
         return APIHttpClient.postForm(ConstantsApiUrl.RechargeList.getUrl(),
                 ParamsBuilder.buildFormParam(),
                 new TypeToken<APIResponse<List<TopupAmountBean>>>(){}.getType());
+    }
+    /**
+     * 获取主动查询充值订单状态
+     *
+     * @return
+     */
+    public static APIResponse orderQuery(String orderNo,int payMode)
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.OrderQuery.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("orderNo",orderNo)
+                        .putParam("payMode",payMode),
+                new TypeToken<APIResponse>(){}.getType());
     }
 }

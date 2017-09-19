@@ -124,10 +124,10 @@ public class APIHttpClient
             //建立连接
             URL url = new URL(urlapi);
             httpConn = (HttpURLConnection) url.openConnection();
-            if(httpConn instanceof HttpsURLConnection)
-            {
-                VerifyHttps((HttpsURLConnection) httpConn);
-            }
+//            if(httpConn instanceof HttpsURLConnection)//验证证书
+//            {
+//                VerifyHttps((HttpsURLConnection) httpConn);
+//            }
 
             //设置连接属性
             httpConn.setDoOutput(true);//使用 URL 连接进行输出

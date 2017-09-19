@@ -96,6 +96,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     {
         setBackgroundResource(R.color.colorPrimary);
         setVisibility(VISIBLE);
+        contentLoadingProgressBar.hide();
         other_tip_icon.setVisibility(VISIBLE);
         other_tip.setVisibility(VISIBLE);
         other_tip_icon.setImageResource(R.mipmap.ic_pay_success);

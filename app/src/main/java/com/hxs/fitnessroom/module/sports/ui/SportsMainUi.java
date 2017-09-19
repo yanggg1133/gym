@@ -22,6 +22,8 @@ public class SportsMainUi extends BaseUi
     private final TextView sport_action_readmill;
     private final TextView sport_action_shop;
     private final Chronometer sport_using_time;
+    private final View sport_action_using_layout;
+    private final View text_welcome;
 
     public SportsMainUi(BaseFragment baseFragment)
     {
@@ -32,6 +34,8 @@ public class SportsMainUi extends BaseUi
         sport_action_readmill = findViewById(R.id.sport_action_readmill_text);
         sport_action_shop = findViewById(R.id.sport_action_shop_text);
         sport_using_time = findViewById(R.id.sport_using_time);
+        text_welcome = findViewById(R.id.text_welcome);
+        sport_action_using_layout = findViewById(R.id.sport_action_using_layout);
         initOnclick();
     }
 
@@ -50,6 +54,26 @@ public class SportsMainUi extends BaseUi
         return sport_using_time;
     }
 
+    @Override
+    public void startLoading()
+    {
+        getLoadingView().show();
+    }
 
+    @Override
+    public void endLoading()
+    {
+        getLoadingView().hide();
+    }
 
+    /**
+     * 开始显示运动界面
+     */
+    public void startSport()
+    {
+        sport_action_using_layout.setVisibility(View.VISIBLE);
+        start_scan.setVisibility(View.GONE);
+        text_welcome.setVisibility(View.GONE);
+
+    }
 }

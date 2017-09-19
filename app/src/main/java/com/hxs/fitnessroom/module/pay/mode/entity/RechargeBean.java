@@ -9,7 +9,7 @@ public class RechargeBean
 {
     public Wxpay wxpay;
     public String alipay;
-    public String OrderNo;
+    public String orderNo;
 
     public static class Wxpay
     {

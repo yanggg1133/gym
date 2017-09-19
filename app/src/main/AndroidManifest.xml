@@ -84,6 +84,7 @@
         <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.PayDepositActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.pay.PayRechargeActivity" android:screenOrientation="portrait"/>
 
 
         <!-- ***************************************************** -->

@@ -113,6 +113,7 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.goto_pay:
                 mPayFlow.payForOrderData("", PayFactory.PAY_ACTION_DEPOSIT);
+                goto_pay.setEnabled(false);
                 break;
         }
     }
@@ -120,7 +121,6 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onReload()
     {
-        mBaseUi.getLoadingView().show();
         new QueryDepositTask().execute(this);
     }
 
@@ -134,13 +134,20 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
         protected void onPreExecute()
         {
             super.onPreExecute();
-
+            mBaseUi.getLoadingView().show();
         }
 
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
             return DepositModel.deposit();
+        }
+
+        @Override
+        protected void onError(@Nullable Exception e)
+        {
+            super.onError(e);
+            mBaseUi.getLoadingView().showNetworkError();
         }
 
         @Override
@@ -159,22 +166,29 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
     class MyPayBroadcastReceiver extends PayFactory.PayBroadcastReceiver
     {
         @Override
-        public void onGetOrderNo(String orderNo) {}
+        public void onGetOrderNo(String orderNo) {
+            goto_pay.setEnabled(true);
+        }
 
         @Override
         public void onSuccess(int payType)
         {
+            goto_pay.setEnabled(true);
             PayDepositActivity.this.setResult(RESULT_OK);
             mBaseUi.getLoadingView().showSuccess("支付成功");
             mHandler.sendEmptyMessageDelayed(0,1500);//1.5秒后关闭界面
         }
 
         @Override
-        public void onCancel() {}
+        public void onCancel() {
+            goto_pay.setEnabled(true);
+
+        }
 
         @Override
         public void onFail()
         {
+            goto_pay.setEnabled(true);
             ToastUtil.toastShort("支付失败");
         }
     }

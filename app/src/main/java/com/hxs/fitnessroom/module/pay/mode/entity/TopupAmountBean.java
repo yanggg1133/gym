@@ -11,6 +11,8 @@ public class TopupAmountBean
      * amount : 500
      * name : 500元
      */
+    public String id;
     public String amount;
     public String name;
+
 }

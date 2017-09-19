@@ -100,11 +100,13 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
             return;
 
         if (null != mBaseUi.get())
-            mBaseUi.get().startLoading();
+            mBaseUi.get().endLoading();
 
-        if (mException instanceof NetworkErrorException)
+        if (mException instanceof IllegalArgumentException
+                && mException.getCause() != null
+                && mException.getCause() instanceof NetworkErrorException)
         {
-            onNetworkError((NetworkErrorException) mException);
+            onNetworkError((NetworkErrorException) mException.getCause());
             return;
         }
         if (mException instanceof Exception)

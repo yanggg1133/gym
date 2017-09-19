@@ -234,20 +234,15 @@ public class PayFactory
                 protected void onSuccess(APIResponse data)
                 {
                     APIResponse<RechargeBean> response = data;
+                    PayFactory.PayBroadcastReceiver.sendOrderNo(baseActivity,response.data.orderNo);
                     gotoPay(response.data);
                 }
             }.execute(baseActivity);
         }
 
-        protected void gotoPay(RechargeBean payBean)
-        {
-            throw new IllegalArgumentException("not override mothen");
-        }
+        abstract void gotoPay(RechargeBean payBean);
 
-        protected int getPayType()
-        {
-            throw new IllegalArgumentException("not override mothen");
-        }
+        abstract int getPayType();
 
     }
 
@@ -268,6 +263,7 @@ public class PayFactory
         private static final int PAY_STATUS_ORDERNO = 4;//接收订单ID
 
         private static String LAST_ORDER_NO = "";
+        private static int LAST_PAY_MODE = PAY_TYPE_ALIPAY;
 
         public void reSetPayBroadcast(Context context)
         {
@@ -295,7 +291,20 @@ public class PayFactory
             switch (payStatus)
             {
                 case PAY_STATUS_SUCCESS:
-                    onSuccess(intent.getIntExtra(KEY_PAY_TYPE, PAY_TYPE_WEIXIN));
+                    LAST_PAY_MODE = intent.getIntExtra(KEY_PAY_TYPE, PAY_TYPE_ALIPAY);
+                    onSuccess(LAST_PAY_MODE);
+                    new BaseAsyncTask(){
+                        @Override
+                        protected APIResponse doWorkBackground() throws Exception
+                        {
+                            return RechargeModel.orderQuery(LAST_ORDER_NO,LAST_PAY_MODE);
+                        }
+                        @Override
+                        protected void onSuccess(APIResponse data)
+                        {
+                            //不做处理
+                        }
+                    }.execute(context.getApplicationContext());
                     break;
                 case PAY_STATUS_CANCEL:
                     onCancel();
@@ -304,7 +313,8 @@ public class PayFactory
                     onFail();
                     break;
                 case PAY_STATUS_ORDERNO:
-                    onGetOrderNo(intent.getStringExtra(PAY_OrderNo));
+                    LAST_ORDER_NO = intent.getStringExtra(PAY_OrderNo);
+                    onGetOrderNo(intent.getStringExtra(LAST_ORDER_NO));
                     break;
 
 

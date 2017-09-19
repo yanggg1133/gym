@@ -1,4 +1,4 @@
-package com.hxs.fitnessroom.module.user.model.entity;
+package com.hxs.fitnessroom.module.pay.mode.entity;
 
 /**
  * 用户状态和余额

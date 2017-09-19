@@ -10,7 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/module_codescan" />
-            <option value="$PROJECT_DIR$/module_paylib" />
             <option value="$PROJECT_DIR$/module_sharesdk" />
             <option value="$PROJECT_DIR$/module_ushare" />
           </set>

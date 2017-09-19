@@ -15,14 +15,12 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.pay.mode.PayDepositActivity;
+import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.sports.model.QRCodeModel;
-import com.hxs.fitnessroom.module.sports.model.entity.QRCodeBean;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
-import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
@@ -37,6 +35,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
 {
     private final int RequestCode_Login = 10;
     private final int RequestCode_Scan_OpenDoor = 11;//扫码开门
+    private final int RequestCode_Scan_Deposit = 12;//押金充值
 
     private SportsMainUi mSportsMainUi;
 
@@ -109,7 +108,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void step2_checkDeposit()
     {
-        //暂跳过，直接在二维码请求的返回中判断
+
     }
 
 
@@ -172,7 +171,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     @Override
                     public void onConfirm()
                     {
-                        startActivity(PayDepositActivity.getNewIntent(getBaseActivity()));
+                        startActivityForResult(PayDepositActivity.getNewIntent(getBaseActivity()),RequestCode_Scan_Deposit);
                     }
 
                     @Override
@@ -205,6 +204,12 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             case RequestCode_Scan_OpenDoor:
                 if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN
                         && null != data)
+                {
+                    step4_handler_opendoor_code(data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN));
+                }
+                break;
+            case RequestCode_Scan_Deposit:
+                if (resultCode == Activity.RESULT_OK)
                 {
                     step4_handler_opendoor_code(data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN));
                 }

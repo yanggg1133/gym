@@ -16,13 +16,11 @@ import java.util.List;
 
 public class DepositModel
 {
-    public static APIResponse<List<DepositBean>> deposit()
+    public static APIResponse<DepositBean> deposit()
     {
         return APIHttpClient.postForm(ConstantsApiUrl.Deposit.getUrl(),
                 ParamsBuilder.buildFormParam(),
-                new TypeToken<APIResponse<List<DepositBean>>>()
-                {
-                }.getType()
+                new TypeToken<APIResponse<DepositBean>>() {}.getType()
         );
 
     }

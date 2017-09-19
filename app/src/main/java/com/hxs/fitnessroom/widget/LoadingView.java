@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     private ContentLoadingProgressBar contentLoadingProgressBar;
     private TextView network_error_tip;
     private OnReloadListener mOnReloadListener;
+    private TextView other_tip;
+    private ImageView other_tip_icon;
 
     public LoadingView(Context context)
     {
@@ -44,6 +47,8 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
         setBackgroundResource(R.color.colorPrimary);
         contentLoadingProgressBar = (ContentLoadingProgressBar) findViewById(R.id.contentLoadingProgressBar);
         network_error_tip = (TextView) findViewById(R.id.network_error_tip);
+        other_tip = (TextView) findViewById(R.id.other_tip);
+        other_tip_icon = (ImageView) findViewById(R.id.other_tip_icon);
         network_error_tip.setOnClickListener(this);
         setOnClickListener(this);
         hide();
@@ -52,14 +57,24 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     public void hide()
     {
         contentLoadingProgressBar.hide();
+        other_tip_icon.setVisibility(GONE);
+        other_tip.setVisibility(GONE);
         setVisibility(GONE);
     }
 
     public void show()
     {
-        setBackgroundResource(R.color.colorPrimary);
-        contentLoadingProgressBar.show();
-        setVisibility(VISIBLE);
+        post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                setBackgroundResource(R.color.colorPrimary);
+                setVisibility(VISIBLE);
+                contentLoadingProgressBar.show();
+
+            }
+        });
     }
 
 
@@ -71,11 +86,22 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     }
 
 
-    public void showError()
+    public void showNetworkError()
     {
         contentLoadingProgressBar.hide();
         network_error_tip.setVisibility(VISIBLE);
     }
+
+    public void showSuccess(String message)
+    {
+        setBackgroundResource(R.color.colorPrimary);
+        setVisibility(VISIBLE);
+        other_tip_icon.setVisibility(VISIBLE);
+        other_tip.setVisibility(VISIBLE);
+        other_tip_icon.setImageResource(R.mipmap.ic_pay_success);
+        other_tip.setText(message);
+    }
+
 
     @Override
     public void onClick(View v)

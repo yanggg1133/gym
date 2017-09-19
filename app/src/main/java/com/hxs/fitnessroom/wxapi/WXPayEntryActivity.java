@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -13,7 +14,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import fitnessroom.hxs.com.paylib.PayFactory;
 
 /**
  * 微信支付回调
@@ -40,31 +40,30 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
             switch (baseResp.errCode)
             {
                 case BaseResp.ErrCode.ERR_OK:
-                    //PayFactory.PayBroadcastReceiver.sendSuccess(WXPayEntryActivity.this,PayFactory.PAY_TYPE_WEIXIN);
+                    PayFactory.PayBroadcastReceiver.sendSuccess(WXPayEntryActivity.this,PayFactory.PAY_TYPE_WEIXIN);
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
-                    //PayFactory.PayBroadcastReceiver.sendCancel(WXPayEntryActivity.this);
+                    PayFactory.PayBroadcastReceiver.sendCancel(WXPayEntryActivity.this);
                     break;
                 case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                    //PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
+                    PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
                     break;
                 case BaseResp.ErrCode.ERR_UNSUPPORT:
-                    //PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
+                    PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
                     break;
                 default:
-                    //PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
+                    PayFactory.PayBroadcastReceiver.sendFail(WXPayEntryActivity.this);
                     break;
             }
         }
         finish();
-        Log.d("WXPayEntryActivity", "onResp");
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        api = WXAPIFactory.createWXAPI(this, PayFactory.WEIXIN_APP_ID, false);
+        api = WXAPIFactory.createWXAPI(this, PayFactory.PAY_APP_ID_WEIXIN, false);
         api.handleIntent(getIntent(), this);
     }
 

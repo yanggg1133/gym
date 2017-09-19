@@ -1,11 +1,11 @@
-package com.hxs.fitnessroom.module.user.model;
+package com.hxs.fitnessroom.module.pay.mode;
 
 import com.google.gson.reflect.TypeToken;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
-import com.hxs.fitnessroom.module.user.model.entity.UserAccountBean;
+import com.hxs.fitnessroom.module.pay.mode.entity.UserAccountBean;
 
 /**
  * 获取用户状态和余额接口

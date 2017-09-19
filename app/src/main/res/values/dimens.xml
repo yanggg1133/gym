@@ -5,6 +5,8 @@
     <dimen name="item_height">50dp</dimen>
     <dimen name="item_height_big">60dp</dimen>
 
+    <dimen name="toolbar_height">40dp</dimen>
+
     <!-- 个人中心 -->
     <dimen name="setting_item_height">@dimen/item_height</dimen>
     <dimen name="setting_item_icon_size">24dp</dimen>

@@ -5,6 +5,7 @@ import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
+import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.mode.entity.RechargeBean;
 import com.hxs.fitnessroom.module.pay.mode.entity.TopupAmountBean;
 
@@ -25,7 +26,7 @@ public class RechargeModel
      * @param type    支付动作
      * @return
      */
-    public static APIResponse<RechargeBean> addRecharge(int payMode, String amount, int type)
+    public static APIResponse<RechargeBean> addRecharge(@PayFactory.PayType int payMode, String amount, int type)
     {
         return APIHttpClient.postForm(ConstantsApiUrl.AddRecharge.getUrl(),
                 ParamsBuilder.buildFormParam()

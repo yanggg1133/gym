@@ -12,34 +12,39 @@ import java.lang.ref.WeakReference;
 
 /**
  * 异步任务基类，用于处理一些须要重复处理的事情
+ *
+ * 注意：如果传入的Context context为BaseActivity
+ *      任务异步执行完毕后，会判断{@link BaseActivity#isDestroyed()},如果为true ,
+ *      则不会继续往下执行
+ *
  * Created by jie on 16-7-4.
  */
 public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIResponse>
 {
-    private WeakReference<BaseActivity> mBaseActivity;
+    private WeakReference<Context> mContext;
     private WeakReference<BaseUi> mBaseUi;
 
     /**
      * 线程任务执行必须调用下面三个方法的其中一个，不可调用原生中的{@link AsyncTask#execute(Object[])}
      * 否则会出现 {@link RuntimeException}
-     * @param baseActivity
+     * @param context
      */
-    public final void  execute(BaseActivity baseActivity)
+    public final void  execute(Context context)
     {
-        execute(baseActivity,null);
+        execute(context,null);
     }
 
-    public final void  execute(BaseActivity baseActivity,Object... objects)
+    public final void  execute(Context context,Object... objects)
     {
-        execute(baseActivity,null,objects);
+        execute(context,null,objects);
     }
 
-    public final void  execute(BaseActivity baseActivity,BaseUi baseUi,Object... objects)
+    public final void  execute(Context context,BaseUi baseUi,Object... objects)
     {
-        if (null == baseActivity)
+        if (null == context)
             throw new NullPointerException();
 
-        mBaseActivity = new WeakReference<>(baseActivity);
+        mContext = new WeakReference<>(context);
 
         mBaseUi = new WeakReference<>(baseUi);
 
@@ -50,11 +55,11 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
     @Override
     protected void onPreExecute()
     {
-        if(mBaseActivity == null )
+        if(mContext == null )
             throw new RuntimeException("------调用了错误的execute()方法，请使用BaseAsyncTask的execute(BaseActivity baseActivity)方法---------------");
 
         if (null != mBaseUi.get())
-            mBaseUi.get().endLoading();
+            mBaseUi.get().startLoading();
     }
 
     @Override
@@ -63,8 +68,8 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
         super.onCancelled();
         if (null != mBaseUi.get())
             mBaseUi = null;
-        if (null != mBaseActivity.get())
-            mBaseActivity = null;
+        if (null != mContext.get())
+            mContext = null;
     }
 
     private Exception mException;
@@ -88,10 +93,10 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
     @Override
     protected void onPostExecute(APIResponse apiResponse)
     {
-        if (null == mBaseActivity.get())
+        if (null == mContext.get())
             return;
 
-        if (mBaseActivity.get().isDestroyed())
+        if (mContext.get() instanceof BaseActivity && ((BaseActivity)mContext.get()).isDestroyed())
             return;
 
         if (null != mBaseUi.get())
@@ -130,8 +135,8 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     protected void onError(@Nullable Exception e)
     {
-        if(null != mBaseActivity.get())
-            Toast.makeText(mBaseActivity.get(),"数据加载出错！",Toast.LENGTH_SHORT).show();
+        if(null != mContext.get())
+            Toast.makeText(mContext.get(),"数据加载出错！",Toast.LENGTH_SHORT).show();
         if(null != e)
             e.printStackTrace();
     }
@@ -142,7 +147,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     protected void onAPIError(APIResponse apiResponse)
     {
-        Toast.makeText(mBaseActivity.get(),apiResponse.msg,Toast.LENGTH_SHORT);
+        Toast.makeText(mContext.get(),apiResponse.msg,Toast.LENGTH_SHORT);
         onError(null);
     }
 

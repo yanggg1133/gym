@@ -7,13 +7,17 @@ package com.hxs.fitnessroom.module.pay.mode.entity;
 
 public class RechargeBean
 {
+    public Wxpay wxpay;
+    public String alipay;
     public String OrderNo;
-    public Wxpay  wxpay;
 
-    public class Wxpay
+    public static class Wxpay
     {
-        public String token_id;
-        public String services;
-        public String appid;
+        public String noncestr;//: "i3EmF4nlyk4iXldy",
+        public String prepayid;//: "wx201708211352118d4af08bd90877969223",
+        public String partnerid;//: "wx201708211352118d4af08bd90877969223",
+        public String sign;//: "AB520E8E1E4CB0F47136A8047A78AD08",
+        public String timestamp;//: "APP"
+        public String packageValue;//: "APP"
     }
 }

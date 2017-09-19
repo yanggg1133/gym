@@ -27,16 +27,15 @@
     <!-- 顶栏 Mytoobar 统一样式 -->
     <style name="ToolbarStyle" parent="Base.V7.Theme.AppCompat.Light">
         <item name="android:id">@id/toolbar</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:layout_width">match_parent</item>
     </style>
     <!-- LoadingView 统一样式 -->
     <style name="LoadingViewStyle" >
         <item name="android:id">@id/loading_view</item>
-        <item name="android:layout_below">@id/toolbar</item>
+        <item name="android:layout_marginTop">@dimen/toolbar_height</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="layout_constraintTop_toBottomOf">@id/toolbar</item>
     </style>
 
     <!-- 文字输入框的统一样式 -->

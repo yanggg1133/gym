@@ -9,13 +9,13 @@ public enum ConstantsApiUrl
     //测试
     TestUrl("api/Test/api"),
     /** gym **************************************************/
-    StoreList("https://gym.hxsapp.com/server/Store/storeList"),//门店列表
-    AreaList("https://gym.hxsapp.com/server/Store/areaList"),//所有城市列表
+    StoreList("https://api.hxsapp.com/gym/Store/storeList"),//门店列表
+    AreaList("https://api.hxsapp.com/gym/Store/areaList"),//所有城市列表
 
-    AddRecharge("https://gym.hxsapp.com/server/Order/addRecharge"),//发起充值
+    AddRecharge("https://api.hxsapp.com/mall/GymOrder/addPay"),//发起充值
     RechargeList("https://api.hxsapp.com/gym/Order/rechargeList"),//充值金额列表
     DeQRCode("https://api.hxsapp.com/gym/Dispatcher/deQRCode"), //二维码扫描通用此入口
-    Deposit("https://api.hxsapp.com/gym/Order/deposit"), //获取押金金额
+    Deposit("https://api.hxsapp.com/gym/Base/deposit"), //获取押金金额
     GetGymUserAccount("https://api.hxsapp.com/gym/Base/getGymUserAccount"), //获取用户状态和余额
 
 

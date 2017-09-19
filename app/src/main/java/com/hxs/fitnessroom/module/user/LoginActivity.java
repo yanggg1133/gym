@@ -192,8 +192,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             APIResponse<UserBean> response = data;
             HXSUser.saveCurrentUserForLocal(response.data);
             setResult(RESULT_OK);
-            //如果身高数据为0，统一跳转设置身高，生日流程
-            if("0".equals(response.data.body_high))
+            //如果性别为未填
+            if( UserBean.SEX_TYPE_NULL == response.data.sex)
             {
                 BodyDataDialogFragment.show(getSupportFragmentManager(), LoginActivity.this);
             }

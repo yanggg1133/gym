@@ -13,8 +13,9 @@ public class UserBean
 {
     public static final int SEX_TYPE_BOY = 1;
     public static final int SEX_TYPE_GIRL = 0;
+    public static final int SEX_TYPE_NULL = -1;
 
-    @IntDef({SEX_TYPE_BOY, SEX_TYPE_GIRL})
+    @IntDef({SEX_TYPE_BOY, SEX_TYPE_GIRL,SEX_TYPE_NULL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface SexType {}
 

@@ -10,6 +10,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.WelcomeActivity;
+import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LocationUtil;
 
 /**
@@ -29,6 +30,15 @@ public class LoadingScreenActivity extends BaseActivity
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA,
         });
+
+        /**
+         * 如果性别为空，清除用户登录状态
+         */
+        if(HXSUser.isLogin() && UserBean.SEX_TYPE_NULL == HXSUser.getSex())
+        {
+            HXSUser.signOut();
+        }
+
     }
 
     @Override

@@ -150,7 +150,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected void onError(@Nullable Exception e)
         {
-            mStoreListUi.getLoadingView().showError();
+            mStoreListUi.getLoadingView().showNetworkError();
             mWorkAsyncTask = null;
         }
 

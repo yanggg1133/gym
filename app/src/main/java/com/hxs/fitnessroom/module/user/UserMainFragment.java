@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
+import com.hxs.fitnessroom.module.setting.SettingActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 
 
@@ -47,7 +48,10 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
          * 所有入口都要先判断是否登录
          */
         if (!HXSUser.isLogin())
+        {
             startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
+            return;
+        }
 
         switch (v.getId())
         {
@@ -70,7 +74,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_system://设置
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                startActivity(SettingActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.goto_recharge://去充值
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));

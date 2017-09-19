@@ -3,21 +3,30 @@ package com.hxs.fitnessroom.module.sports;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.activity.CaptureActivity;
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
+import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.pay.PayDepositActivity;
+import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
+import com.hxs.fitnessroom.module.pay.mode.UserAccountModel;
+import com.hxs.fitnessroom.module.pay.mode.entity.UserAccountBean;
+import com.hxs.fitnessroom.module.sports.model.QRCodeModel;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.LogUtil;
+import com.hxs.fitnessroom.util.ValidateUtil;
+import com.hxs.fitnessroom.util.VariableUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import fitnessroom.hxs.com.codescan.CameraUtil;
@@ -30,8 +39,12 @@ import fitnessroom.hxs.com.codescan.CameraUtil;
 public class SportsMainFragment extends BaseFragment implements View.OnClickListener
 {
     private final int RequestCode_Login = 10;
+    private final int RequestCode_Scan_OpenDoor = 11;//扫码开门
+    private final int RequestCode_Pay_Deposit = 12;//押金充值
+    private final int RequestCode_Pay_Recharge = 13;//余额充值
 
     private SportsMainUi mSportsMainUi;
+    private UserAccountBean mUserAccountBean;
 
     @Nullable
     @Override
@@ -40,14 +53,32 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         return inflater.inflate(R.layout.sports_main_fragment, container, false);
     }
 
+    private long elapsedRealtime;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
         mSportsMainUi = new SportsMainUi(this);
         mSportsMainUi.setTitle("运动");
+
+        elapsedRealtime = SystemClock.elapsedRealtime() - 1000 * 60 * 60;
     }
 
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mSportsMainUi.getSportUsingTimeView().setBase(elapsedRealtime);
+        mSportsMainUi.getSportUsingTimeView().start();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mSportsMainUi.getSportUsingTimeView().stop();
+    }
 
     @Override
     public void onClick(View v)
@@ -60,6 +91,10 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    /************************************************************************************************************
+     *** 健身房流程控制 ********************************************************************************************
+     ************************************************************************************************************/
+
     /**
      * 开始扫描 使用健身房流程
      */
@@ -69,7 +104,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     }
 
     /**
-     * 第一步检查登陆
+     * 第一步 检查登陆
      */
     private void step1_checkLogin()
     {
@@ -80,36 +115,86 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     }
 
     /**
-     * 第二步检查押金/余额/及上次消费情况
+     * 第二步 检查押金/余额/及上次消费情况
      */
     private void step2_checkDeposit()
     {
-        DialogUtil.showConfirmDialog("你尚未交押金\n暂时无法使用健身房", "取消", "去缴费",
-                getFragmentManager(),
-                new ConfirmDialog.OnDialogCallbackAdapter()
-                {
-                    @Override
-                    public void onConfirm()
-                    {
-                        if(CameraUtil.isCameraCanUse()){
-                            Intent intent = new Intent(getActivity(), CaptureActivity.class);
-                            startActivityForResult(intent, 10);
-                        }else{
-                            Toast.makeText(getContext(),"请打开此应用的摄像头权限！",Toast.LENGTH_SHORT).show();
-                        }
-                        LogUtil.dClass("onConfirm");
-                    }
-                });
+        if (mUserAccountBean == null)//初始查询，查询帐户情况
+        {
+            new QueryAccountTask().execute(getBaseActivity(), mSportsMainUi);
+        } else//初始查询完成后，判断数据
+        {
+            switch (mUserAccountBean.status)
+            {
+                case UserAccountBean.AccountStatus_NoDeposit://未交押金
+                    error_not_deposit();
+                    return;
+                case UserAccountBean.AccountStatus_NORMAL://正常
+                    //继续往下判断
+                    break;
+                case UserAccountBean.AccountStatus_BlackList://黑名单
+                    error_not_deposit();
+                    return;
+            }
+
+
+            double mincost = VariableUtil.stringToDouble(mUserAccountBean.mincost);//最低消费
+            double balance = VariableUtil.stringToDouble(mUserAccountBean.balance);//余额
+            if (balance >= 0d && balance < mincost)
+            {
+                error_insufficient_balance();//余额不满足最低消费
+                return;
+            }
+            if (0d > balance)
+            {
+                error_order_is_not_settled();//有未结算的消费
+                return;
+            }
+
+            //去扫码开门
+            step3_scan_open_door();
+        }
     }
 
 
     /**
-     * 第三步检查开始扫描
+     * 第三步 扫码开门
      */
-    private void step3_scan()
+    private void step3_scan_open_door()
     {
-
+        if (CameraUtil.isCameraCanUse())
+        {
+            Intent intent = new Intent(getActivity(), CaptureActivity.class);
+            startActivityForResult(intent, RequestCode_Scan_OpenDoor);
+        } else
+        {
+            Toast.makeText(getContext(), "请打开此应用的摄像头权限！", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    /**
+     * 第四步 处理开门二维码
+     */
+    private void step4_handler_opendoor_code(String openDoorCode)
+    {
+        if (ValidateUtil.isEmpty(openDoorCode))
+        {
+            Toast.makeText(getContext(), "二维码异常，请尝试重新扫描！", Toast.LENGTH_SHORT).show();
+        } else
+        {
+            mSportsMainUi.getLoadingView().show();
+            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity());
+        }
+    }
+
+    /**
+     * 第5步 已开门，开始计算使用状态
+     */
+    private void step5_start_using()
+    {
+        mSportsMainUi.startSport();
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -123,16 +208,173 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     step2_checkDeposit();
                 }
                 break;
+            case RequestCode_Scan_OpenDoor:
+                if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN
+                        && null != data)
+                {
+                    step4_handler_opendoor_code(data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN));
+                }
+                break;
+            case RequestCode_Pay_Deposit:
+                if (resultCode == Activity.RESULT_OK)
+                {
+                    mUserAccountBean.status = UserAccountBean.AccountStatus_NORMAL;
+                    step2_checkDeposit();
+                }
+            case RequestCode_Pay_Recharge:
+                if (resultCode == Activity.RESULT_OK)
+                {
+                    double amount = data.getDoubleExtra(PayRechargeActivity.RESULT_AMOUNT, 0d);
+                    mUserAccountBean.balance = String.valueOf(VariableUtil.stringToDouble(mUserAccountBean.balance) + amount);
+                    LogUtil.dClass("最新余额：" + mUserAccountBean.balance);
+                    step2_checkDeposit();
+                }
+                break;
+        }
+    }
+
+    /************************************************************************************************************
+     *** 所有操作异常处理 ********************************************************************************************
+     ************************************************************************************************************/
+
+    /**
+     * 有未结算的订单
+     */
+    private void error_order_is_not_settled()
+    {
+        DialogUtil.showConfirmDialog("你有未结算的订单", "取消", "去充值",
+                getFragmentManager(),
+                new ConfirmDialog.OnDialogCallbackAdapter()
+                {
+                    @Override
+                    public void onConfirm()
+                    {
+
+                    }
+
+                    @Override
+                    public void onCancel()
+                    {
+                    }
+                });
+    }
+
+    /**
+     * 未交押金
+     */
+    private void error_not_deposit()
+    {
+        DialogUtil.showConfirmDialog("你尚未交押金\n暂时无法使用健身房", "取消", "去缴费",
+                getFragmentManager(),
+                new ConfirmDialog.OnDialogCallbackAdapter()
+                {
+                    @Override
+                    public void onConfirm()
+                    {
+                        startActivityForResult(PayDepositActivity.getNewIntent(getBaseActivity()), RequestCode_Pay_Deposit);
+                    }
+
+                    @Override
+                    public void onCancel()
+                    {
+                    }
+                });
+    }
+
+    /**
+     * 余额不足
+     */
+    private void error_insufficient_balance()
+    {
+        DialogUtil.showConfirmDialog("你的帐户余额\n不满足最低消费余额", "取消", "去充值",
+                getFragmentManager(),
+                new ConfirmDialog.OnDialogCallbackAdapter()
+                {
+                    @Override
+                    public void onConfirm()
+                    {
+                        startActivityForResult(PayRechargeActivity.getNewIntent(getBaseActivity()), RequestCode_Pay_Recharge);
+                    }
+
+                    @Override
+                    public void onCancel()
+                    {
+                    }
+                });
+    }
+
+
+    /****************************************************************************************************
+     * 服务端请求 ****************************************************************************************
+     ****************************************************************************************************/
+
+    /**
+     * 扫码开门
+     */
+    class OpenDoorAsyncTask extends BaseAsyncTask
+    {
+        private String code;
+
+        public OpenDoorAsyncTask(String code)
+        {
+            this.code = code;
+        }
+
+        @Override
+        protected APIResponse doWorkBackground() throws Exception
+        {
+            return QRCodeModel.deQRCode(code);
+        }
+
+        @Override
+        protected void onAPIError(APIResponse apiResponse)
+        {
+            if (APIResponse.error_order_is_not_settled.equals(apiResponse.code))
+            {
+                error_order_is_not_settled();
+            } else if (APIResponse.error_insufficient_balance.equals(apiResponse.code))
+            {
+                error_insufficient_balance();
+            } else if (APIResponse.error_not_deposit.equals(apiResponse.code))
+            {
+                error_not_deposit();
+            } else
+            {
+                super.onAPIError(apiResponse);
+            }
+        }
+
+
+        @Override
+        protected void onSuccess(APIResponse data)
+        {
+            mSportsMainUi.getLoadingView().hide();
+            step5_start_using();
+        }
+    }
+
+    /**
+     * 查询用户帐户情况
+     */
+    class QueryAccountTask extends BaseAsyncTask
+    {
+        @Override
+        protected APIResponse doWorkBackground() throws Exception
+        {
+            return UserAccountModel.getGymUserAccount();
+        }
+
+        @Override
+        protected void onSuccess(APIResponse data)
+        {
+            APIResponse<UserAccountBean> userAccount = data;
+
+            mUserAccountBean = userAccount.data;
+            if (null == mUserAccountBean)
+                throw new IllegalArgumentException("状态数据不正确");
+            step2_checkDeposit();
         }
     }
 
 
-    /** 开启扫描二维码代码*******************************************
-     if(CameraUtil.isCameraCanUse()){
-     Intent intent = new Intent(getActivity(), CaptureActivity.class);
-     startActivityForResult(intent, 10);
-     }else{
-     Toast.makeText(getContext(),"请打开此应用的摄像头权限！",Toast.LENGTH_SHORT).show();
-     }
-     ***************************************************************/
 }

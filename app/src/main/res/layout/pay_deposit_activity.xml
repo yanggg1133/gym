@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:text="押金"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        />
+
+    <TextView
+        android:id="@+id/pay_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:text="￥250"
+        android:textColor="@color/colorListItemTitleText"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        />
+
+    <View
+        android:id="@+id/divider_line_1"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="@dimen/item_height"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:text="选择支付方式"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        />
+
+    <View
+        android:id="@+id/divider_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/item_height"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:src="@mipmap/ic_pay_zhifubao"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="64dp"
+        android:text="支付宝支付"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        />
+
+    <ImageView
+        android:id="@+id/pay_select_alipy_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_pay_select_yes"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        />
+
+    <View
+        android:id="@+id/pay_select_alipy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        />
+
+
+    <View
+        android:id="@+id/divider_line_3"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="@dimen/item_height_big"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:src="@mipmap/ic_pay_weixin"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="64dp"
+        android:text="微信支付"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
+
+    <ImageView
+        android:id="@+id/pay_select_weixin_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_pay_select_no"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
+
+    <View
+        android:id="@+id/pay_select_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
+
+    <View
+        android:id="@+id/divider_line_4"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="@dimen/item_height"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
+
+    <TextView
+        android:id="@+id/goto_pay"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="去支付"
+        android:textSize="18dp"
+        android:gravity="center"
+        />
+
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
+
+</android.support.constraint.ConstraintLayout>

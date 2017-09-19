@@ -151,6 +151,10 @@ public class HXSUser
     {
         return null == currentUser ? "" : currentUser.sex == UserBean.SEX_TYPE_BOY ? "男" : "女";
     }
+    public static int getSex()
+    {
+        return null == currentUser ? UserBean.SEX_TYPE_NULL : currentUser.sex ;
+    }
 
     public static String getUserId()
     {
@@ -202,9 +206,7 @@ public class HXSUser
                 {
                     APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
                     return apiResponse;
-                } catch (Exception e)
-                {
-                }
+                } catch (Exception e) {}
                 return null;
             }
 

@@ -5,9 +5,8 @@ package com.hxs.fitnessroom.module.pay.mode.entity;
  * Created by je on 17/09/17.
  */
 
-public class DepositBean {
-
-
+public class DepositBean
+{
     /**
      * deposit : 30
      */

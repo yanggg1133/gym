@@ -14,11 +14,13 @@ import java.util.List;
  * Created by je on 17/09/17.
  */
 
-public class DepositModel {
-    public static APIResponse<List<DepositBean>> deposit(){
+public class DepositModel
+{
+    public static APIResponse<DepositBean> deposit()
+    {
         return APIHttpClient.postForm(ConstantsApiUrl.Deposit.getUrl(),
-        ParamsBuilder.buildFormParam(),
-        new TypeToken<APIResponse<List<DepositBean>>>(){}.getType()
+                ParamsBuilder.buildFormParam(),
+                new TypeToken<APIResponse<DepositBean>>() {}.getType()
         );
 
     }

@@ -108,8 +108,6 @@ dependencies {
     //图片加载
     //二维码扫描
     compile project(':module_codescan')
-    //第三方支付
-    compile project(':module_paylib')
     //友盟第三方登录及分享
     //compile project(':module_ushare')
     //上下滚动选择器

@@ -9,8 +9,7 @@
         style="@style/ToolbarStyle"
         app:layout_constraintTop_toTopOf="parent"
         />
-
-
+    <!-- 健身房 未使用 的界面 -->
     <TextView
         android:id="@+id/text_welcome"
         android:layout_width="wrap_content"
@@ -26,7 +25,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/start_scan"
         />
-
     <TextView
         android:id="@+id/start_scan"
         android:layout_below="@+id/text_welcome"
@@ -37,10 +35,13 @@
         android:textColor="#ffffff"
         android:gravity="center"
         android:background="@drawable/bg_gradient_d068ff_e452b1"
-
         app:layout_constraintTop_toBottomOf="@+id/text_welcome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+
+    <!-- 健身房使用中的界面 -->
+    <include layout="@layout/sports_main_using_include"/>
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle" />
 </android.support.constraint.ConstraintLayout>

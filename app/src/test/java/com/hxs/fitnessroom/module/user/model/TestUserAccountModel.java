@@ -1,8 +1,8 @@
 package com.hxs.fitnessroom.module.user.model;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.pay.mode.UserAccountModel;
-import com.hxs.fitnessroom.module.pay.mode.entity.UserAccountBean;
+import com.hxs.fitnessroom.module.pay.model.UserAccountModel;
+import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 
 import org.junit.Test;
 

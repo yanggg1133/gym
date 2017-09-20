@@ -79,7 +79,7 @@ public class UserMainUi extends BaseUi
         setting_service.setValue(R.drawable.ic_user_kefu, "我的客服", null);
         setting_service.hideLine();
         setting_message.setValue(R.drawable.ic_user_xiaoxi, "我的消息", null);
-        setting_system.setValue(R.drawable.ic_user_shezhi, "我的消息", null);
+        setting_system.setValue(R.drawable.ic_user_shezhi, "我的设置", null);
     }
 
     public void initUserInfo()

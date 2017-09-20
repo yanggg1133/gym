@@ -149,7 +149,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     protected void onError(@Nullable Exception e)
     {
-        if(null != mContext.get())
+        if(null != mContext.get() && e != null)
             Toast.makeText(mContext.get(),"数据加载出错！",Toast.LENGTH_SHORT).show();
         if(null != e)
             e.printStackTrace();

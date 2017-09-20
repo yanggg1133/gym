@@ -1,5 +1,8 @@
 package com.hxs.fitnessroom.module.sports.ui;
 
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -7,6 +10,11 @@ import android.widget.TextView;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
+import com.hxs.fitnessroom.util.DateUtil;
+import com.hxs.fitnessroom.util.LogUtil;
+
+import java.text.DecimalFormat;
 
 /**
  * 运动 主界面UI操作类
@@ -23,7 +31,15 @@ public class SportsMainUi extends BaseUi
     private final Chronometer sport_using_time;
     private final View sport_action_using_layout;
     private final View text_welcome;
-    private long elapsedRealtime;
+    private final TextView sport_using_tip;
+    private final TextView sport_store_name;
+    private final TextView sport_store_time;
+    private final TextView sport_using_money;
+    private final TextView sport_lockers_status;
+    private final TextView sport_readmill_status;
+    private final TextView leave_tip_content;
+    private Long startTimeCaceh;
+    private boolean isUsingSport = false;
 
     public SportsMainUi(BaseFragment baseFragment)
     {
@@ -36,6 +52,19 @@ public class SportsMainUi extends BaseUi
         sport_using_time = findViewById(R.id.sport_using_time);
         text_welcome = findViewById(R.id.text_welcome);
         sport_action_using_layout = findViewById(R.id.sport_action_using_layout);
+
+        /**
+         * 界面显示字段
+         */
+        sport_using_tip = findViewById(R.id.sport_using_tip);
+        sport_store_name = findViewById(R.id.sport_store_name);
+        sport_store_time = findViewById(R.id.sport_store_time);
+        sport_using_money = findViewById(R.id.sport_using_money);
+        sport_lockers_status = findViewById(R.id.sport_lockers_status);
+        sport_readmill_status = findViewById(R.id.sport_readmill_status);
+        leave_tip_content = findViewById(R.id.leave_tip_content);
+
+
         initOnclick();
     }
 
@@ -62,28 +91,64 @@ public class SportsMainUi extends BaseUi
 
     /**
      * 开始显示运动界面
+     *
+     * @param userDeviceStatus
      */
-    public void startSport()
+    public void startSportView(UserDeviceStatusBean userDeviceStatus)
     {
         sport_action_using_layout.setVisibility(View.VISIBLE);
         start_scan.setVisibility(View.GONE);
         text_welcome.setVisibility(View.GONE);
+
+        sport_using_tip.setText(userDeviceStatus.tips);
+        sport_store_name.setText(userDeviceStatus.store.name);
+        sport_store_time.setText(userDeviceStatus.store.openTime);
+        leave_tip_content.setText(userDeviceStatus.warmimg);
+        sport_using_money.setText(userDeviceStatus.store.feeDesc);
+
+        setIsUsing(sport_lockers_status, userDeviceStatus.locker.status);
+        setIsUsing(sport_readmill_status, userDeviceStatus.run.status);
+        /**
+         * 计算 开始使用时间与服务当前时间的时间差
+         * 然后用
+         */
+        startTimeCaceh = new Long(userDeviceStatus.startTime);
+        long time = DateUtil.timeMillsDifference(System.currentTimeMillis(),startTimeCaceh);
+        sport_using_time.setBase(SystemClock.elapsedRealtime() - time);
+        sport_using_time.start();
+        isUsingSport = true;
     }
 
-
-    public void setBaseTime(long baseTime)
+    private void setIsUsing(TextView usingView, int status)
     {
-        sport_using_time.setBase(baseTime);
-        sport_using_time.start();
+        if (1 == status)
+        {
+            usingView.setText("使用中");
+            usingView.setTextColor(getBaseFragment().getResources().getColor(R.color.colorListItemTitleText));
+        } else
+        {
+            usingView.setTextColor(getBaseFragment().getResources().getColor(R.color.colorListItemContentText));
+            usingView.setText("未开启");
+        }
     }
 
     public void onStart()
     {
-        sport_using_time.start();
+        if(isUsingSport)
+            sport_using_time.start();
     }
 
     public void onStop()
     {
-        sport_using_time.stop();
+        if(isUsingSport)
+            sport_using_time.stop();
+    }
+
+    public void stopSportUsingUi()
+    {
+        isUsingSport = false;
+        sport_action_using_layout.setVisibility(View.GONE);
+        start_scan.setVisibility(View.VISIBLE);
+        text_welcome.setVisibility(View.VISIBLE);
     }
 }

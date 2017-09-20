@@ -30,7 +30,7 @@
         android:layout_below="@+id/text_welcome"
         android:layout_width="250dp"
         android:layout_height="46dp"
-        android:text="扫码开始"
+        android:text="开始使用"
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:gravity="center"

@@ -43,4 +43,19 @@ public class UserAccountBean {
 
     public int doorStatus;//最低消费
 
+
+    public String tip_not_balance;//没余额时的提示语
+    public String tip_not_deposit;//没押金时的提示证
+
+
+    public String getTip_not_balance()
+    {
+        return tip_not_balance.replaceAll("\\\\n","\n");
+    }
+
+    public String getTip_not_deposit()
+    {
+        return tip_not_deposit.replaceAll("\\\\n","\n");
+    }
+
 }

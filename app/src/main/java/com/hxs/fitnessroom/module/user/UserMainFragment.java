@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
+import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.setting.SettingActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
+
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Login;
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
 
 
 /**
@@ -23,7 +27,6 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
 {
     private UserMainUi mUserMainUi;
 
-    private final int RequestCode_Login = 21;//登录跳转
 
     @Nullable
     @Override
@@ -77,7 +80,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(SettingActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.goto_recharge://去充值
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                startActivityForResult(PayRechargeActivity.getNewIntent(getBaseActivity()), RequestCode_Pay_Recharge);
                 break;
         }
     }

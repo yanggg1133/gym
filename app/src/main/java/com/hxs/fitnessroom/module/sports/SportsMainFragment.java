@@ -3,24 +3,27 @@ package com.hxs.fitnessroom.module.sports;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.zxing.activity.CaptureActivity;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayDepositActivity;
+import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
+import com.hxs.fitnessroom.module.pay.mode.RechargeModel;
 import com.hxs.fitnessroom.module.pay.mode.UserAccountModel;
+import com.hxs.fitnessroom.module.pay.mode.entity.RechargeBean;
 import com.hxs.fitnessroom.module.pay.mode.entity.UserAccountBean;
 import com.hxs.fitnessroom.module.sports.model.QRCodeModel;
+import com.hxs.fitnessroom.module.sports.model.UserDeviceModel;
 import com.hxs.fitnessroom.module.sports.model.entity.QRCodeBean;
+import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
@@ -34,6 +37,12 @@ import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import fitnessroom.hxs.com.codescan.CameraUtil;
 
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Login;
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Deposit;
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Scan_OpenDoor;
+import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_action_scan_code;
+
 /**
  * 运动主入口界面
  * Created by je on 9/2/17.
@@ -41,14 +50,11 @@ import fitnessroom.hxs.com.codescan.CameraUtil;
 
 public class SportsMainFragment extends BaseFragment implements View.OnClickListener
 {
-    private final int RequestCode_Login = 10;
-    private final int RequestCode_Scan_OpenDoor = 11;//扫码开门
-    private final int RequestCode_Pay_Deposit = 12;//押金充值
-    private final int RequestCode_Pay_Recharge = 13;//余额充值
-    private final int RequestCode_action_scan_code = 14;//进入健身房后的所有扫码行为
+
 
     private SportsMainUi mSportsMainUi;
     private UserAccountBean mUserAccountBean;
+    private UserDeviceStatusBean mUserDeviceStatus;
 
     @Nullable
     @Override
@@ -63,6 +69,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         mSportsMainUi = new SportsMainUi(this);
         mSportsMainUi.setTitle("运动");
+        registerUserUpdateBroadcastReceiver();
     }
 
     @Override
@@ -80,6 +87,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     }
 
     private boolean isScaning = false;//防止同一时间多次点击扫描二维码
+
     @Override
     public void onClick(View v)
     {
@@ -92,9 +100,9 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             case R.id.sport_action_lockers_text://扫描储物柜
             case R.id.sport_action_readmill_text://扫描器械
             case R.id.sport_action_shop_text://扫描售货机
-                if(!isScaning)
+                if (!isScaning)
                 {
-                    ScanCodeUtil.startScanCode(this,RequestCode_action_scan_code);
+                    ScanCodeUtil.startScanCode(this, RequestCode_action_scan_code);
                     isScaning = true;
                 }
                 break;
@@ -138,7 +146,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         } else//初始查询完成后，判断数据
         {
             //用户已在健身房内还未出来
-            if(UserAccountBean.DoorStatus_USING == mUserAccountBean.doorStatus)
+            if (UserAccountBean.DoorStatus_USING == mUserAccountBean.doorStatus)
             {
                 step5_start_using();
                 return;
@@ -184,7 +192,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (CameraUtil.isCameraCanUse() && !isScaning)
         {
-            ScanCodeUtil.startScanCode(this,RequestCode_Scan_OpenDoor);
+            ScanCodeUtil.startScanCode(this, RequestCode_Scan_OpenDoor);
             isScaning = true;
         } else
         {
@@ -203,19 +211,41 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         } else
         {
             mSportsMainUi.getLoadingView().show();
-            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(),mSportsMainUi);
+            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(), mSportsMainUi);
         }
     }
 
     /**
-     * 第5步 已开门，开始计算使用状态
+     * 第5步 已开门，查询用户当前设备使用状态
      */
     private void step5_start_using()
     {
-        mSportsMainUi.startSport();
+        if (null == mUserDeviceStatus)
+            new GetUserDeviceStatusTask().execute(getBaseActivity(), mSportsMainUi);
+        else
+            step6_using();
     }
 
+    /**
+     * 第6步，查询状态完成后，开始显示用户使用界面
+     */
+    private void step6_using()
+    {
+        if (mUserDeviceStatus.doorStatus == 1)
+        {
+            mSportsMainUi.startSportView(mUserDeviceStatus);
+        } else
+        {
 
+        }
+    }
+
+    /**
+     * 结束使用，跳转结算界面
+     */
+    private void step7_stopSportUsing()
+    {
+    }
 
 
     @Override
@@ -232,7 +262,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 }
                 break;
             case RequestCode_Scan_OpenDoor:
-                step4_handler_opendoor_code(ScanCodeUtil.getResultScanCode(resultCode,data));
+                step4_handler_opendoor_code(ScanCodeUtil.getResultScanCode(resultCode, data));
                 break;
             case RequestCode_Pay_Deposit:
                 if (resultCode == Activity.RESULT_OK)
@@ -240,6 +270,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     mUserAccountBean.status = UserAccountBean.AccountStatus_NORMAL;
                     step2_checkDeposit();
                 }
+                break;
             case RequestCode_Pay_Recharge:
                 if (resultCode == Activity.RESULT_OK)
                 {
@@ -250,15 +281,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 }
                 break;
             case RequestCode_action_scan_code://进入健身房后的所有扫码行为
-                String code = ScanCodeUtil.getResultScanCode(resultCode,data);
-                if(null == code)
+                String code = ScanCodeUtil.getResultScanCode(resultCode, data);
+                if (null == code)
                 {
                     ToastUtil.toastShort("扫码失败，请重新再试");
-                }
-                else
+                } else
                 {
-                    LogUtil.dClass(code);
-                    new ActionScanCodeTask(code).execute(getBaseActivity(),mSportsMainUi);
+                    new ActionScanCodeTask(code).execute(getBaseActivity(), mSportsMainUi);
                 }
                 break;
         }
@@ -268,12 +297,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      *** 所有操作异常处理 ********************************************************************************************
      ************************************************************************************************************/
 
+
     /**
      * 有未结算的订单
      */
     private void error_order_is_not_settled()
     {
-        DialogUtil.showConfirmDialog("你有未结算的订单", "取消", "去充值",
+        DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_balance(), "取消", "去充值",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()
                 {
@@ -295,7 +325,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_not_deposit()
     {
-        DialogUtil.showConfirmDialog("你尚未交押金\n暂时无法使用健身房", "取消", "去缴费",
+        DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_deposit(), "取消", "去缴费",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()
                 {
@@ -317,7 +347,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_insufficient_balance()
     {
-        DialogUtil.showConfirmDialog("你的帐户余额\n不满足最低消费余额", "取消", "去充值",
+        DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_balance(), "取消", "去充值",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()
                 {
@@ -332,6 +362,17 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     {
                     }
                 });
+    }
+
+    /**
+     * 当用户登录状态产生变化
+     * 清空数据
+     */
+    @Override
+    public void onUserUpdate()
+    {
+        mUserAccountBean = null;
+        mUserDeviceStatus = null;
     }
 
 
@@ -430,6 +471,95 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         protected void onSuccess(APIResponse data)
         {
             APIResponse<QRCodeBean> userAccount = data;
+            if (QRCodeBean.DEVICE_TYPE_DOOR.equals(userAccount.data.type))
+            {
+                new SportsPayTask().execute(getBaseActivity());
+            } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(userAccount.data.type))
+            {
+
+            } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(userAccount.data.type))
+            {
+
+            } else if (QRCodeBean.DEVICE_TYPE_SHOP.equals(userAccount.data.type))
+            {
+
+            } else
+            {
+
+            }
         }
     }
+
+    /**
+     * 查询用户当前设备使用情况
+     */
+    class GetUserDeviceStatusTask extends BaseAsyncTask
+    {
+
+        @Override
+        protected APIResponse doWorkBackground() throws Exception
+        {
+            int count = 0;
+            while (count < 5)
+            {
+                APIResponse<UserDeviceStatusBean> userDeviceStatus = UserDeviceModel.getUserDeviceStatus();
+                if(userDeviceStatus.isSuccess())
+                {
+                    return userDeviceStatus;
+                }
+                Thread.sleep(1000*count);
+                count++;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onSuccess(APIResponse data)
+        {
+            APIResponse<UserDeviceStatusBean> userDeviceStatus = data;
+            mUserDeviceStatus = userDeviceStatus.data;
+            step6_using();
+        }
+    }
+
+    /**
+     * 发起结算
+     */
+    class SportsPayTask extends BaseAsyncTask
+    {
+        @Override
+        protected APIResponse doWorkBackground() throws Exception
+        {
+
+
+            int count = 0;
+            while (count < 5)
+            {
+                APIResponse<RechargeBean> response = RechargeModel.addRecharge(PayFactory.PAY_TYPE_BALANCE,null,PayFactory.PAY_ACTION_SPORTS);
+                if(response.isSuccess())
+                {
+                    return response;
+                }
+                Thread.sleep(1000*count);
+                count++;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onError(@Nullable Exception e)
+        {
+            super.onError(e);
+            PayFactory.PayBroadcastReceiver.sendFail(getContext());
+        }
+
+        @Override
+        protected void onSuccess(APIResponse data)
+        {
+            APIResponse<RechargeBean> response = data;
+            mSportsMainUi.stopSportUsingUi();
+            step7_stopSportUsing();
+
+        }
+    };
 }

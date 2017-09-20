@@ -31,6 +31,14 @@ import java.util.List;
 
 public class BaseActivity extends AppCompatActivity
 {
+    public static final int RequestCode_Login = 10;//登录跳转
+    public static final int RequestCode_Scan_OpenDoor = 11;//扫码开门
+    public static final int RequestCode_Pay_Deposit = 12;//押金充值
+    public static final int RequestCode_Pay_Recharge = 13;//余额充值
+    public static final int RequestCode_action_scan_code = 14;//进入健身房后的所有扫码行为
+
+
+
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 111;
     private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
 

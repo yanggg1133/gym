@@ -15,7 +15,7 @@ import java.util.List;
 public class TestDepositModel {
     @Test
     public void testDepositModel(){
-        APIResponse<List<DepositBean>> deposit = DepositModel.deposit();
+        APIResponse<DepositBean> deposit = DepositModel.deposit();
         System.out.println(deposit.data.toString());
     }
 }

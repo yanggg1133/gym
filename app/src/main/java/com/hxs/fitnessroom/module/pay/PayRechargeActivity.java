@@ -247,6 +247,7 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onGetOrderNo(String orderNo)
         {
+            mBaseUi.getLoadingView().hide();
             goto_pay.setEnabled(true);
         }
 
@@ -260,19 +261,21 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
             PayRechargeActivity.this.setResult(RESULT_OK,intent);
             mBaseUi.getLoadingView().showSuccess("支付成功");
             mHandler.sendEmptyMessageDelayed(0, 1500);//1.5秒后关闭界面
+            mBaseUi.getLoadingView().hide();
         }
 
         @Override
         public void onCancel()
         {
             goto_pay.setEnabled(true);
-
+            mBaseUi.getLoadingView().hide();
         }
 
         @Override
         public void onFail()
         {
             goto_pay.setEnabled(true);
+            mBaseUi.getLoadingView().hide();
             ToastUtil.toastShort("支付失败");
         }
     }

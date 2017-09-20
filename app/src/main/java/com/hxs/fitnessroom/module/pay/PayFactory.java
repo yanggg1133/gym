@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.alipay.sdk.app.PayTask;
@@ -49,6 +50,7 @@ public class PayFactory
     public static final int PAY_ACTION_RECHARGE = 1; //充值
     public static final int PAY_ACTION_DEPOSIT = 2; //押金
     public static final int PAY_ACTION_SHOP = 3; //售货机
+    public static final int PAY_ACTION_SPORTS = 4; //健身房结算
 
 
     @IntDef({PAY_TYPE_ALIPAY, PAY_TYPE_WEIXIN, PAY_TYPE_BALANCE})
@@ -57,13 +59,12 @@ public class PayFactory
     {
     }
 
-    @IntDef({PAY_ACTION_RECHARGE, PAY_ACTION_DEPOSIT, PAY_ACTION_SHOP})
+    @IntDef({PAY_ACTION_RECHARGE, PAY_ACTION_DEPOSIT, PAY_ACTION_SHOP,PAY_ACTION_SPORTS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface PayAction
     {
     }
-
-    public static final String PAY_APP_ID_WEIXIN = "wxc8dffd8b43fbc9a4";
+    public static final String PAY_APP_ID_WEIXIN = "wxd65b048e01717c3c";
 
     public static Alipay createAlipay(BaseActivity baseActivity)
     {
@@ -228,6 +229,13 @@ public class PayFactory
                 protected APIResponse doWorkBackground() throws Exception
                 {
                     return RechargeModel.addRecharge(payMode,amount,action);
+                }
+
+                @Override
+                protected void onError(@Nullable Exception e)
+                {
+                    super.onError(e);
+                    PayFactory.PayBroadcastReceiver.sendFail(getContext());
                 }
 
                 @Override

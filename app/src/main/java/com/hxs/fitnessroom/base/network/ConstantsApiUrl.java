@@ -18,6 +18,7 @@ public enum ConstantsApiUrl
     DeQRCode("https://api.hxsapp.com/gym/Dispatcher/deQRCode"), //二维码扫描通用此入口
     Deposit("https://api.hxsapp.com/gym/Base/deposit"), //获取押金金额
     GetGymUserAccount("https://api.hxsapp.com/gym/Base/getGymUserAccount"), //获取用户状态和余额
+    GetUserDeviceStatus("https://api.hxsapp.com/gym/Base/getUserDeviceStatus"), //获取当前用户设备使用情况
 
 
 

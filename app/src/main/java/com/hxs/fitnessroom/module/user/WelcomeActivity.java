@@ -42,10 +42,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.login_button:
-                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_LOGIN),0);
+                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_LOGIN),RequestCode_Login);
                 break;
             case R.id.register_button:
-                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_REGISTER),0);
+                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_REGISTER),RequestCode_Login);
                 break;
             case R.id.dont_login_button:
                 startActivity(MainActivity.getNewIntent(WelcomeActivity.this));

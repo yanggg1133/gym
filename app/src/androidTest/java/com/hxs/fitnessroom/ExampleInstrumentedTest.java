@@ -1,8 +1,10 @@
 package com.hxs.fitnessroom;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,8 @@ public class ExampleInstrumentedTest
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
+        System.out.println(System.currentTimeMillis());
+        System.out.println(SystemClock.elapsedRealtime());
         assertEquals("com.hxs.fitnessroom", appContext.getPackageName());
     }
 }

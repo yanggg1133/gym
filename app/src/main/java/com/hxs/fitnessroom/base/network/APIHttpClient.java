@@ -9,6 +9,7 @@ import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
+import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
 import java.io.BufferedReader;
@@ -85,7 +86,8 @@ public class APIHttpClient
             setDefParams(params);
             APIResponse<T> apiResponse = new Gson().fromJson(post(url,params.toParamsStr()), typeToken);
             return apiResponse;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             throw new IllegalArgumentException(e);
         }
     }
@@ -108,7 +110,7 @@ public class APIHttpClient
     }
 
 
-    private static String post(String urlapi,String params) throws NetworkErrorException
+    private static String post(String urlapi,String params) throws NetworkErrorException, UnknownHostException
     {
         HttpURLConnection httpConn = null;
         OutputStream outputStream = null;
@@ -172,10 +174,14 @@ public class APIHttpClient
                 }
                 return sb.toString();
             }
-        } catch (Exception ex)
+        }
+        catch (UnknownHostException ue)
         {
-            ex.printStackTrace();
-            throw new NetworkErrorException();
+            throw ue;
+        }
+        catch (Exception ex)
+        {
+            throw new NetworkErrorException(ex);
         } finally
         {
             if (null != outputStream) {

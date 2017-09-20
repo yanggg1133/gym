@@ -72,6 +72,25 @@ public class BaseUi
             return (T) mBaseFragment.findViewById(id);
     }
 
+    /**
+     * 查找View 并自动设置View的点击事件
+     * 点击事件为 Activity 或 framgert的现实
+     * @param id
+     * @param <T>
+     * @return
+     */
+    public <T extends View> T findViewByIdAndSetClick(@IdRes int id)
+    {
+        T t = null;
+        if (null != mBaseActivity)
+            t = (T) mBaseActivity.findViewById(id);
+        else
+            t = (T) mBaseFragment.findViewById(id);
+        if(null != t)
+            t.setOnClickListener(mOnClickListener);
+        return t;
+    }
+
     public BaseActivity getBaseActivity()
     {
         return mBaseActivity;

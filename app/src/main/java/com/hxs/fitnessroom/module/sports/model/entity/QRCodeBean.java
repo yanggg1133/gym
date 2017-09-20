@@ -5,7 +5,8 @@ package com.hxs.fitnessroom.module.sports.model.entity;
  * Created by je on 17/09/17.
  */
 
-public class QRCodeBean {
+public class QRCodeBean
+{
 
     /**
      * data : 储物柜已打开

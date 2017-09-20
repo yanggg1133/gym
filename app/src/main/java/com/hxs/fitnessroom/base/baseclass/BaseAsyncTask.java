@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.util.ToastUtil;
 
 import java.lang.ref.WeakReference;
+import java.net.UnknownHostException;
 
 /**
  * 异步任务基类，用于处理一些须要重复处理的事情
@@ -101,18 +103,28 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
 
         if (null != mBaseUi.get())
             mBaseUi.get().endLoading();
-
-        if (mException instanceof IllegalArgumentException
-                && mException.getCause() != null
-                && mException.getCause() instanceof NetworkErrorException)
+        if(mException != null)
         {
-            onNetworkError((NetworkErrorException) mException.getCause());
-            return;
-        }
-        if (mException instanceof Exception)
-        {
-            onError(mException);
-            return;
+            if (mException instanceof IllegalArgumentException
+                    && mException.getCause() != null
+                    && mException.getCause() instanceof UnknownHostException)
+            {
+                ToastUtil.toastShort("没找到Host地址");
+                onError(null);
+                return;
+            }
+            else if (mException instanceof IllegalArgumentException
+                    && mException.getCause() != null
+                    && mException.getCause() instanceof NetworkErrorException)
+            {
+                onNetworkError((NetworkErrorException) mException.getCause());
+                return;
+            }
+            else
+            {
+                onError(mException);
+                return;
+            }
         }
 
         try

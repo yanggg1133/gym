@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 
 import java.lang.ref.WeakReference;
@@ -33,12 +34,12 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     public final void  execute(Context context)
     {
-        execute(context,null);
+        execute(context,null,null);
     }
 
-    public final void  execute(Context context,Object... objects)
+    public final void  execute(Context context,BaseUi baseUi)
     {
-        execute(context,null,objects);
+        execute(context,baseUi,null);
     }
 
     public final void  execute(Context context,BaseUi baseUi,Object... objects)
@@ -62,6 +63,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
 
         if (null != mBaseUi.get())
             mBaseUi.get().startLoading();
+
     }
 
     @Override
@@ -103,6 +105,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
 
         if (null != mBaseUi.get())
             mBaseUi.get().endLoading();
+
         if(mException != null)
         {
             if (mException instanceof IllegalArgumentException

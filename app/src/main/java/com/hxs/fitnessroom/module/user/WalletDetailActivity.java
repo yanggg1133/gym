@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +15,20 @@ import com.hxs.fitnessroom.module.user.model.entity.WalletDetailBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WalletDetailActivity extends BaseActivity {
+/**
+ * 钱包明细
+ */
+public class WalletDetailActivity extends BaseActivity
+{
+    public static Intent getNewIntent(Context context)
+    {
+        return new Intent(context,WalletDetailActivity.class);
+    }
+
     private BaseUi mBaseUi;
     private RecyclerView mWalletList;
     private List<WalletDetailBean> mBeanList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +40,7 @@ public class WalletDetailActivity extends BaseActivity {
         mBaseUi.setTitle("钱包明细");
         mBaseUi.setBackAction(true);
 
-        initTest();
+        //initTest();
     }
 
     private void initTest() {

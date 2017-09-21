@@ -142,7 +142,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (mUserAccountBean == null)//初始查询，查询帐户情况
         {
-            new QueryAccountTask().execute(getBaseActivity(), mSportsMainUi);
+            new QueryAccountTask().execute(getBaseActivity(),mSportsMainUi);
         } else//初始查询完成后，判断数据
         {
             //用户已在健身房内还未出来
@@ -210,8 +210,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             Toast.makeText(getContext(), "二维码异常，请尝试重新扫描！", Toast.LENGTH_SHORT).show();
         } else
         {
-            mSportsMainUi.getLoadingView().show();
-            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(), mSportsMainUi);
+            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(),mSportsMainUi);
         }
     }
 
@@ -221,9 +220,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     private void step5_start_using()
     {
         if (null == mUserDeviceStatus)
-            new GetUserDeviceStatusTask().execute(getBaseActivity(), mSportsMainUi);
+        {
+            new GetUserDeviceStatusTask().execute(getBaseActivity(),mSportsMainUi);
+        }
         else
+        {
             step6_using();
+        }
     }
 
     /**
@@ -243,8 +246,9 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     /**
      * 结束使用，跳转结算界面
      */
-    private void step7_stopSportUsing()
+    private void step7_stopSportUsing(RechargeBean.BalancePay balancePay)
     {
+        startActivity(SportsEndingActivity.getNewIntent(getBaseActivity(),balancePay));
     }
 
 
@@ -287,7 +291,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     ToastUtil.toastShort("扫码失败，请重新再试");
                 } else
                 {
-                    new ActionScanCodeTask(code).execute(getBaseActivity(), mSportsMainUi);
+                    new ActionScanCodeTask(code).execute(getBaseActivity(),mSportsMainUi);
                 }
                 break;
         }
@@ -420,7 +424,6 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         @Override
         protected void onSuccess(APIResponse data)
         {
-            mSportsMainUi.getLoadingView().hide();
             step5_start_using();
         }
     }
@@ -467,22 +470,26 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             return QRCodeModel.deQRCode(code);
         }
 
+
         @Override
         protected void onSuccess(APIResponse data)
         {
-            APIResponse<QRCodeBean> userAccount = data;
-            if (QRCodeBean.DEVICE_TYPE_DOOR.equals(userAccount.data.type))
+            APIResponse<QRCodeBean> qRCodeBean = data;
+            if (QRCodeBean.DEVICE_TYPE_DOOR.equals(qRCodeBean.data.type))
             {
+                mSportsMainUi.getLoadingView().showByNullBackground();
                 new SportsPayTask().execute(getBaseActivity(),mSportsMainUi);
-            } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(userAccount.data.type))
+            } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(qRCodeBean.data.type))
             {
-
-            } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(userAccount.data.type))
+                mUserDeviceStatus.locker.status = mUserDeviceStatus.locker.status == 0 ? 1 :0;
+                mSportsMainUi.setLockerIsUsing(mUserDeviceStatus.locker.status);
+            } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(qRCodeBean.data.type))
             {
-
-            } else if (QRCodeBean.DEVICE_TYPE_SHOP.equals(userAccount.data.type))
+                mUserDeviceStatus.run.status = mUserDeviceStatus.run.status == 0 ? 1 :0;
+                mSportsMainUi.setRunIsUsing(mUserDeviceStatus.run.status);
+            } else if (QRCodeBean.DEVICE_TYPE_SHOP.equals(qRCodeBean.data.type))
             {
-
+//                qRCodeBean.data.
             } else
             {
 
@@ -499,8 +506,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            int count = 0;
-            while (count < 5)
+            int count = 1;
+            while (count <= 5)
             {
                 APIResponse<UserDeviceStatusBean> userDeviceStatus = UserDeviceModel.getUserDeviceStatus();
                 if(userDeviceStatus.isSuccess())
@@ -512,6 +519,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             }
             return null;
         }
+
 
         @Override
         protected void onSuccess(APIResponse data)
@@ -532,8 +540,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         {
 
 
-            int count = 0;
-            while (count < 5)
+            int count = 1;
+            while (count <= 5)
             {
                 APIResponse<RechargeBean> response = RechargeModel.addRecharge(PayFactory.PAY_TYPE_BALANCE,null,PayFactory.PAY_ACTION_SPORTS);
                 if(response.isSuccess())
@@ -560,7 +568,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             mUserDeviceStatus = null;
             mUserAccountBean = null;
             mSportsMainUi.stopSportUsingUi();
-            step7_stopSportUsing();
+            step7_stopSportUsing(response.data.balancePay);
         }
     }
 }

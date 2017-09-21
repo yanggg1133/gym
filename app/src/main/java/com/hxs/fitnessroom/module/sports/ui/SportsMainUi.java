@@ -106,8 +106,8 @@ public class SportsMainUi extends BaseUi
         leave_tip_content.setText(userDeviceStatus.warmimg);
         sport_using_money.setText(userDeviceStatus.store.feeDesc);
 
-        setIsUsing(sport_lockers_status, userDeviceStatus.locker.status);
-        setIsUsing(sport_readmill_status, userDeviceStatus.run.status);
+        setLockerIsUsing(userDeviceStatus.locker.status);
+        setRunIsUsing(userDeviceStatus.run.status);
         /**
          * 计算 开始使用时间与服务当前时间的时间差
          * 然后用
@@ -117,6 +117,23 @@ public class SportsMainUi extends BaseUi
         sport_using_time.setBase(SystemClock.elapsedRealtime() - time);
         sport_using_time.start();
         isUsingSport = true;
+    }
+
+
+    /**
+     * 设置食物柜是否使用中的状态
+     */
+    public void setLockerIsUsing(int status)
+    {
+        setIsUsing(sport_lockers_status, status);
+    }
+
+    /**
+     * 设置跑步机是否使用中
+     */
+    public void setRunIsUsing(int status)
+    {
+        setIsUsing(sport_readmill_status, status);
     }
 
     private void setIsUsing(TextView usingView, int status)

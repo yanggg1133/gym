@@ -7,9 +7,10 @@ package com.hxs.fitnessroom.module.pay.model.entity;
 
 public class RechargeBean
 {
-    public Wxpay wxpay;
     public String alipay;
     public String orderNo;
+    public Wxpay wxpay;
+    public BalancePay balancePay;
 
     public static class Wxpay
     {
@@ -20,4 +21,13 @@ public class RechargeBean
         public String timestamp;//: "APP"
         public String packageValue;//: "APP"
     }
+
+    public static class BalancePay
+    {
+        public String money;
+        public double balance;
+        public String balanceDesc;
+        public String useTime;
+    }
+
 }

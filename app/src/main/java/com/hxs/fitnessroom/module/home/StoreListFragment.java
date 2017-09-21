@@ -139,10 +139,14 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            APIResponse<List<AreaBean>> areas = StoreModel.areaList(LocationUtil.getLastLocationPoints());
-            if (areas.isSuccess())
+            if(mAreas == null)
             {
-                mAreas = areas.data;
+                APIResponse<List<AreaBean>> areas = StoreModel.areaList(LocationUtil.getLastLocationPoints());
+                if (areas.isSuccess())
+                {
+                    mAreas = areas.data;
+                    mCurrentUserSelectCity=mAreas.get(0).city;
+                }
             }
             return StoreModel.storeList(mCurrentUserSelectCity + mCurrentUserSelectCounty, LocationUtil.getLastLocationPoints(), mPageIndex);
         }
@@ -161,6 +165,10 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
             if (ValidateUtil.isNotEmpty(stores.data))
             {
                 mStoreListUi.addStoreList(stores.data);
+            }
+            if(ValidateUtil.isNotEmpty(mAreas))
+            {
+                mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
             }
             mWorkAsyncTask = null;
             mStoreListUi.getLoadingView().hide();

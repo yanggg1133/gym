@@ -113,7 +113,6 @@ public class BaseUi
 
     public void startLoading()
     {
-
     }
 
     public void endLoading()

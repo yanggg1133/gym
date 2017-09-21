@@ -5,10 +5,12 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.util.LogUtil;
 
 /**
  * 页面内嵌加载中
@@ -17,7 +19,7 @@ import com.hxs.fitnessroom.R;
 
 public class LoadingView extends RelativeLayout implements View.OnClickListener
 {
-    private ContentLoadingProgressBar contentLoadingProgressBar;
+    private ProgressBar contentLoadingProgressBar;
     private TextView network_error_tip;
     private OnReloadListener mOnReloadListener;
     private TextView other_tip;
@@ -45,7 +47,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     {
         inflate(getContext(), R.layout.widget_loading,this);
         setBackgroundResource(R.color.colorPrimary);
-        contentLoadingProgressBar = (ContentLoadingProgressBar) findViewById(R.id.contentLoadingProgressBar);
+        contentLoadingProgressBar = (ProgressBar) findViewById(R.id.contentLoadingProgressBar);
         network_error_tip = (TextView) findViewById(R.id.network_error_tip);
         other_tip = (TextView) findViewById(R.id.other_tip);
         other_tip_icon = (ImageView) findViewById(R.id.other_tip_icon);
@@ -56,7 +58,6 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
 
     public void hide()
     {
-        contentLoadingProgressBar.hide();
         other_tip_icon.setVisibility(GONE);
         other_tip.setVisibility(GONE);
         setVisibility(GONE);
@@ -71,7 +72,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
             {
                 setBackgroundResource(R.color.colorPrimary);
                 setVisibility(VISIBLE);
-                contentLoadingProgressBar.show();
+                contentLoadingProgressBar.setVisibility(VISIBLE);
 
             }
         });
@@ -82,13 +83,13 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     {
         setBackground(null);
         setVisibility(VISIBLE);
-        contentLoadingProgressBar.show();
+        contentLoadingProgressBar.setVisibility(VISIBLE);
     }
 
 
     public void showNetworkError()
     {
-        contentLoadingProgressBar.hide();
+        contentLoadingProgressBar.setVisibility(GONE);
         network_error_tip.setVisibility(VISIBLE);
     }
 
@@ -96,7 +97,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     {
         setBackgroundResource(R.color.colorPrimary);
         setVisibility(VISIBLE);
-        contentLoadingProgressBar.hide();
+        contentLoadingProgressBar.setVisibility(GONE);
         other_tip_icon.setVisibility(VISIBLE);
         other_tip.setVisibility(VISIBLE);
         other_tip_icon.setImageResource(R.mipmap.ic_pay_success);
@@ -111,7 +112,7 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
         {
             case R.id.network_error_tip:
             {
-                contentLoadingProgressBar.show();
+                contentLoadingProgressBar.setVisibility(GONE);
                 network_error_tip.setVisibility(GONE);
                 if(null != mOnReloadListener)
                 {
@@ -133,8 +134,5 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
     {
         void onReload();
     }
-
-
-
 
 }

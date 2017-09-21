@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
+import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.image.ImageLoader;
 import com.hxs.fitnessroom.widget.adapterwrapper.LoadMoreAdapterWrapper;
@@ -62,6 +64,7 @@ public class StoreListUi extends BaseUi
 
     public void addStoreList(List<StoreBean> loadMoreData)
     {
+        storeBeanList.clear();
         storeBeanList.addAll(loadMoreData);
         recyclerView.getAdapter().notifyDataSetChanged();
     }
@@ -92,12 +95,13 @@ public class StoreListUi extends BaseUi
         }
     }
 
-    static class StoreViewHolder extends RecyclerView.ViewHolder
+    static class StoreViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final ImageView store_image;
         private final TextView store_address;
         private final TextView store_distance;
         private final TextView store_name;
+        private StoreBean storeBean;
 
         public StoreViewHolder(View itemView)
         {
@@ -108,16 +112,23 @@ public class StoreListUi extends BaseUi
             store_address = (TextView) this.itemView.findViewById(R.id.store_address);
             store_distance = (TextView) this.itemView.findViewById(R.id.store_distance);
             store_name = (TextView) this.itemView.findViewById(R.id.store_name);
+            this.itemView.setOnClickListener(this);
         }
 
         public void bindData(StoreBean storeBean)
         {
+            this.storeBean = storeBean;
             store_name.setText(storeBean.name);
             store_distance.setText(storeBean.distance);
             store_address.setText(storeBean.address);
             ImageLoader.load(storeBean.img,store_image);
         }
 
+        @Override
+        public void onClick(View v)
+        {
+            WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_gymDetail.getH5Url(storeBean.uid),"健身房详情");
+        }
     }
 
 

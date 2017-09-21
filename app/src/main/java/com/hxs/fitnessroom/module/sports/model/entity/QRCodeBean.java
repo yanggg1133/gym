@@ -22,4 +22,9 @@ public class QRCodeBean
 
     public String result;//: "success",
     public String type;//: "door"  // door 门禁 run 跑步机  shop 售货机  locker 储物柜
+    
+    public String id;//: "1",
+    public String name;//: "可乐",
+    public String price;//: "￥3.50",
+    public String number;//: "1个",
 }

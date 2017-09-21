@@ -7,6 +7,7 @@
     android:padding="10dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="10dp"
+    android:background="?android:attr/selectableItemBackground"
     >
     <ImageView
         android:id="@+id/store_image"

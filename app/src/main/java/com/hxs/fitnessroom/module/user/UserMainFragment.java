@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
+import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
-import com.hxs.fitnessroom.module.setting.SettingActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
+import com.hxs.fitnessroom.module.web.WebActivity;
 
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Login;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
@@ -65,10 +66,10 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(UserWalletActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_tutorial://教程 H5
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_myTutorialList.getH5Url(""),"我的教程");
                 break;
             case R.id.setting_exercise://锻炼 H5
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_meExercise.getH5Url(""),"我的锻炼");
                 break;
             case R.id.setting_service://客服
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));

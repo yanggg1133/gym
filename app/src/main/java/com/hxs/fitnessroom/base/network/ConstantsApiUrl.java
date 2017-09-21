@@ -23,13 +23,21 @@ public enum ConstantsApiUrl
 
 
     /** account **************************************************/
-    SendSMS("https://account.hxsapp.com/user/userAccount/sendSMS"),//发验证码
-    Register("https://account.hxsapp.com/user/userAccount/register"),//注册
-    Login("https://account.hxsapp.com/user/userAccount/login"),//注册
-    ThirdPartyLogin("https://account.hxsapp.com/user/userAccount/thirdPartyLogin"),//第三方登录
-    GetSelfUserInfo("https://account.hxsapp.com/user/userInfo/getSelfUserInfo"),//获取用户信息
-    SaveUserInfo("https://account.hxsapp.com/user/userInfo/saveInfo"),//保存用户信息
+    SendSMS("https://api.hxsapp.com/account/userAccount/sendSMS"),//发验证码
+    Register("https://api.hxsapp.com/account/userAccount/register"),//注册
+    Login("https://api.hxsapp.com/account/userAccount/login"),//注册
+    ThirdPartyLogin("https://api.hxsapp.com/account/userAccount/thirdPartyLogin"),//第三方登录
+    GetSelfUserInfo("https://api.hxsapp.com/account/userInfo/getSelfUserInfo"),//获取用户信息
+    SaveUserInfo("https://api.hxsapp.com/account/userInfo/saveInfo"),//保存用户信息
 
+    /** h5相关页面 **********************************************************/
+    H5_gymDetail("https://gym.hxsapp.com/gymDetail"),//健身房详情                     ***必须传id***
+    H5_myTutorialList("https://gym.hxsapp.com/myTutorialList"),//我的课程
+    //H5_myTutorialDetail("https://gym.hxsapp.com/myTutorialDetail/"),//我的课程详情
+    H5_meExercise("https://gym.hxsapp.com/meExercise"),//我的锻炼
+    H5_recharge("https://gym.hxsapp.com/recharge"),//充值协议
+    H5_agreement("https://gym.hxsapp.com/agreement"),//用户协议
+    H5_deposit("https://gym.hxsapp.com/deposit"),//押金说明
     ;
 
     private String linkAddress;
@@ -43,6 +51,15 @@ public enum ConstantsApiUrl
         return  this.linkAddress;
     }
 
-
+    public String getH5Url(String... parames)
+    {
+        String tempLinkAddress = linkAddress;
+        if(null != parames)
+        {
+            for(String param:parames)
+                tempLinkAddress += "/" + param;
+        }
+        return tempLinkAddress;
+    }
 
 }

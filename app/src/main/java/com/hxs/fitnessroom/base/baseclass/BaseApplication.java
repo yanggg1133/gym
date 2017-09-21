@@ -10,6 +10,7 @@ import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
+import com.tencent.smtt.sdk.QbSdk;
 
 /**
  * Application基类
@@ -32,6 +33,10 @@ public class BaseApplication extends Application
         HXSUser.appInitialization(this);
         ToastUtil.appInitialization(this);
 
+        /**
+         * 腾讯x5预加载
+         */
+        QbSdk.initX5Environment(this,null);
 
 
 //        initJpush();

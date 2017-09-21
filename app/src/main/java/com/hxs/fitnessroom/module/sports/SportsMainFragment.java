@@ -473,7 +473,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             APIResponse<QRCodeBean> userAccount = data;
             if (QRCodeBean.DEVICE_TYPE_DOOR.equals(userAccount.data.type))
             {
-                new SportsPayTask().execute(getBaseActivity());
+                new SportsPayTask().execute(getBaseActivity(),mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(userAccount.data.type))
             {
 
@@ -557,9 +557,10 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         protected void onSuccess(APIResponse data)
         {
             APIResponse<RechargeBean> response = data;
+            mUserDeviceStatus = null;
+            mUserAccountBean = null;
             mSportsMainUi.stopSportUsingUi();
             step7_stopSportUsing();
-
         }
-    };
+    }
 }

@@ -15,8 +15,8 @@ import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.pay.mode.DepositModel;
-import com.hxs.fitnessroom.module.pay.mode.entity.DepositBean;
+import com.hxs.fitnessroom.module.pay.model.DepositModel;
+import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.widget.LoadingView;
 

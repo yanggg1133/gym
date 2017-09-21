@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context="com.hxs.fitnessroom.module.user.WalletDetailActivity">
 
     <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/wallet_list"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

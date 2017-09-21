@@ -6,8 +6,8 @@ package com.hxs.fitnessroom.module.user.model.entity;
  */
 
 public class WalletDetailBean {
-    String msg;
-    String date;
-    String money;
-    String payMode;
+    public String msg;
+    public String date;
+    public String money;
+    public String payMode;
 }

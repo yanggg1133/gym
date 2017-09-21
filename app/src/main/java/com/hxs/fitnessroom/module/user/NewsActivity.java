@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,12 @@ public class NewsActivity extends BaseActivity {
     private RecyclerView news_rv;
     private ArrayList<NewsBean> mNewsBeen;
 
+    public static Intent getNewIntent(Context context)
+    {
+        return new Intent(context, NewsActivity.class);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +43,9 @@ public class NewsActivity extends BaseActivity {
         for (int i = 0; i < 10; i++) {
             NewsBean newsBean = new NewsBean();
             newsBean.date = "08月0"+i+"日";
-            newsBean.detail = "测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度";
+            newsBean.msg = "测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度测度";
             newsBean.title = "标题标题标题标题标题";
+            mNewsBeen.add(newsBean);
         }
         NewsAdapter newsAdapter = new NewsAdapter(this, mNewsBeen);
         news_rv.setLayoutManager(new LinearLayoutManager(this));
@@ -45,7 +54,7 @@ public class NewsActivity extends BaseActivity {
     }
 
     private void initView() {
-        news_rv = (RecyclerView) findViewById(R.id.news_rv);
+        news_rv = (RecyclerView) findViewById(R.id.news_list);
 
     }
 }

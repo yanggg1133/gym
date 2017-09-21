@@ -1,13 +1,11 @@
-package com.hxs.fitnessroom.module.pay.mode;
+package com.hxs.fitnessroom.module.pay.model;
 
 import com.google.gson.reflect.TypeToken;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
-import com.hxs.fitnessroom.module.pay.mode.entity.DepositBean;
-
-import java.util.List;
+import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
 
 /**
  * 获取押金金额API

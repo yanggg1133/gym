@@ -74,7 +74,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_message://消息
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                startActivity(NewsActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_system://设置
                 startActivity(SettingActivity.getNewIntent(v.getContext()));

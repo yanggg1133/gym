@@ -1,8 +1,8 @@
 package com.hxs.fitnessroom.module.pay;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.module.pay.mode.RechargeModel;
-import com.hxs.fitnessroom.module.pay.mode.entity.TopupAmountBean;
+import com.hxs.fitnessroom.module.pay.model.RechargeModel;
+import com.hxs.fitnessroom.module.pay.model.entity.TopupAmountBean;
 
 import org.junit.Test;
 

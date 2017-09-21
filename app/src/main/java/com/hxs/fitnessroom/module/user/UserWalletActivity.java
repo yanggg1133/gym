@@ -14,8 +14,8 @@ import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
-import com.hxs.fitnessroom.module.pay.mode.UserAccountModel;
-import com.hxs.fitnessroom.module.pay.mode.entity.UserAccountBean;
+import com.hxs.fitnessroom.module.pay.model.UserAccountModel;
+import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.widget.LoadingView;
 
 /**

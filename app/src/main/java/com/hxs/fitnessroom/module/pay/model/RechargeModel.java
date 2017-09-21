@@ -1,4 +1,4 @@
-package com.hxs.fitnessroom.module.pay.mode;
+package com.hxs.fitnessroom.module.pay.model;
 
 import com.google.gson.reflect.TypeToken;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
@@ -6,8 +6,8 @@ import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
 import com.hxs.fitnessroom.module.pay.PayFactory;
-import com.hxs.fitnessroom.module.pay.mode.entity.RechargeBean;
-import com.hxs.fitnessroom.module.pay.mode.entity.TopupAmountBean;
+import com.hxs.fitnessroom.module.pay.model.entity.RechargeBean;
+import com.hxs.fitnessroom.module.pay.model.entity.TopupAmountBean;
 
 import java.util.List;
 

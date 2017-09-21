@@ -1,4 +1,4 @@
-package com.hxs.fitnessroom.module.pay.mode.entity;
+package com.hxs.fitnessroom.module.pay.model.entity;
 
 import android.support.annotation.IntDef;
 

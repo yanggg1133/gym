@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
@@ -29,7 +27,6 @@ public class WebActivity extends BaseActivity
 
     private WebView mWebView;
     private BaseUi mBaseUi;
-    private String APP_NAME_UA = "";//需要自定义的UserAgent参数
 
     public static void gotoWeb(Context context,String url,String title)
     {
@@ -48,6 +45,7 @@ public class WebActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         setContentView(R.layout.web_activity);
+
         mWebUrl = getIntent().getStringExtra(KEY_URL);
         mWebTitle = getIntent().getStringExtra(KEY_TITLE);
         LogUtil.dClass(mWebUrl);
@@ -64,6 +62,18 @@ public class WebActivity extends BaseActivity
         mWebView = (com.tencent.smtt.sdk.WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);// 支持js
         mWebView.getSettings().setUseWideViewPort(true); //自适应屏幕
-        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + APP_NAME_UA);
+        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + getAPPUserAgent());
+    }
+
+    /**
+     * 获取默认的必传的APP参数
+     * 放到UserAgent中
+     * @return
+     */
+    public String getAPPUserAgent()
+    {
+
+
+        return "";
     }
 }

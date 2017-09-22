@@ -10,8 +10,9 @@
     <!-- 个人中心 -->
     <dimen name="setting_item_height">@dimen/item_height</dimen>
     <dimen name="setting_item_icon_size">24dp</dimen>
-    <dimen name="setting_item_text_size">16dp</dimen>
-    <dimen name="setting_item_sub_text_size">14dp</dimen>
+    <dimen name="item_text_size">17dp</dimen>
+    <dimen name="item_sub_text_size">15dp</dimen>
+    <dimen name="item_sub_content_text_size">13dp</dimen>
 
     <!-- 登录相关 -->
     <dimen name="login_title_size">28dp</dimen>

@@ -22,4 +22,30 @@ public class DepositModel
         );
 
     }
+
+    /**
+     * 获取退押金详情
+     * @return
+     */
+    public static APIResponse<DepositBean> refundDeposit()
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.RefundDeposit.getUrl(),
+                ParamsBuilder.buildFormParam(),
+                new TypeToken<APIResponse<DepositBean>>() {}.getType()
+        );
+
+    }
+
+    /**
+     * 获取退押金详情
+     * @return
+     */
+    public static APIResponse<DepositBean> submitRefundDeposit()
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.SubmitRefundDeposit.getUrl(),
+                ParamsBuilder.buildFormParam(),
+                new TypeToken<APIResponse<DepositBean>>() {}.getType()
+        );
+
+    }
 }

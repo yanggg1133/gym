@@ -11,13 +11,15 @@ import com.hxs.fitnessroom.widget.SettingItemView;
  * Created by je on 20/09/17.
  */
 
-public class SettingUi extends BaseUi {
+public class SettingUi extends BaseUi
+{
     private final SettingItemView user_protocol;
     private final SettingItemView deposit_statement;
     private final SettingItemView top_up_protocol;
     private final SettingItemView about_our;
 
-    public SettingUi(BaseActivity baseActivity) {
+    public SettingUi(BaseActivity baseActivity)
+    {
         super(baseActivity);
         MyToolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("设置");
@@ -29,15 +31,17 @@ public class SettingUi extends BaseUi {
         initView();
     }
 
-    private void initView() {
-        user_protocol.setValue("用户协议", null);
+    private void initView()
+    {
+        user_protocol.setValue(R.mipmap.ic_setting_yonghu, "用户协议", null);
         deposit_statement.setValue(R.mipmap.ic_setting_yajin, "押金说明", null);
         top_up_protocol.setValue(R.mipmap.ic_setting_chongzhi, "充值协议", null);
         about_our.setValue(R.mipmap.ic_setting_guanyu, "关于我们", null);
     }
 
 
-    public void setOnClickListener(){
+    public void setOnClickListener()
+    {
         user_protocol.setOnClickListener(getBaseOnclick());
         deposit_statement.setOnClickListener(getBaseOnclick());
         top_up_protocol.setOnClickListener(getBaseOnclick());

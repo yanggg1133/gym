@@ -17,7 +17,7 @@ import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.pay.model.RechargeModel;
-import com.hxs.fitnessroom.module.pay.model.UserAccountModel;
+import com.hxs.fitnessroom.module.user.model.UserAccountModel;
 import com.hxs.fitnessroom.module.pay.model.entity.RechargeBean;
 import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.module.sports.model.QRCodeModel;
@@ -25,12 +25,11 @@ import com.hxs.fitnessroom.module.sports.model.UserDeviceModel;
 import com.hxs.fitnessroom.module.sports.model.entity.QRCodeBean;
 import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
-import com.hxs.fitnessroom.module.user.HXSUser;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ScanCodeUtil;
-import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.VariableUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
@@ -205,10 +204,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void step4_handler_opendoor_code(String openDoorCode)
     {
-        if (ValidateUtil.isEmpty(openDoorCode))
-        {
-            Toast.makeText(getContext(), "二维码异常，请尝试重新扫描！", Toast.LENGTH_SHORT).show();
-        } else
+        if (ValidateUtil.isNotEmpty(openDoorCode))
         {
             new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(),mSportsMainUi);
         }
@@ -286,10 +282,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 break;
             case RequestCode_action_scan_code://进入健身房后的所有扫码行为
                 String code = ScanCodeUtil.getResultScanCode(resultCode, data);
-                if (null == code)
-                {
-                    ToastUtil.toastShort("扫码失败，请重新再试");
-                } else
+                if (null != code)
                 {
                     new ActionScanCodeTask(code).execute(getBaseActivity(),mSportsMainUi);
                 }
@@ -322,6 +315,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     {
                     }
                 });
+        mUserAccountBean = null;
     }
 
     /**
@@ -344,6 +338,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     {
                     }
                 });
+        mUserAccountBean = null;
     }
 
     /**
@@ -366,6 +361,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     {
                     }
                 });
+        mUserAccountBean = null;
     }
 
     /**
@@ -489,7 +485,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 mSportsMainUi.setRunIsUsing(mUserDeviceStatus.run.status);
             } else if (QRCodeBean.DEVICE_TYPE_SHOP.equals(qRCodeBean.data.type))
             {
-//                qRCodeBean.data.
+                startActivity(SportsShopActivity.getNewIntent(getBaseActivity(),qRCodeBean.data.name,qRCodeBean.data.price,qRCodeBean.data.number,qRCodeBean.data.id));
             } else
             {
 

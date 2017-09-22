@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:paddingLeft="38dp"
     android:paddingRight="38dp"
-    tools:context="com.hxs.fitnessroom.module.user.WelcomeActivity">
+    tools:context="com.hxs.fitnessroom.module.main.WelcomeActivity">
 
 
     <TextView

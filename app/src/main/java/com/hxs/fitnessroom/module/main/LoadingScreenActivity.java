@@ -1,15 +1,13 @@
 package com.hxs.fitnessroom.module.main;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
-import com.hxs.fitnessroom.module.user.HXSUser;
-import com.hxs.fitnessroom.module.user.WelcomeActivity;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LocationUtil;
 

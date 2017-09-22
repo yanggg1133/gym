@@ -1,4 +1,4 @@
-package com.hxs.fitnessroom.module.user;
+package com.hxs.fitnessroom.module.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +7,7 @@ import android.view.View;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
-import com.hxs.fitnessroom.module.main.MainActivity;
-import com.hxs.fitnessroom.module.user.model.entity.UserBean;
-import com.hxs.fitnessroom.util.LogUtil;
-import com.hxs.fitnessroom.widget.body.BodyDataDialogFragment;
-
-import static com.baidu.location.h.k.r;
+import com.hxs.fitnessroom.module.user.LoginActivity;
 
 
 /**

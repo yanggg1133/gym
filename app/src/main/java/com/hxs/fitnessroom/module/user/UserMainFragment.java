@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
+import com.hxs.fitnessroom.module.main.WelcomeActivity;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 import com.hxs.fitnessroom.module.web.WebActivity;

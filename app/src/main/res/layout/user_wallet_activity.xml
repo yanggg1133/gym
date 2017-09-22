@@ -141,6 +141,7 @@
         android:paddingLeft="@dimen/activity_vertical_margin"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         />
 
 

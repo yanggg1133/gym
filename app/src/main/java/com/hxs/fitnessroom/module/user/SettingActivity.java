@@ -11,15 +11,18 @@ import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.user.ui.SettingUi;
 import com.hxs.fitnessroom.module.web.WebActivity;
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener{
+public class SettingActivity extends BaseActivity implements View.OnClickListener
+{
     private SettingUi mSettingUi;
+
     public static Intent getNewIntent(Context context)
     {
         return new Intent(context, SettingActivity.class);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         mSettingUi = new SettingUi(this);
@@ -27,16 +30,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.user_protocol:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_recharge.getH5Url(""),"充值协议");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_recharge.getH5Url(""), "充值协议");
                 break;
             case R.id.deposit_statement:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""),"用户协议");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""), "用户协议");
                 break;
             case R.id.top_up_protocol:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_agreement.getH5Url(""),"押金说明");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_agreement.getH5Url(""), "押金说明");
                 break;
             case R.id.about_our:
                 startActivity(AboutActivity.getNewIntent(v.getContext()));

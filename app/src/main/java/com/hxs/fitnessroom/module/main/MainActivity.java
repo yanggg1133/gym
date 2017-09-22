@@ -16,6 +16,7 @@ import com.hxs.fitnessroom.module.sports.SportsMainFragment;
 import com.hxs.fitnessroom.module.user.UserMainFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.module.home.StoreListFragment;
+import com.hxs.fitnessroom.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,12 +171,21 @@ public class MainActivity extends BaseActivity
         mNowShowFragment = currentFragment;
     }
 
+    private long exitTime = 0;
+
+    //退出确认
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                exitTime = System.currentTimeMillis();
+            } else {
+                moveTaskToBack(false);
+                return true;
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

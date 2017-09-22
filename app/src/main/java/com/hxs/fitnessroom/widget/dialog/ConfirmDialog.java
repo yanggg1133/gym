@@ -114,7 +114,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
                 break;
             case R.id.cancel_action:
                 windowOutAnimate();
-                onDialogCallback.onCancel();
+                onDialogCallback.onCancelClick();
                 break;
             case R.id.dialog_background:
                 windowOutAnimate();
@@ -157,7 +157,15 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
     {
         void onConfirm();
 
+        /**
+         * 其他取消行为
+         */
         void onCancel();
+
+        /**
+         * 点击取消按钮
+         */
+        void onCancelClick();
     }
 
     public static class OnDialogCallbackAdapter implements OnDialogCallback
@@ -165,6 +173,12 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
         @Override
         public void onCancel()
         {
+        }
+
+        @Override
+        public void onCancelClick()
+        {
+            onCancel();
         }
 
         @Override

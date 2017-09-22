@@ -12,7 +12,7 @@ import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.pay.model.entity.RechargeBean;
-import com.hxs.fitnessroom.module.user.WalletDetailActivity;
+import com.hxs.fitnessroom.module.user.UserWalletDetailActivity;
 
 /**
  * 结束使用健身房界面
@@ -93,13 +93,13 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId())
         {
             case R.id.goto_recharge_wallet_detail:
-                startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
+                startActivity(UserWalletDetailActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.goto_recharge_button:
                 if(mBalance < 0.0)
                     startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
                 else
-                    startActivity(WalletDetailActivity.getNewIntent(v.getContext()));
+                    startActivity(UserWalletDetailActivity.getNewIntent(v.getContext()));
                 break;
         }
         finish();

@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hxs.fitnessroom.module.user.HXSUser;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
@@ -36,6 +35,9 @@ public class BaseActivity extends AppCompatActivity
     public static final int RequestCode_Pay_Deposit = 12;//押金充值
     public static final int RequestCode_Pay_Recharge = 13;//余额充值
     public static final int RequestCode_action_scan_code = 14;//进入健身房后的所有扫码行为
+
+
+    public static final int RequestCode_Activity_ReturnDeposit = 15;//跳转提交退押金界面
 
 
 

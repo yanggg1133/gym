@@ -19,6 +19,11 @@ public class Constants
     public static final int PAGE_SIZE = 10;
 
     /**
+     * 翻页查询时，默认的last_id
+     */
+    public static final String PAGE_DEFAULT_LAST_ID = "0";
+
+    /**
      * 接口验签密钥
      */
     public static String SIGN_KEY = "acol$!z%wh";

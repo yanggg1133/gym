@@ -25,10 +25,12 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
     private static final String KEY_SHOPNAME = "KEY_SHOPNAME";
     private static final String KEY_SHOPAMOUNT = "KEY_SHOPAMOUNT";
     private static final String KEY_SHOPCOUNT = "KEY_SHOPCOUNT";
+    private static final String KEY_SHOPISFIAL = "KEY_SHOPISFIAL";
     private String mShopName;
     private String mShopAmount;
     private String mShopCount;
     private boolean mShopSuccess;
+    private boolean mShopIsFial;
 
 
     private BaseUi mBaseUi;
@@ -40,13 +42,24 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
     private ImageView tips_icon;
 
 
-    public static Intent getNewIntent(Context context, String shopName, String shopAmount, String shopCount, boolean isSuccess)
+    /**
+     *
+     * @param context
+     * @param shopName
+     * @param shopAmount
+     * @param shopCount
+     * @param isSuccess 是否成功
+     * @param isFial 是否出货失败 否为余额不足
+     * @return
+     */
+    public static Intent getNewIntent(Context context, String shopName, String shopAmount, String shopCount, boolean isSuccess,boolean isFial)
     {
-        Intent intent = new Intent(context,SportsShopActivity.class);
+        Intent intent = new Intent(context,SportsShopResultActivity.class);
         intent.putExtra(KEY_SHOPNAME,shopName);
         intent.putExtra(KEY_SHOPAMOUNT,shopAmount);
         intent.putExtra(KEY_SHOPCOUNT,shopCount);
         intent.putExtra(KEY_SHOPSUCCESS,isSuccess);
+        intent.putExtra(KEY_SHOPISFIAL,isFial);
         return intent;
     }
 
@@ -63,6 +76,7 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
         mShopAmount = getIntent().getStringExtra(KEY_SHOPAMOUNT);
         mShopCount = getIntent().getStringExtra(KEY_SHOPCOUNT);
         mShopSuccess = getIntent().getBooleanExtra(KEY_SHOPSUCCESS,false);
+        mShopIsFial = getIntent().getBooleanExtra(KEY_SHOPISFIAL,false);
 
         shop_name = mBaseUi.findViewById(R.id.shop_name);
         shop_amount = mBaseUi.findViewById(R.id.shop_amount);
@@ -79,14 +93,21 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
         {
             mBaseUi.setTitle("支付成功");
             action_button.setText("返回健身房");
-            tips_text.setText("支付成功,请取走您的商品");
+            tips_text.setText("支付成功，请取走您的商品");
             tips_icon.setImageResource(R.mipmap.ic_pay_chenggong_small);
+        }
+        else if(mShopIsFial)
+        {
+            mBaseUi.setTitle("出货失败");
+            action_button.setText("联系客服");
+            tips_text.setText("商品出货失败");
+            tips_icon.setImageResource(R.mipmap.ic_pay_shibai_small);
         }
         else
         {
             mBaseUi.setTitle("支付失败");
             action_button.setText("去充值");
-            tips_text.setText("余额不足,支付失败");
+            tips_text.setText("余额不足，支付失败");
             tips_icon.setImageResource(R.mipmap.ic_pay_shibai_small);
         }
     }
@@ -103,7 +124,10 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
                 }
                 else
                 {
-                    startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
+                    if(mShopIsFial)//联系客服
+                        startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
+                    else//去充值
+                        startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
                 }
                 break;
         }

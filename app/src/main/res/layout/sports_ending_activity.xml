@@ -122,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
         app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
         app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
-        android:text="共消费"
+        android:text="钱包余额"
         android:textSize="15dp"
         android:textColor="@color/colorListItemContentText"
         />

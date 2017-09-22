@@ -164,7 +164,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     protected void onAPIError(APIResponse apiResponse)
     {
-        Toast.makeText(mContext.get(),apiResponse.msg,Toast.LENGTH_SHORT);
+        ToastUtil.toastShort(apiResponse.msg);
         onError(null);
     }
 

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
-import com.hxs.fitnessroom.module.user.HXSUser;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.util.image.ImageLoader;
 import com.hxs.fitnessroom.widget.MyToolbar;
 import com.hxs.fitnessroom.widget.SettingItemView;

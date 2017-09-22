@@ -74,7 +74,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.user.LoginActivity" android:screenOrientation="portrait" />
-        <activity android:name=".module.user.WelcomeActivity" android:screenOrientation="portrait" />
+        <activity android:name=".module.main.WelcomeActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".module.web.WebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -87,11 +87,14 @@
         <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.PayDepositActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.PayRechargeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.pay.ReturnDepositActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.NewsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.AboutActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.WalletDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserWalletDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsEndingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.sports.SportsShopActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.sports.SportsShopResultActivity" android:screenOrientation="portrait"/>
 
         <!-- ***************************************************** -->
         <!-- *********************其他第三方配置******************** -->

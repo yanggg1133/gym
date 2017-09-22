@@ -28,11 +28,6 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
     private static final String KEY_SHOPNAME = "KEY_SHOPNAME";
     private static final String KEY_SHOPAMOUNT = "KEY_SHOPAMOUNT";
     private static final String KEY_SHOPCOUNT = "KEY_SHOPCOUNT";
-    private String mShopName;
-    private String mShopAmount;
-    private String mShopCount;
-    private String mShopId;
-
 
     public static Intent getNewIntent(Context context,String shopName,String shopAmount,String shopCount,String shopId)
     {
@@ -41,8 +36,16 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         intent.putExtra(KEY_SHOPAMOUNT,shopAmount);
         intent.putExtra(KEY_SHOPCOUNT,shopCount);
         intent.putExtra(KEY_SHOPID,shopId);
-        return null;
+        return intent;
     }
+
+
+    private String mShopName;
+    private String mShopAmount;
+    private String mShopCount;
+    private String mShopId;
+
+
 
     private BaseUi mBaseUi;
     private TextView shop_name;
@@ -78,8 +81,8 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         shop_amount.setText(mShopAmount);
         shop_number.setText(mShopCount);
 
-        number_tip.setText("共"+shop_number);
-        sum_amount_tip.setText("总计"+shop_number);
+        number_tip.setText("共"+mShopCount);
+        sum_amount_tip.setText("总计"+mShopAmount);
 
     }
 
@@ -115,6 +118,25 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         }
 
         @Override
+        protected void onAPIError(APIResponse apiResponse)
+        {
+            if(APIResponse.error_insufficient_balance.equals(apiResponse.code ))
+            {
+                startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,false,false));
+                mBaseUi.getLoadingView().hide();
+            }
+            else if(APIResponse.error_order_fail.equals(apiResponse.code ))
+            {
+                startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,false,true));
+                mBaseUi.getLoadingView().hide();
+            }
+            else
+            {
+                super.onAPIError(apiResponse);
+            }
+        }
+
+        @Override
         protected void onError(@Nullable Exception e)
         {
             super.onError(e);
@@ -126,7 +148,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         {
             mBaseUi.getLoadingView().hide();
             APIResponse<RechargeBean> response = data;
-            startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true));
+            startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true,false));
             finish();
         }
     }

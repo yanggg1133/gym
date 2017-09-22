@@ -9,6 +9,7 @@
     app:layout_constraintTop_toBottomOf="@+id/toolbar"
     tool:showIn="@layout/sports_main_fragment"
     android:id="@+id/sport_action_using_layout"
+    android:visibility="gone"
     >
 
     <View

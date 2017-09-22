@@ -14,10 +14,13 @@ import android.widget.Toast;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.LoginUi;
+import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.widget.body.BodyDataDialogFragment;
 
@@ -108,9 +111,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.close_button:
                 finish();
+                break;
             case R.id.use_agreement1:
             case R.id.use_agreement2:
-                // TODO: 9/13/17 跳转用户协议
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""), "用户协议");
+                break;
             case R.id.login_sub_button:
                 if(VALUE_TYPE_LOGIN.equals(mSendType))
                 {

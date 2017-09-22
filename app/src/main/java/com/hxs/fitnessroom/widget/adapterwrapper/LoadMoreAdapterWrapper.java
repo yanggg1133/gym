@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
 
+import java.util.List;
+
 
 /**
  * 加载更多包装类
@@ -20,7 +22,7 @@ public class LoadMoreAdapterWrapper extends RecyclerView.Adapter
 {
     private static final String TAG = "LoadMoreAdapterWrapper";
     private static final int LOAD_MORE_TYPE = 999;
-    private static final int ONDATAREADY_ERROR = -1;
+    public static final int ONDATAREADY_ERROR = -1;
 
     private final RequestToLoadMoreListener mRequestToLoadMoreListener;
     /**
@@ -144,7 +146,7 @@ public class LoadMoreAdapterWrapper extends RecyclerView.Adapter
     {
         /**
          * 触发加载更多事件
-         * 加载完成必须后调用{@link #onDataReady(int)}进行更新
+         * 加载完成必须后调用 进行更新
          */
         void onLoadMoreRequested();
     }

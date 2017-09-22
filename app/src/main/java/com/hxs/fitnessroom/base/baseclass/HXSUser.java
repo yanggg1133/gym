@@ -1,4 +1,4 @@
-package com.hxs.fitnessroom.module.user;
+package com.hxs.fitnessroom.base.baseclass;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;

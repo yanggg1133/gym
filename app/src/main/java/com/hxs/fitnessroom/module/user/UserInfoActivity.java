@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.ServiceException;
@@ -15,9 +14,9 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.UserInfoUi;
-import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.image.ImageUtil;
 

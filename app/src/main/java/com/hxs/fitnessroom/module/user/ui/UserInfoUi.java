@@ -1,13 +1,10 @@
 package com.hxs.fitnessroom.module.user.ui;
 
-import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
-import com.hxs.fitnessroom.module.user.HXSUser;
-import com.hxs.fitnessroom.util.LogUtil;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.util.image.ImageLoader;
 import com.hxs.fitnessroom.widget.SettingItemView;
 

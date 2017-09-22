@@ -13,12 +13,15 @@ import java.lang.annotation.RetentionPolicy;
 public class UserAccountBean {
 
     /**
-     * status : 1  0 未交押金 1 正常用户（已缴纳押金） 2黑名单
+     * status : 0 未交押金 1 正常用户（已缴纳押金）  2 押金退回中  3 押金已退回 4  押金退回失败 5黑名单
      * balance : 10.00 用户余额（不含押金）
      */
     public static final int AccountStatus_NoDeposit = 0; //没押金
     public static final int AccountStatus_NORMAL = 1; //正常
-    public static final int AccountStatus_BlackList = 2; //黑名单
+    public static final int AccountStatus_Deposit_Returning = 2; //押金退回中
+    public static final int AccountStatus_Deposit_Success = 3; //押金已退回
+    public static final int AccountStatus_Deposit_Fial = 4; //押金退回失败
+    public static final int AccountStatus_BlackList = 5; //黑名单
 
     /**
      * 0 正常 、1 用户停留健身房  待离开、2 已离开  订单待结算、3 订单异常
@@ -40,6 +43,8 @@ public class UserAccountBean {
     public String balance;//用户余额（不含押金）
 
     public String mincost;//最低消费
+
+    public String deposit;//帐户押金
 
     public int doorStatus;//最低消费
 

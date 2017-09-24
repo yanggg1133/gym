@@ -196,6 +196,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         {
             APIResponse<UserBean> response = data;
             HXSUser.saveCurrentUserForLocal(response.data);
+            HXSUser.updateUserAccountInfoAsync();
             setResult(RESULT_OK);
             //如果性别为未填
             if( UserBean.SEX_TYPE_NULL == response.data.sex)

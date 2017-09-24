@@ -109,7 +109,22 @@ public class SettingItemView extends ConstraintLayout
         setting_name.setText(name);
         if(null != content)
             setting_content.setText(content);
+        else
+            setting_content.setText("");
     }
+
+    /**
+     * 设置各值
+     * @param content    右侧的内容
+     */
+    public void setConetnt(String content)
+    {
+        if(null != content)
+            setting_content.setText(content);
+        else
+            setting_content.setText("");
+    }
+
     /**
      * 设置各值
      * @param name       名字

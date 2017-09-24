@@ -144,6 +144,7 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/WXPayTheme"
             >
         </activity>
         <!-- ^^^^^^^^^^^ -->

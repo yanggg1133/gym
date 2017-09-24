@@ -43,6 +43,7 @@ public class BaseActivity extends AppCompatActivity
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 111;
     private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
+    private HXSUser.UserAccountUpdateBroadcastReceiver mUserAccountUpdateBroadcastReceiver;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID)
@@ -64,6 +65,12 @@ public class BaseActivity extends AppCompatActivity
         {
             unregisterReceiver(mUserUpdateBroadcastReceiver);
             mUserUpdateBroadcastReceiver = null;
+        }
+
+        if (null != mUserAccountUpdateBroadcastReceiver)
+        {
+            unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
+            mUserAccountUpdateBroadcastReceiver = null;
         }
     }
 
@@ -249,6 +256,43 @@ public class BaseActivity extends AppCompatActivity
             }
         };
         HXSUser.registerUserUpateBroadcastReceiver(this,mUserUpdateBroadcastReceiver);
+    }
+
+    /**
+     * 监听用户帐户余额信息变化广播
+     * 确保开启监听后，重写{@link #onUserAccountUpdate()}方法
+     * @see #onUserUpdate()
+     */
+    public void registerUserAccountUpdateBroadcastReceiver()
+    {
+        try
+        {
+            if (null != mUserAccountUpdateBroadcastReceiver)
+                unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
+
+        } catch (Exception e)
+        {
+            //预防某种未情况引发的异常
+        }
+
+        mUserAccountUpdateBroadcastReceiver = new HXSUser.UserAccountUpdateBroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                onUserAccountUpdate();
+            }
+        };
+
+        HXSUser.registerUserAccountUpateBroadcastReceiver(this, mUserAccountUpdateBroadcastReceiver);
+    }
+
+    /**
+     * 接收用户帐户余额信息变化通知
+     */
+    public void onUserAccountUpdate()
+    {
+
     }
 
 

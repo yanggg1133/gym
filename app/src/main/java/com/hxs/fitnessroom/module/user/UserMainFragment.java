@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.base.baseclass.BaseApplication;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
@@ -38,6 +39,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         return inflater.inflate(R.layout.user_main_fragment, container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
@@ -45,7 +47,9 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         mUserMainUi = new UserMainUi(this);
         mUserMainUi.setOnClickListener();
         registerUserUpdateBroadcastReceiver();
+        registerUserAccountUpdateBroadcastReceiver();
     }
+
 
     @Override
     public void onClick(View v)
@@ -98,9 +102,17 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+
+
     @Override
     public void onUserUpdate()
     {
         mUserMainUi.initUserInfo();
+    }
+
+    @Override
+    public void onUserAccountUpdate()
+    {
+        mUserMainUi.initUserAccount();
     }
 }

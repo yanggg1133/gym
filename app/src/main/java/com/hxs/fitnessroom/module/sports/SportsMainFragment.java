@@ -41,6 +41,7 @@ import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_De
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Scan_OpenDoor;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_action_scan_code;
+import static com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean.AccountStatus_Deposit_Returning;
 
 /**
  * 运动主入口界面
@@ -323,6 +324,12 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_not_deposit()
     {
+        if(HXSUser.getDepositIsReturning() == AccountStatus_Deposit_Returning)
+        {
+            DialogUtil.showConfirmDialog("押金退回中\n暂无法使用健身房设备", "", "知道了",
+                    getFragmentManager(),null);
+            return;
+        }
         DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_deposit(), "取消", "去缴费",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()

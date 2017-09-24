@@ -61,9 +61,9 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
 
         if(ValidateUtil.isNotEmpty(mContent))
             content.setText(mContent);
-        if(ValidateUtil.isNotEmpty(mConfirmText))
+        if(null != mConfirmText)
             confirm_action.setText(mConfirmText);
-        if(ValidateUtil.isNotEmpty(mCancelText))
+        if(null != mCancelText)
             cancel_action.setText(mCancelText);
 
         windowInAnimate();
@@ -108,17 +108,20 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
             case R.id.confirm_action:
                 this.mIsConfirm = true;
                 windowOutAnimate();
-                onDialogCallback.onConfirm();
+                if(null != onDialogCallback)
+                    onDialogCallback.onConfirm();
                 break;
             case R.id.dialog_content_layout:
                 break;
             case R.id.cancel_action:
                 windowOutAnimate();
-                onDialogCallback.onCancelClick();
+                if(null != onDialogCallback)
+                    onDialogCallback.onCancelClick();
                 break;
             case R.id.dialog_background:
                 windowOutAnimate();
-                onDialogCallback.onCancel();
+                if(null != onDialogCallback)
+                    onDialogCallback.onCancel();
                 break;
         }
     }

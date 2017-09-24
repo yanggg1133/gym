@@ -30,7 +30,7 @@ public class BaseApplication extends Application
         PhoneInfoUtil.appInitialization(this);
         HXSUser.appInitialization(this);
         ToastUtil.appInitialization(this);
-
+        HXSUser.updateUserAccountInfoAsync();
         /**
          * 腾讯x5预加载
          */

@@ -55,7 +55,7 @@ public class AreaSelectDialogFragment extends DialogFragment implements View.OnC
     private void setAreas(int currentCityIndex, int currentCountyIndex, List<AreaBean> areas)
     {
         mCurrentCityIndex = currentCityIndex;
-        mCurrentCountyIndex = currentCityIndex;
+        mCurrentCountyIndex = currentCountyIndex;
         mAreas = areas;
     }
 
@@ -169,7 +169,7 @@ public class AreaSelectDialogFragment extends DialogFragment implements View.OnC
         picker_area.setDisplayedValues(countyArray);
         picker_area.setMinValue(0);
         picker_area.setMaxValue(countyArray.length - 1);
-        picker_area.setValue(mCurrentCountyIndex);
+        picker_area.setValue(mCurrentCountyIndex + 1);
 
     }
 

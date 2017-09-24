@@ -1,9 +1,11 @@
 package com.hxs.fitnessroom.module.main;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,10 +14,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.sports.SportsMainFragment;
 import com.hxs.fitnessroom.module.user.UserMainFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.module.home.StoreListFragment;
+import com.hxs.fitnessroom.module.user.model.entity.UserBean;
+import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -35,7 +40,6 @@ public class MainActivity extends BaseActivity
     {
         return new Intent(context, MainActivity.class);
     }
-
 
     private BottomNavigationView navigation;
     private Fragment mNowShowFragment;
@@ -80,8 +84,7 @@ public class MainActivity extends BaseActivity
                     {
                         mUserMainFragment = new UserMainFragment();
                         addFragment(mUserMainFragment, fragmentTransaction);
-                    }
-                    else
+                    } else
                     {
                         showFragment(mUserMainFragment, fragmentTransaction);
                     }
@@ -99,6 +102,19 @@ public class MainActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        requestPermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+        });
+
+        /**
+         * 如果性别为空，清除用户登录状态
+         */
+        if (HXSUser.isLogin() && UserBean.SEX_TYPE_NULL == HXSUser.getSex())
+        {
+            HXSUser.signOut();
+        }
 
         if (savedInstanceState != null)
         {
@@ -114,6 +130,25 @@ public class MainActivity extends BaseActivity
         setupNavigation();
 
     }
+
+    @Override
+    public void onPermissionsPass()
+    {
+        super.onPermissionsPass();
+        LocationUtil.refreshLocation();
+        new Handler().post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (HXSUser.isLogin())
+                    startActivity(MainActivity.getNewIntent(MainActivity.this));
+                else
+                    startActivity(WelcomeActivity.getNewIntent(MainActivity.this));
+            }
+        });
+    }
+
 
     private void setupNavigation()
     {
@@ -149,11 +184,16 @@ public class MainActivity extends BaseActivity
         mNowShowFragment = fragment;
         showFragment(fragment, fragmentTransaction);
     }
-    private void addToStack(Fragment fragment) {
-        if (fragment != null) {
+
+    private void addToStack(Fragment fragment)
+    {
+        if (fragment != null)
+        {
             mFragmentStack.add(fragment);
         }
     }
+
+
     private void showFragment(Fragment currentFragment, FragmentTransaction fragmentTransaction)
     {
 
@@ -175,11 +215,15 @@ public class MainActivity extends BaseActivity
 
     //退出确认
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+        {
+            if ((System.currentTimeMillis() - exitTime) > 2000)
+            {
                 exitTime = System.currentTimeMillis();
-            } else {
+            } else
+            {
                 moveTaskToBack(false);
                 return true;
             }

@@ -85,6 +85,10 @@ public class LoadMoreAdapterWrapper extends RecyclerView.Adapter
                 notifyItemRangeInserted(updateIndex, updateIndex + addDataCount);
                 //有新数据
             }
+            else
+            {
+                keepOnAppending = false;
+            }
             mOnLoading = false;
 
         }

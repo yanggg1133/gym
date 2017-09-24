@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import com.alipay.sdk.app.PayTask;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.RechargeModel;
 import com.hxs.fitnessroom.module.pay.model.entity.RechargeBean;
@@ -310,7 +311,7 @@ public class PayFactory
                         @Override
                         protected void onSuccess(APIResponse data)
                         {
-                            //不做处理
+                            HXSUser.updateUserAccountInfoAsync();
                         }
                     }.execute(context.getApplicationContext());
                     break;

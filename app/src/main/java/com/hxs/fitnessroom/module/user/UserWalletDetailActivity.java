@@ -171,6 +171,7 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
         protected void onSuccess(APIResponse data)
         {
             APIResponse<List<WalletDetailBean>> response = data;
+
             if (PAGE_DEFAULT_LAST_ID == mLastId)
             {
                 mBaseUi.getLoadingView().hide();
@@ -179,11 +180,12 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
             {
                 loadMoreAdapterWrapper.onDataReady(response.data.size());
             }
+
             if(ValidateUtil.isNotEmpty(response.data))
             {
                 mBeanList.addAll(response.data);
+                mLastId = response.data.get(response.data.size()-1).id;
             }
-            mLastId = response.data.get(response.data.size()-1).id;
 
         }
     }

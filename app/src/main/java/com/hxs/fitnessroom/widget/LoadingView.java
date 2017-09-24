@@ -89,8 +89,10 @@ public class LoadingView extends RelativeLayout implements View.OnClickListener
 
     public void showNetworkError()
     {
+        setBackgroundResource(R.color.colorPrimary);
         contentLoadingProgressBar.setVisibility(GONE);
         network_error_tip.setVisibility(VISIBLE);
+        setVisibility(VISIBLE);
     }
 
     public void showSuccess(String message)

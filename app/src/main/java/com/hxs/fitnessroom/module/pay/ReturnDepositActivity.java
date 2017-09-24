@@ -12,6 +12,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.DepositModel;
 import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
@@ -135,6 +136,7 @@ public class ReturnDepositActivity extends BaseActivity implements View.OnClickL
         {
             mBaseUi.getLoadingView().hide();
             setResult(Activity.RESULT_OK);
+            HXSUser.updateUserAccountInfoAsync();
             finish();
         }
     }

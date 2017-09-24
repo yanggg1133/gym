@@ -19,6 +19,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.RechargeModel;
 import com.hxs.fitnessroom.module.pay.model.entity.TopupAmountBean;
@@ -260,8 +261,7 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
             intent.putExtra(RESULT_AMOUNT,currentSelectAmount);
             PayRechargeActivity.this.setResult(RESULT_OK,intent);
             mBaseUi.getLoadingView().showSuccess("支付成功");
-            mHandler.sendEmptyMessageDelayed(0, 1500);//1.5秒后关闭界面
-            mBaseUi.getLoadingView().hide();
+            mHandler.sendEmptyMessageDelayed(0, 2000);//2秒后关闭界面
         }
 
         @Override

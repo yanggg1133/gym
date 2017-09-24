@@ -8,6 +8,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
+import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.image.ImageLoader;
 import com.hxs.fitnessroom.widget.MyToolbar;
 import com.hxs.fitnessroom.widget.SettingItemView;
@@ -57,6 +58,7 @@ public class UserMainUi extends BaseUi
         not_login_tip = findViewById(R.id.not_login_tip);
         initView();
         initUserInfo();
+        initUserAccount();
     }
 
     public void setOnClickListener()
@@ -88,7 +90,7 @@ public class UserMainUi extends BaseUi
         {
             ImageLoader.loadHeadImageCircleCrop(HXSUser.getHXSUser().head_img,user_avatar);
             user_name.setText(HXSUser.getHXSUser().nickname);
-            user_authenticate.setText("已认证");
+            user_authenticate.setText("未认证");
             not_login_tip.setVisibility(View.GONE);
             user_name.setVisibility(View.VISIBLE);
             user_authenticate.setVisibility(View.VISIBLE);
@@ -106,6 +108,13 @@ public class UserMainUi extends BaseUi
             goto_recharge.setVisibility(View.GONE);
             goto_recharge_text.setVisibility(View.GONE);
         }
+    }
+
+
+    public void initUserAccount()
+    {
+        setting_wallet.setConetnt(ValidateUtil.isNotEmpty(HXSUser.getUserAccountBalance())?
+                "余额: " + HXSUser.getUserAccountBalance()+"元":"");
     }
 
 

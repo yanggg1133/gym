@@ -156,4 +156,16 @@
         >
     </com.hxs.fitnessroom.widget.SettingItemView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-- 需要支付押金才能正常使用健身房哦 --"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="30dp"
+
+        />
 </android.support.constraint.ConstraintLayout>

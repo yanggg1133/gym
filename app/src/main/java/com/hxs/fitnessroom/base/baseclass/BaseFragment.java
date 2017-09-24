@@ -20,6 +20,7 @@ public class BaseFragment extends Fragment
     private View mRootView;
 
     private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
+    private HXSUser.UserAccountUpdateBroadcastReceiver mUserAccountUpdateBroadcastReceiver;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -80,6 +81,44 @@ public class BaseFragment extends Fragment
         HXSUser.registerUserUpateBroadcastReceiver(getBaseActivity(), mUserUpdateBroadcastReceiver);
     }
 
+    /**
+     * 监听用户帐户余额信息变化广播
+     * 确保开启监听后，重写{@link #onUserAccountUpdate()}方法
+     * @see #onUserUpdate()
+     */
+    public void registerUserAccountUpdateBroadcastReceiver()
+    {
+        try
+        {
+            if (null != mUserAccountUpdateBroadcastReceiver)
+                getBaseActivity().unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
+
+        } catch (Exception e)
+        {
+            //预防某种未情况引发的异常
+        }
+
+        mUserAccountUpdateBroadcastReceiver = new HXSUser.UserAccountUpdateBroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                onUserAccountUpdate();
+            }
+        };
+
+        HXSUser.registerUserAccountUpateBroadcastReceiver(getBaseActivity(), mUserAccountUpdateBroadcastReceiver);
+    }
+
+
+    /**
+     * 接收用户帐户余额信息变化通知
+     */
+    public void onUserAccountUpdate()
+    {
+
+    }
+
 
     /**
      * 接收到用户信息变化后的广播回调
@@ -88,6 +127,7 @@ public class BaseFragment extends Fragment
     {
 
     }
+
 
     @Override
     public void onDestroyView()
@@ -109,6 +149,11 @@ public class BaseFragment extends Fragment
         {
             getBaseActivity().unregisterReceiver(mUserUpdateBroadcastReceiver);
             mUserUpdateBroadcastReceiver = null;
+        }
+        if (null != mUserAccountUpdateBroadcastReceiver)
+        {
+            getBaseActivity().unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
+            mUserAccountUpdateBroadcastReceiver = null;
         }
     }
 }

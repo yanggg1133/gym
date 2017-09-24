@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.math.MathUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,9 +20,12 @@ import com.hxs.fitnessroom.module.pay.ReturnDepositActivity;
 import com.hxs.fitnessroom.module.user.model.UserAccountModel;
 import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.util.DialogUtil;
+import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.VariableUtil;
 import com.hxs.fitnessroom.widget.LoadingView;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
+
+import static com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean.DoorStatus_USING;
 
 /**
  * 我的钱包
@@ -48,6 +52,9 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_wallet_activity);
+
+        registerUserAccountUpdateBroadcastReceiver();
+
         mBaseUi = new BaseUi(this);
         mBaseUi.setTitle("钱包");
         mBaseUi.setBackAction(true);
@@ -70,14 +77,20 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                 startActivity(UserWalletDetailActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.goto_recharge_button://去充值
-                startActivityForResult(PayRechargeActivity.getNewIntent(v.getContext()), RequestCode_Pay_Recharge);
+                startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.goto_deposit_button://去交押金
+                if (mUserAccountBean.doorStatus == DoorStatus_USING)
+                {
+                    ToastUtil.toastShort("健身房使用中，无法退回");
+                    return ;
+                }
+
                 switch (mUserAccountBean.status)
                 {
                     case UserAccountBean.AccountStatus_Deposit_Success://押金已退回
                     case UserAccountBean.AccountStatus_NoDeposit://还没交押金
-                        startActivityForResult(PayDepositActivity.getNewIntent(v.getContext()), RequestCode_Pay_Deposit);
+                        startActivity(PayDepositActivity.getNewIntent(v.getContext()));
                         break;
                     case UserAccountBean.AccountStatus_NORMAL://正常
                     case UserAccountBean.AccountStatus_Deposit_Fial: //押金退回失败
@@ -117,6 +130,8 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         deposit.setText("￥" + mUserAccountBean.deposit);
         money.setText("￥" + mUserAccountBean.balance);
         goto_deposit_button.setTextColor(0xffffffff);
+
+
         switch (mUserAccountBean.status)
         {
             case UserAccountBean.AccountStatus_NoDeposit://还没交押金
@@ -154,20 +169,6 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode)
-        {
-            case RequestCode_Activity_ReturnDeposit:
-                if(resultCode == Activity.RESULT_OK)
-                {
-                    onReload();
-                }
-                break;
-        }
-    }
 
     /**
      * 查询用户帐户情况
@@ -206,4 +207,9 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
     }
 
 
+    @Override
+    public void onUserAccountUpdate()
+    {
+        onReload();
+    }
 }

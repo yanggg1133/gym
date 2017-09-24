@@ -10,8 +10,11 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
+import com.hxs.fitnessroom.module.user.model.UserAccountModel;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
+import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
 /**
@@ -170,6 +173,11 @@ public class HXSUser
         return currentUser != null;
     }
 
+    public static int getDepositIsReturning()
+    {
+        return mUserAccountBean == null ? -1 : mUserAccountBean.status;
+    }
+
 
     public void setBodyHigh(int bodyHigh)
     {
@@ -260,6 +268,50 @@ public class HXSUser
     }
 
 
+    private static UserAccountBean mUserAccountBean;
+    /**
+     * 更新用户帐帐状态及余额信息
+     */
+    public static void updateUserAccountInfoAsync()
+    {
+        if(!isLogin())
+        {
+            mUserAccountBean = null;
+            return ;
+        }
+
+        new BaseAsyncTask()
+        {
+            @Override
+            protected APIResponse doWorkBackground() throws Exception
+            {
+                LogUtil.dClass("updateUserAccount_doWorkBackground");
+                return UserAccountModel.getGymUserAccount();
+            }
+
+            @Override
+            protected void onSuccess(APIResponse data)
+            {
+                LogUtil.dClass("updateUserAccount_onSuccess");
+                APIResponse<UserAccountBean> userAccount = data;
+                mUserAccountBean = userAccount.data;
+                if(null != mUserAccountBean)
+                {
+                    LogUtil.dClass("updateUserAccount_send");
+                    sendUserAccountUpdateBroadcastReceiver();
+                }
+
+            }
+        }.execute(mContext);
+
+
+    }
+
+    public static String getUserAccountBalance()
+    {
+        return null != mUserAccountBean ? mUserAccountBean.balance : "";
+    }
+
     /**
      * 退出登录
      */
@@ -277,7 +329,7 @@ public class HXSUser
      */
     public static void sendUserInfoUpdateBroadcastReceiver()
     {
-        mContext.sendBroadcast(new Intent(HXSUser.class.getName()));
+        mContext.sendBroadcast(new Intent(HXSUser.class.getName()+"_UserUpate"));
     }
 
     /**
@@ -289,7 +341,7 @@ public class HXSUser
      */
     public static UserUpdateBroadcastReceiver registerUserUpateBroadcastReceiver(Context context, UserUpdateBroadcastReceiver userUpdateBroadcastReceiver)
     {
-        context.registerReceiver(userUpdateBroadcastReceiver, new IntentFilter(HXSUser.class.getName()));
+        context.registerReceiver(userUpdateBroadcastReceiver, new IntentFilter(HXSUser.class.getName()+"_UserUpate"));
         return userUpdateBroadcastReceiver;
     }
 
@@ -297,6 +349,42 @@ public class HXSUser
      * 用户数据产生变化时的广播
      */
     public static class UserUpdateBroadcastReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+
+        }
+    }
+
+
+
+    /**
+     * 发送用户帐户信息发生变化广播
+     */
+    public static void sendUserAccountUpdateBroadcastReceiver()
+    {
+        mContext.sendBroadcast(new Intent(HXSUser.class.getName()+"_UserAccountUpdate"));
+    }
+
+
+    /**
+     * 注册用户帐户信息更新广播
+     *
+     * @param context
+     * @return
+     */
+    public static UserAccountUpdateBroadcastReceiver registerUserAccountUpateBroadcastReceiver(Context context, UserAccountUpdateBroadcastReceiver userAccountUpdateBroadcastReceiver)
+    {
+        context.registerReceiver(userAccountUpdateBroadcastReceiver, new IntentFilter(HXSUser.class.getName()+"_UserAccountUpdate"));
+        return userAccountUpdateBroadcastReceiver;
+    }
+
+
+    /**
+     * 用户帐户余额数据产生变化时的广播
+     */
+    public static class UserAccountUpdateBroadcastReceiver extends BroadcastReceiver
     {
 
         @Override

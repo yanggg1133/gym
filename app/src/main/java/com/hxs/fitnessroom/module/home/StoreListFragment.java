@@ -147,6 +147,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
                     mAreas = areas.data;
                     mCurrentUserSelectCity=mAreas.get(0).city;
                 }
+
             }
             return StoreModel.storeList(mCurrentUserSelectCity + mCurrentUserSelectCounty, LocationUtil.getLastLocationPoints(), mPageIndex);
         }

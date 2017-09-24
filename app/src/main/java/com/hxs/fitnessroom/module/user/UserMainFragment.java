@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hxs.fitnessroom.R;
-import com.hxs.fitnessroom.base.baseclass.BaseApplication;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
@@ -81,7 +80,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(WelcomeActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_message://消息
-                startActivity(NewsActivity.getNewIntent(v.getContext()));
+                startActivity(MessageActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_system://设置
                 startActivity(SettingActivity.getNewIntent(v.getContext()));

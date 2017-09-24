@@ -18,7 +18,7 @@ public class PhoneInfoUtil
     public static final String ModelVersion = android.os.Build.MODEL;
     public static final String SystemVersion = android.os.Build.VERSION.RELEASE;
     public static final String AppVersion = BuildConfig.VERSION_NAME;
-    public static final String AppName = BuildConfig.VERSION_NAME;
+    public static final int HxsAppType = 1;//1代表是健身房app, 0代表好享瘦app
 
     public static void appInitialization(Context context)
     {

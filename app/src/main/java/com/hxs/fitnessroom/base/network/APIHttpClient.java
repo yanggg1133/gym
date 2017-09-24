@@ -103,6 +103,7 @@ public class APIHttpClient
         params.putParam("model_version", PhoneInfoUtil.ModelVersion);
         params.putParam("system_version", PhoneInfoUtil.SystemVersion);
         params.putParam("app_version", PhoneInfoUtil.AppVersion);
+        params.putParam("platform", PhoneInfoUtil.HxsAppType);
         long utime = System.currentTimeMillis();
         params.putParam("utime", utime);
         params.putParam("sign",  Base64Util.encodeToString(ValidateUtil.getMD5(utime + SIGN_KEY).getBytes()));

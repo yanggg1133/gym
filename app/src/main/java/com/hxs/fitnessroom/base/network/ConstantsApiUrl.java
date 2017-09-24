@@ -22,7 +22,7 @@ public enum ConstantsApiUrl
     GetGymUserAccount("https://api.hxsapp.com/gym/Base/getGymUserAccount"), //获取用户状态和余额
     GetUserDeviceStatus("https://api.hxsapp.com/gym/Base/getUserDeviceStatus"), //获取当前用户设备使用情况
     GetAccountLog("https://api.hxsapp.com/mall/GymOrder/getAccountLog"), //获取钱包明细
-
+    GetNoticeList("https://api.hxsapp.com/base/notice/getNoticeList"),//取系统通知列表
 
 
     /** account **************************************************/

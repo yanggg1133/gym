@@ -261,7 +261,7 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
             intent.putExtra(RESULT_AMOUNT,currentSelectAmount);
             PayRechargeActivity.this.setResult(RESULT_OK,intent);
             mBaseUi.getLoadingView().showSuccess("支付成功");
-            mHandler.sendEmptyMessageDelayed(0, 2000);//2秒后关闭界面
+            mHandler.sendEmptyMessageDelayed(0, 1500);//2秒后关闭界面
         }
 
         @Override

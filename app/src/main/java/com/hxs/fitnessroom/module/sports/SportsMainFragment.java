@@ -517,7 +517,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 {
                     return userDeviceStatus;
                 }
-                Thread.sleep(1000*count);
+                if(count < 5)
+                    Thread.sleep(1000*count);
                 count++;
             }
             return null;
@@ -551,18 +552,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 {
                     return response;
                 }
-                Thread.sleep(1000*count);
+                if(count < 5)
+                    Thread.sleep(1000*count);
                 count++;
             }
             return null;
         }
 
-        @Override
-        protected void onError(@Nullable Exception e)
-        {
-            super.onError(e);
-            PayFactory.PayBroadcastReceiver.sendFail(getContext());
-        }
 
         @Override
         protected void onSuccess(APIResponse data)
@@ -571,6 +567,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             mUserDeviceStatus = null;
             mUserAccountBean = null;
             mSportsMainUi.stopSportUsingUi();
+            HXSUser.updateUserAccountInfoAsync();
             step7_stopSportUsing(response.data.balancePay);
         }
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.module.openim.AliBaichuanYwIM;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 
 /**
@@ -125,7 +126,7 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
                 else
                 {
                     if(mShopIsFial)//联系客服
-                        startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
+                        AliBaichuanYwIM.gotoIM();
                     else//去充值
                         startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
                 }

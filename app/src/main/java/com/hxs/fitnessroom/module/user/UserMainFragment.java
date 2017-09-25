@@ -13,6 +13,7 @@ import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.main.WelcomeActivity;
+import com.hxs.fitnessroom.module.openim.AliBaichuanYwIM;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 import com.hxs.fitnessroom.module.web.WebActivity;
@@ -77,7 +78,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_meExercise.getH5Url(""),"我的锻炼");
                 break;
             case R.id.setting_service://客服
-                startActivity(WelcomeActivity.getNewIntent(v.getContext()));
+                AliBaichuanYwIM.gotoIM();
                 break;
             case R.id.setting_message://消息
                 startActivity(MessageActivity.getNewIntent(v.getContext()));

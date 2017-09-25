@@ -147,6 +147,7 @@ public class AreaSelectDialogFragment extends DialogFragment implements View.OnC
         cancel_action.setOnClickListener(this);
         confirm_action.setOnClickListener(this);
         dialog_background.setOnClickListener(this);
+        picker_area.setWrapSelectorWheel(false);
         if (mSelectType == SELECT_TYPE_CITY)
         {
             initCity();
@@ -170,7 +171,6 @@ public class AreaSelectDialogFragment extends DialogFragment implements View.OnC
         picker_area.setMinValue(0);
         picker_area.setMaxValue(countyArray.length - 1);
         picker_area.setValue(mCurrentCountyIndex + 1);
-
     }
 
     private void initCity()

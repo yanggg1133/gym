@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -55,6 +56,37 @@ public class BaseActivity extends AppCompatActivity
     {
         return (T) super.findViewById(id);
     }
+
+
+    /**
+     * 处理返回键事件
+     * 请重写{@link #onBackUp()}
+     * @param keyCode
+     * @param event
+     * @return
+     *
+     * @see #onBackUp()
+     */
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (onBackUp()) {
+                return true;
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    /**
+     * 如需处理返回键，
+     * 可重写此方法
+     * @return
+     */
+    protected boolean onBackUp() {
+        return false;
+    }
+
 
     @Override
     protected void onDestroy()

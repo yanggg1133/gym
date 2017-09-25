@@ -104,12 +104,12 @@ public class APIHttpClient
         params.putParam("system_version", PhoneInfoUtil.SystemVersion);
         params.putParam("app_version", PhoneInfoUtil.AppVersion);
         params.putParam("platform", PhoneInfoUtil.HxsAppType);
+        params.putParam("app_name", PhoneInfoUtil.AppName);
         long utime = System.currentTimeMillis();
         params.putParam("utime", utime);
         params.putParam("sign",  Base64Util.encodeToString(ValidateUtil.getMD5(utime + SIGN_KEY).getBytes()));
         params.putParam("sess_token", HXSUser.getUserSessToken());
     }
-
 
     private static String post(String urlapi,String params) throws NetworkErrorException, UnknownHostException
     {

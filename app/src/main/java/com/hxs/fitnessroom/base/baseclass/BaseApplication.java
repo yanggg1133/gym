@@ -2,13 +2,17 @@ package com.hxs.fitnessroom.base.baseclass;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
+import com.hxs.fitnessroom.BuildConfig;
+import com.hxs.fitnessroom.module.openim.AliBaichuanYwIM;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Application基类
@@ -19,7 +23,8 @@ public class BaseApplication extends Application
 {
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
 
         /**********************************
@@ -31,15 +36,27 @@ public class BaseApplication extends Application
         HXSUser.appInitialization(this);
         ToastUtil.appInitialization(this);
         HXSUser.updateUserAccountInfoAsync();
+
         /**
          * 腾讯x5预加载
          */
-        QbSdk.initX5Environment(this,null);
+        QbSdk.initX5Environment(this, null);
+
+        /**
+         * 友盟统计
+         */
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, "59b2395776661331870000eb", BuildConfig.FLAVOR));
+        MobclickAgent.setCatchUncaughtExceptions(!BuildConfig.DEBUG);
+
+        /**
+         * 阿里IM
+         */
+        AliBaichuanYwIM.appInitialization(this);
+
 
 
 //        initJpush();
 //        com.saidian.zuqiukong.login.user.AVUser.initialize(this);
-
 //        ZqkongDB.init(this);
 //        ToastUtil.init(this);
 //        SharedPreferencesUtils.init(this);
@@ -48,19 +65,19 @@ public class BaseApplication extends Application
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        //MultiDex.install(this);
+        MultiDex.install(this);
     }
 
-
-
     @Override
-    public void onTrimMemory(int level) {
+    public void onTrimMemory(int level)
+    {
         super.onTrimMemory(level);
         Glide.with(this).onTrimMemory(level);
     }
 
     @Override
-    public void onLowMemory() {
+    public void onLowMemory()
+    {
         super.onLowMemory();
         Glide.with(this).onLowMemory();
     }

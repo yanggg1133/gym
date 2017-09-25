@@ -14,6 +14,9 @@ public class ExampleUnitTest
     @Test
     public void addition_isCorrect() throws Exception
     {
-        assertEquals(4, 2 + 2);
+        String[] sss = new String[0];
+        sss[0] = "全部";
+        System.out.print(sss[0]);
+//        assertEquals(4, 2 + 2);
     }
 }

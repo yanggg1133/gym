@@ -102,12 +102,6 @@ public class MainActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        requestPermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-        });
-
         /**
          * 如果性别为空，清除用户登录状态
          */
@@ -115,6 +109,12 @@ public class MainActivity extends BaseActivity
         {
             HXSUser.signOut();
         }
+
+        requestPermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+        });
 
         if (savedInstanceState != null)
         {

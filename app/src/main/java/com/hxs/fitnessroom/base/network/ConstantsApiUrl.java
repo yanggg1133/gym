@@ -32,6 +32,7 @@ public enum ConstantsApiUrl
     ThirdPartyLogin("https://api.hxsapp.com/account/userAccount/thirdPartyLogin"),//第三方登录
     GetSelfUserInfo("https://api.hxsapp.com/account/userInfo/getSelfUserInfo"),//获取用户信息
     SaveUserInfo("https://api.hxsapp.com/account/userInfo/saveInfo"),//保存用户信息
+    GetOpenIMAccount("https://api.hxsapp.com/account/UserAccount/getOpenIMAccount"),//获取用户的openim账号
 
     /** h5相关页面 **********************************************************/
     H5_gymDetail("https://gym.hxsapp.com/gymDetail"),//健身房详情                     ***必须传id***

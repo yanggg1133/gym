@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    //阿里的仓库
+    maven { url 'http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/' }
+}
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
@@ -12,7 +16,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         buildConfigField "boolean", "LOG_DEBUG", "false" //默认渠道不输出log
-
+        multiDexEnabled true
     }
     /**
      * 关闭静态检测
@@ -95,6 +99,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + SUPPORT_LIB_VERSION
     compile 'com.android.support:design:' + SUPPORT_LIB_VERSION
     compile 'com.android.support:support-vector-drawable:' + SUPPORT_LIB_VERSION
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.android.support:multidex:1.0.1'
     //依赖冲突解决  强制使用统一版本
     configurations.all {
         resolutionStrategy {
@@ -106,27 +114,36 @@ dependencies {
 
     /** 第三方类库*************************************************************/
     //图片加载
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'jp.wasabeef:glide-transformations:3.0.0'
     //二维码扫描
     compile project(':module_codescan')
     //友盟第三方登录及分享
     //compile project(':module_ushare')
     //上下滚动选择器
+    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 
     //阿里云图片上传
-
-    //本地图片选择器
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.github.bumptech.glide:glide:4.0.0'
-    compile 'jp.wasabeef:glide-transformations:3.0.0'
-    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.3'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okio:okio:1.9.0'
+    //阿里IM
+    compile 'com.alibaba.mobileim:IMCore:2.0.2.1@aar'
+    //阿里IM UI
+    compile 'com.alibaba.mobileim:IMKit:2.0.2.1@aar'
+
+
+
+    //本地图片选择器
     compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+
+
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }

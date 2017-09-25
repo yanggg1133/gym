@@ -47,6 +47,33 @@ public class LocationUtil
     }
 
     /**
+     * 获取经度
+     * @return
+     */
+    public static String getLongitude()
+    {
+        if(ValidateUtil.isNotEmpty(getLastLocationPoints()))
+        {
+            return getLastLocationPoints().split(",")[0];
+        }
+        return "0.0";
+    }
+
+    /**
+     * 获取纬度
+     * @return
+     */
+    public static String getLatitude()
+    {
+        if(ValidateUtil.isNotEmpty(getLastLocationPoints()))
+        {
+            return getLastLocationPoints().split(",")[1];
+        }
+        return "0.0";
+    }
+
+
+    /**
      * 无效的定位值
      *
      * @see LocationListener

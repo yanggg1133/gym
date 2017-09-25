@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
@@ -121,7 +122,11 @@ public class StoreListUi extends BaseUi
             store_name.setText(storeBean.name);
             store_distance.setText(storeBean.distance);
             store_address.setText(storeBean.address);
-            ImageLoader.load(storeBean.img,store_image);
+            if(ValidateUtil.isEmpty(storeBean.img))
+                Glide.with(itemView.getContext()).clear(store_image);
+            else
+                ImageLoader.load(storeBean.img,store_image);
+
         }
 
         @Override

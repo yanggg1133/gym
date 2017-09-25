@@ -66,7 +66,6 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         mStoreListUi.setTitle("健身房");
         mStoreListUi.setLoadmoremListener(mRequestToLoadMoreListener);
         mStoreListUi.setOnclick(this);
-        mStoreListUi.getLoadingView().show();
         doWork();
     }
 
@@ -74,6 +73,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     {
         if (null == mWorkAsyncTask)
         {
+            mStoreListUi.getLoadingView().show();
             mWorkAsyncTask = new WorkAsyncTask();
             mWorkAsyncTask.execute(getBaseActivity());
         }
@@ -139,6 +139,16 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
+            int count = 0;
+            while (count < 5)
+            {
+                if(ValidateUtil.isNotEmpty(LocationUtil.getLastLocationPoints()))
+                {
+                    break;
+                }
+                Thread.sleep(1000);
+            }
+
             if(mAreas == null)
             {
                 APIResponse<List<AreaBean>> areas = StoreModel.areaList(LocationUtil.getLastLocationPoints());

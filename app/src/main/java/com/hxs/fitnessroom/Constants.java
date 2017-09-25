@@ -28,4 +28,10 @@ public class Constants
      */
     public static String SIGN_KEY = "acol$!z%wh";
 
+
+    /**
+     * 相隔30分钟，刷新回话id
+     */
+    public static final int SESSION_REFRESH_TIMEOUT = 30 * 60 * 1000;//
+
 }

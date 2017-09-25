@@ -181,4 +181,9 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
     protected abstract void onSuccess(APIResponse data);
 
 
+    public Context getContext()
+    {
+        return mContext.get();
+    }
+
 }

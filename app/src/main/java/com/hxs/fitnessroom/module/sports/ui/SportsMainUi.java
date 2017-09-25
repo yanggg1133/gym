@@ -1,7 +1,5 @@
 package com.hxs.fitnessroom.module.sports.ui;
 
-import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
@@ -12,9 +10,6 @@ import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
 import com.hxs.fitnessroom.util.DateUtil;
-import com.hxs.fitnessroom.util.LogUtil;
-
-import java.text.DecimalFormat;
 
 /**
  * 运动 主界面UI操作类
@@ -112,7 +107,7 @@ public class SportsMainUi extends BaseUi
          * 计算 开始使用时间与服务当前时间的时间差
          * 然后用
          */
-        startTimeCaceh = new Long(userDeviceStatus.startTime);
+        startTimeCaceh = new Long(userDeviceStatus.startTime)*1000;
         long time = DateUtil.timeMillsDifference(System.currentTimeMillis(),startTimeCaceh);
         sport_using_time.setBase(SystemClock.elapsedRealtime() - time);
         sport_using_time.start();

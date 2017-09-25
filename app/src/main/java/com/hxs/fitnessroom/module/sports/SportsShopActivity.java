@@ -12,6 +12,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.model.RechargeModel;
@@ -148,6 +149,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         {
             mBaseUi.getLoadingView().hide();
             APIResponse<RechargeBean> response = data;
+            HXSUser.updateUserAccountInfoAsync();
             startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true,false));
             finish();
         }

@@ -1,4 +1,4 @@
-package fitnessroom.hxs.com.ushare;
+package com.hxs.fitnessroom;
 
 //import com.umeng.socialize.media.WBShareCallBackActivity;
 

@@ -43,6 +43,8 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="6dp"
         android:textSize="14dp"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textColor="@color/colorListItemSubTitleText"
         android:alpha="0.6"
         />

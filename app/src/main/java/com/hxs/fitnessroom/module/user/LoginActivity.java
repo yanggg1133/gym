@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if(ValidateUtil.isNotEmpty(mVerifyCode))
                 {
                     mLoginUi.setIsLoggingIn(true);
-                    new LoginTask().execute(LoginActivity.this);
+                    new LoginTask().execute(LoginActivity.this,mLoginUi);
                 }
                 break;
             case R.id.close_button:
@@ -114,7 +114,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.use_agreement1:
             case R.id.use_agreement2:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""), "用户协议");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_agreement.getH5Url(""), "用户协议");
                 break;
             case R.id.login_sub_button:
                 if(VALUE_TYPE_LOGIN.equals(mSendType))

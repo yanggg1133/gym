@@ -3,10 +3,12 @@ package com.hxs.fitnessroom.module.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.util.PhoneInfoUtil;
 
 public class AboutActivity extends BaseActivity {
 
@@ -22,5 +24,8 @@ public class AboutActivity extends BaseActivity {
         mBaseUi = new BaseUi(this);
         mBaseUi.setTitle("关于我们");
         mBaseUi.setBackAction(true);
+
+        TextView textView = (TextView) findViewById(R.id.about_version);
+        textView.setText("好享瘦健身房v"+ PhoneInfoUtil.AppVersion);
     }
 }

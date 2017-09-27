@@ -13,6 +13,7 @@ import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
 import com.hxs.fitnessroom.module.user.model.UserAccountModel;
+import com.hxs.fitnessroom.module.user.model.entity.RealnameBean;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
@@ -28,6 +29,7 @@ import com.hxs.fitnessroom.util.ValidateUtil;
 public class HXSUser
 {
 
+
     private HXSUser()
     {
     }
@@ -37,7 +39,6 @@ public class HXSUser
     public int sex;       //用户性别
     public String head_img;  //用户头像
     public String nickname;  //用户昵称
-    public String realname;  //真实姓名
     public String sess_token;    //登录session
     public String descr;
     public String birthday;
@@ -47,7 +48,10 @@ public class HXSUser
     public String province;
     public String city;
     public String vocation;
+    public String mobile;
 
+    public String status;//: "0",   //0 未认证 1 已认证 2 审核中 3 审核不通过
+    public String realname;  //真实姓名
 
     private static Context mContext;
     private static HXSUser currentUser;
@@ -65,6 +69,7 @@ public class HXSUser
             user.head_img = sp.getString("head_img", "");
             user.nickname = sp.getString("nickname", "");
             user.realname = sp.getString("realname", "");
+            user.status = sp.getString("status", "");
             user.sess_token = sp.getString("sess_token", "");
             user.descr = sp.getString("descr", "");
             user.birthday = sp.getString("birthday", "");
@@ -74,6 +79,7 @@ public class HXSUser
             user.province = sp.getString("province", "");
             user.city = sp.getString("city", "");
             user.vocation = sp.getString("vocation", "");
+            user.mobile = sp.getString("mobile", "");
             currentUser = user;
         }
     }
@@ -95,7 +101,6 @@ public class HXSUser
         currentUser.sex = userBean.sex;
         currentUser.head_img = userBean.head_img;
         currentUser.nickname = userBean.nickname;
-        currentUser.realname = userBean.realname;
         currentUser.descr = userBean.descr;
         currentUser.birthday = userBean.birthday;
         currentUser.body_high = userBean.body_high;
@@ -104,6 +109,7 @@ public class HXSUser
         currentUser.province = userBean.province;
         currentUser.city = userBean.city;
         currentUser.vocation = userBean.vocation;
+        currentUser.mobile = userBean.mobile;
         if (ValidateUtil.isNotEmpty(userBean.sess_token))
             currentUser.sess_token = userBean.sess_token;
 
@@ -113,7 +119,6 @@ public class HXSUser
         editor.putInt("sex", userBean.sex);
         editor.putString("head_img", userBean.head_img);
         editor.putString("nickname", userBean.nickname);
-        editor.putString("realname", userBean.realname);
         editor.putString("descr", userBean.descr);
         editor.putString("birthday", userBean.birthday);
         editor.putString("body_high", userBean.body_high);
@@ -122,10 +127,71 @@ public class HXSUser
         editor.putString("province", userBean.province);
         editor.putString("city", userBean.city);
         editor.putString("vocation", userBean.vocation);
+        editor.putString("mobile", userBean.mobile);
         if (ValidateUtil.isNotEmpty(userBean.sess_token))
             editor.putString("sess_token", userBean.sess_token);
         editor.commit();
         editor.apply();
+    }
+
+    /**
+     * 用户实名信息缓存更新
+     *
+     */
+    public static void saveRealnameForLocal(RealnameBean realnameBean)
+    {
+        if(!isLogin())
+            return;
+        if (null == realnameBean)
+            return;
+
+        currentUser.status = realnameBean.status;//: "0",   //0 未认证 1 已认证 2 审核中 3 审核不通过
+        currentUser.realname = realnameBean.realname;  //真实姓名
+
+        SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("realname", realnameBean.realname);
+        editor.putString("status", realnameBean.status);
+        editor.commit();
+        editor.apply();
+    }
+
+
+    public static void updateUserInfoAsync()
+    {
+        if(!isLogin())
+            return;
+
+        new BaseAsyncTask(){
+            private APIResponse<UserBean> userResponse;
+            private APIResponse<RealnameBean> realnameResponse;
+
+            @Override
+            protected APIResponse doWorkBackground() throws Exception
+            {
+                userResponse = LoginModel.getSelfUserInfo();
+                realnameResponse =  UserAccountModel.getRealname();
+                return realnameResponse;
+            }
+
+            @Override
+            protected void onSuccess(APIResponse data)
+            {
+
+                if(userResponse.isSuccess())
+                {
+                    saveCurrentUserForLocal(userResponse.data);
+                }
+
+                if(realnameResponse.isSuccess())
+                {
+                    saveRealnameForLocal(realnameResponse.data);
+                }
+
+                sendUserInfoUpdateBroadcastReceiver();
+
+            }
+        }.execute(mContext);
     }
 
 
@@ -167,6 +233,10 @@ public class HXSUser
     {
         return null == currentUser ? "" : currentUser.realname;
     }
+    public static String getMobile()
+    {
+        return  null == currentUser ? "" : currentUser.mobile;
+    }
 
     public static boolean isLogin()
     {
@@ -176,6 +246,21 @@ public class HXSUser
     public static int getDepositIsReturning()
     {
         return mUserAccountBean == null ? -1 : mUserAccountBean.status;
+    }
+
+    public static String getRealnameStatus()
+    {
+        if(currentUser == null)
+            return "未认证";
+        else if("0".equals(currentUser.status))
+            return "未认证";
+        else if("1".equals(currentUser.status))
+            return "已认证";
+        else if("2".equals(currentUser.status))
+            return "审核中";
+        else if("3".equals(currentUser.status))
+            return "审核不通过";
+        return "未认证";
     }
 
 
@@ -221,7 +306,10 @@ public class HXSUser
             protected void onPostExecute(APIResponse<UserBean> userBeanAPIResponse)
             {
                 if (null != userBeanAPIResponse && userBeanAPIResponse.isSuccess())
+                {
                     HXSUser.saveCurrentUserForLocal(userBeanAPIResponse.data);
+                    HXSUser.sendUserInfoUpdateBroadcastReceiver();
+                }
                 else
                     Toast.makeText(mContext, "用户信息保存失败", Toast.LENGTH_SHORT).show();
             }
@@ -243,9 +331,7 @@ public class HXSUser
                 {
                     APIResponse<UserBean> apiResponse = LoginModel.saveSelfUserInfo(userBean);
                     return apiResponse;
-                } catch (Exception e)
-                {
-                }
+                } catch (Exception e) {}
                 return null;
             }
 
@@ -285,19 +371,16 @@ public class HXSUser
             @Override
             protected APIResponse doWorkBackground() throws Exception
             {
-                LogUtil.dClass("updateUserAccount_doWorkBackground");
-                return UserAccountModel.getGymUserAccount();
+                return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_DEF);
             }
 
             @Override
             protected void onSuccess(APIResponse data)
             {
-                LogUtil.dClass("updateUserAccount_onSuccess");
                 APIResponse<UserAccountBean> userAccount = data;
                 mUserAccountBean = userAccount.data;
                 if(null != mUserAccountBean)
                 {
-                    LogUtil.dClass("updateUserAccount_send");
                     sendUserAccountUpdateBroadcastReceiver();
                 }
 
@@ -318,9 +401,12 @@ public class HXSUser
     public static void signOut()
     {
         currentUser = null;
+        mUserAccountBean = null;
         SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear().apply();
+        sendUserInfoUpdateBroadcastReceiver();
+        sendUserAccountUpdateBroadcastReceiver();
     }
 
 
@@ -334,7 +420,6 @@ public class HXSUser
 
     /**
      * 注册用户更新广播
-     *
      * @param context
      * @param userUpdateBroadcastReceiver
      * @return

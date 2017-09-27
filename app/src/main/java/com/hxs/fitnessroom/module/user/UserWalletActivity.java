@@ -1,11 +1,9 @@
 package com.hxs.fitnessroom.module.user;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.math.MathUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,7 +54,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         registerUserAccountUpdateBroadcastReceiver();
 
         mBaseUi = new BaseUi(this);
-        mBaseUi.setTitle("钱包");
+        mBaseUi.setTitle("我的钱包");
         mBaseUi.setBackAction(true);
         mBaseUi.getMyToolbar().setRightTextButton("明细", this);
 
@@ -192,7 +190,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            return UserAccountModel.getGymUserAccount();
+            return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_WALLET);
         }
 
         @Override

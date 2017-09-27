@@ -34,6 +34,7 @@ public class SettingItemView extends ConstraintLayout
     public static final int TYPE_SETTING = 1;
     public static final int TYPE_USERINFO = 2;
     private ImageView setting_right_image;
+    private ImageView setting_right_icon;
 
     @IntDef({TYPE_SETTING, TYPE_USERINFO})
     @Retention(RetentionPolicy.SOURCE)
@@ -79,6 +80,7 @@ public class SettingItemView extends ConstraintLayout
         setting_content = (TextView) findViewById(R.id.setting_content);
         bottom_line =  findViewById(R.id.bottom_line);
         setting_right_image = (ImageView) findViewById(R.id.setting_right_image);
+        setting_right_icon = (ImageView) findViewById(R.id.setting_right_icon);
 
         TypedValue typedValue = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
@@ -145,5 +147,10 @@ public class SettingItemView extends ConstraintLayout
     public void hideLine()
     {
         bottom_line.setVisibility(GONE);
+    }
+
+    public void hideRightGotoIcon()
+    {
+        setting_right_icon.setVisibility(INVISIBLE);
     }
 }

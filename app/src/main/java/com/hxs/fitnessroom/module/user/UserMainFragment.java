@@ -17,6 +17,7 @@ import com.hxs.fitnessroom.module.openim.AliBaichuanYwIM;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 import com.hxs.fitnessroom.module.web.WebActivity;
+import com.hxs.fitnessroom.util.LogUtil;
 
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Login;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
@@ -59,7 +60,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
          */
         if (!HXSUser.isLogin())
         {
-            startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
+            startActivityForResult(WelcomeActivity.getNewIntent(v.getContext()), RequestCode_Login);
             return;
         }
 
@@ -96,6 +97,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        LogUtil.dClass("onActivityResult");
         if (requestCode == RequestCode_Login && resultCode == Activity.RESULT_OK)
         {
             mUserMainUi.initUserInfo();

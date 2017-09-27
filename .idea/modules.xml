@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/module_codescan/module_codescan.iml" filepath="$PROJECT_DIR$/module_codescan/module_codescan.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" filepath="$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_ushare/module_ushare.iml" filepath="$PROJECT_DIR$/module_ushare/module_ushare.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module_ushare/module_ushare.iml" filepath="$PROJECT_DIR$/module_ushare/module_ushare.iml" />
     </modules>
   </component>
 </project>

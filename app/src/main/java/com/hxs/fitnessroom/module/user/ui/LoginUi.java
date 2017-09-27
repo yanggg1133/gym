@@ -13,8 +13,6 @@ import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.ViewUtil;
 
-import static com.hxs.fitnessroom.R.id.register_button;
-
 /**
  * 登录UI操作类
  * Created by je on 9/11/17.
@@ -38,9 +36,9 @@ public class LoginUi extends BaseUi
     public LoginUi(BaseActivity baseActivity)
     {
         super(baseActivity);
-        phone_text_layout = findViewById(R.id.phone_text_layout);
+        phone_text_layout = findViewById(R.id.realname_text_layout);
         phone_text = findViewById(R.id.phone_text);
-        verifycode_text_layout = findViewById(R.id.verifycode_text_layout);
+        verifycode_text_layout = findViewById(R.id.idcard_text_layout);
         verifycode_text = findViewById(R.id.verifycode_text);
         send_verify_code = findViewById(R.id.send_verify_code);
         login_button = findViewById(R.id.login_button);
@@ -131,18 +129,37 @@ public class LoginUi extends BaseUi
             title.setText("登录");
             login_button.setText("登录");
             login_sub_button.setText("没有帐号?");
+            use_agreement1.setVisibility(View.GONE);
+            use_agreement2.setVisibility(View.GONE);
         }
         else if(LoginActivity.VALUE_TYPE_REGISTER.equals(loginType))
         {
             title.setText("注册");
             login_button.setText("注册");
             login_sub_button.setText("已经有帐号?");
+            use_agreement1.setVisibility(View.VISIBLE);
+            use_agreement2.setVisibility(View.VISIBLE);
         }
         else
         {
             title.setText("绑定手机号");
             login_button.setText("绑定");
             login_sub_button.setVisibility(View.GONE);
+            use_agreement1.setVisibility(View.VISIBLE);
+            use_agreement2.setVisibility(View.VISIBLE);
         }
+    }
+
+
+    @Override
+    public void startLoading()
+    {
+        getLoadingView().showByNullBackground();
+    }
+
+    @Override
+    public void endLoading()
+    {
+        getLoadingView().hide();
     }
 }

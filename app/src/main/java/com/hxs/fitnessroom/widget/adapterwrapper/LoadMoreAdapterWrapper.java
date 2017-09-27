@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hxs.fitnessroom.Constants;
 import com.hxs.fitnessroom.R;
 
 import java.util.List;
@@ -81,6 +82,9 @@ public class LoadMoreAdapterWrapper extends RecyclerView.Adapter
                 keepOnAppending = false;
             } else if(addDataCount != ONDATAREADY_ERROR)
             {
+                if(addDataCount < Constants.PAGE_SIZE)
+                    keepOnAppending = false;
+
                 int updateIndex = mTempLastPosition + (mIsShowLoading ? 0 : 1);
                 notifyItemRangeInserted(updateIndex, updateIndex + addDataCount);
                 //有新数据

@@ -81,7 +81,7 @@ public class UserMainUi extends BaseUi
         setting_service.setValue(R.drawable.ic_user_kefu, "我的客服", null);
         setting_service.hideLine();
         setting_message.setValue(R.drawable.ic_user_xiaoxi, "我的消息", null);
-        setting_system.setValue(R.drawable.ic_user_shezhi, "我的设置", null);
+        setting_system.setValue(R.drawable.ic_user_shezhi, "系统设置", null);
     }
 
     public void initUserInfo()
@@ -90,7 +90,7 @@ public class UserMainUi extends BaseUi
         {
             ImageLoader.loadHeadImageCircleCrop(HXSUser.getHXSUser().head_img,user_avatar);
             user_name.setText(HXSUser.getHXSUser().nickname);
-            user_authenticate.setText("未认证");
+            user_authenticate.setText(HXSUser.getRealnameStatus());
             not_login_tip.setVisibility(View.GONE);
             user_name.setVisibility(View.VISIBLE);
             user_authenticate.setVisibility(View.VISIBLE);
@@ -100,6 +100,7 @@ public class UserMainUi extends BaseUi
         }
         else
         {
+            user_authenticate.setText("");
             not_login_tip.setVisibility(View.VISIBLE);
             user_avatar.setImageResource(R.mipmap.ic_user_def_head);
             user_name.setVisibility(View.GONE);

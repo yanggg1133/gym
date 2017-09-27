@@ -11,7 +11,7 @@
         android:background="#000000"
         android:alpha="0"
         />
-
+        <!-- e5 -->
     <RelativeLayout
         android:id="@+id/dialog_widget_layout"
         android:layout_width="match_parent"

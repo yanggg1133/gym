@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user.ui;
 
+import android.view.View;
+
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
@@ -43,10 +45,20 @@ public class UserInfoUi extends BaseUi
         ImageLoader.loadHeadImageCircleCrop(HXSUser.getHeadImg(),user_avatar.getRightImageView());
         user_nickname.setValue("昵称",HXSUser.getNickname());
         user_sex.setValue("性别",HXSUser.getSexname());
-        user_phone.setValue("手机号","");
+        user_sex.hideRightGotoIcon();
+        user_phone.setValue("手机号",HXSUser.getMobile());
+        user_phone.hideRightGotoIcon();
         user_phone.hideLine();
+
         user_realname.setValue("姓名",HXSUser.getRealname());
-        user_authenticate.setValue("实名认证","未认证");
+        user_authenticate.setValue("实名认证",HXSUser.getRealnameStatus());
+        if(! "未认证".equals(HXSUser.getRealnameStatus()) && ! "审核不通过".equals(HXSUser.getRealnameStatus()))
+        {
+            user_realname.hideRightGotoIcon();
+            user_realname.setEnabled(false);
+            user_authenticate.hideRightGotoIcon();
+            user_authenticate.setEnabled(false);
+        }
 
     }
 

@@ -92,6 +92,7 @@
         <activity android:name=".module.user.AboutActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserWalletDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.SettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserInfoVerifiedActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsEndingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopResultActivity" android:screenOrientation="portrait"/>
@@ -152,55 +153,6 @@
 
 
 
-
-
-        <!-- 友盟SDK ****************************************
-        <activity
-            android:name="fitnessroom.hxs.com.ushare.WBShareActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action
-                    android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="false"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:launchMode="singleTask"
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
-        <activity
-            android:name="com.umeng.qq.tencent.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent100424468" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.umeng.qq.tencent.AssistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>-->
-        <!-- ^^^^^^^^^^^ -->
 
     </application>
 

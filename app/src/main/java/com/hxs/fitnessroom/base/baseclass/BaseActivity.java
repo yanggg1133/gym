@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 111;
     private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
     private HXSUser.UserAccountUpdateBroadcastReceiver mUserAccountUpdateBroadcastReceiver;
+    private OnPermissionsCallback onPermissionsCallback;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID)
@@ -138,18 +139,20 @@ public class BaseActivity extends AppCompatActivity
      * 申请权限
      * @param permissions
      */
-    public void requestPermission(String[] permissions)
+    public void requestPermission(String[] permissions , OnPermissionsCallback onPermissionsCallback)
     {
+        this.onPermissionsCallback = onPermissionsCallback;
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             if(filterPermission(permissions).length != 0)
                 ActivityCompat.requestPermissions(this, filterPermission(permissions), MY_PERMISSIONS_REQUEST_READ_CONTACTS);
             else
-                onPermissionsPass();
+                onPermissionsCallback.onPermissionsPass();
         }
         else
         {
-            onPermissionsPass();
+            onPermissionsCallback.onPermissionsPass();
         }
     }
 
@@ -175,7 +178,7 @@ public class BaseActivity extends AppCompatActivity
                 }
             }
         }
-        requestPermission(permissions);
+        requestPermission(permissions,onPermissionsCallback);
     }
 
     /**
@@ -234,7 +237,7 @@ public class BaseActivity extends AppCompatActivity
                         @Override
                         public void onCancel()
                         {
-                            finish();
+                            onPermissionsCallback.onPermissionsFail();
                         }
 
                         @Override
@@ -246,21 +249,27 @@ public class BaseActivity extends AppCompatActivity
                 }
                 else
                 {
-                    onPermissionsPass();
+                    onPermissionsCallback.onPermissionsPass();
                 }
             }
 
         }
     }
 
-    /**
-     * 权限请求是否通过
-     * 当请求申请权限后，需要重写该方法来获得回调通知
-     *
-     */
-    public void onPermissionsPass()
+    public interface OnPermissionsCallback
     {
-        Toast.makeText(this,"权限通过",Toast.LENGTH_SHORT).show();
+        /**
+         * 权限请求不通过
+         * 当请求申请权限后，需要重写该方法来获得回调通知
+         *
+         */
+        void onPermissionsFail();
+
+        /**
+         * 权限请求通过
+         * 当请求申请权限后，需要重写该方法来获得回调通知
+         */
+        void onPermissionsPass();
     }
 
     /**

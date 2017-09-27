@@ -42,6 +42,8 @@ public class StoreListUi extends BaseUi
         county_item_select = findViewById(R.id.county_item_select);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
+        findViewByIdAndSetClick(R.id.county_item_select_onclick_view);
+        findViewByIdAndSetClick(R.id.city_item_select_onclick_view);
 
     }
 
@@ -57,23 +59,32 @@ public class StoreListUi extends BaseUi
         county_item_select.setText(ValidateUtil.isEmpty(countyName) ? "全部门店" : countyName);
     }
 
-    public void setLoadmoremListener(LoadMoreAdapterWrapper.RequestToLoadMoreListener requestToLoadMoreListener)
+    public void setAdapter(RecyclerView.Adapter adapter)
     {
-        recyclerView.setAdapter(new StoreRecyclerViewAdapter());
-//        recyclerView.setAdapter(new LoadMoreAdapterWrapper(new StoreRecyclerViewAdapter(),requestToLoadMoreListener));
+//        recyclerView.setAdapter(new StoreRecyclerViewAdapter());
+        recyclerView.setAdapter(adapter);
     }
+
+
 
     public void addStoreList(List<StoreBean> loadMoreData)
     {
-        storeBeanList.clear();
-        storeBeanList.addAll(loadMoreData);
-        recyclerView.getAdapter().notifyDataSetChanged();
+        if(null == loadMoreData)
+        {
+            storeBeanList.clear();
+        }
+        else
+        {
+            storeBeanList.addAll(loadMoreData);
+        }
     }
 
     private List<StoreBean> storeBeanList = new ArrayList<>();
 
-    class StoreRecyclerViewAdapter extends RecyclerView.Adapter
+    public class StoreRecyclerViewAdapter extends RecyclerView.Adapter
     {
+
+
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {

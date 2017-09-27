@@ -32,7 +32,7 @@ import java.util.List;
  * @author shaojunjie on 9/2/17
  * @Email fgnna@qq.com
  */
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity implements BaseActivity.OnPermissionsCallback
 {
 
 
@@ -110,11 +110,11 @@ public class MainActivity extends BaseActivity
             HXSUser.signOut();
         }
 
+        HXSUser.updateUserInfoAsync();
+
         requestPermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-        });
+        },this);
 
         if (savedInstanceState != null)
         {
@@ -132,18 +132,21 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    public void onPermissionsFail()
+    {
+
+    }
+
+    @Override
     public void onPermissionsPass()
     {
-        super.onPermissionsPass();
         LocationUtil.refreshLocation();
         new Handler().post(new Runnable()
         {
             @Override
             public void run()
             {
-                if (HXSUser.isLogin())
-                    startActivity(MainActivity.getNewIntent(MainActivity.this));
-                else
+                if (!HXSUser.isLogin())
                     startActivity(WelcomeActivity.getNewIntent(MainActivity.this));
             }
         });

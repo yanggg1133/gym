@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
 
 
@@ -54,9 +55,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK)
+        if(requestCode == RequestCode_Login && resultCode == RESULT_OK)
         {
-            startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
+            //startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
+            setResult(RESULT_OK);
+            HXSUser.sendUserInfoUpdateBroadcastReceiver();
             finish();
         }
     }

@@ -40,6 +40,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_activity);
         mUserInfoUi = new UserInfoUi(this);
+        registerUserUpdateBroadcastReceiver();
+        HXSUser.updateUserInfoAsync();
     }
 
     public static Intent getNewIntent(Context context)
@@ -63,8 +65,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             case R.id.user_nickname: //昵称
                 startActivity(UserNicknameActivity.getNewIntent(v.getContext()));
                 break;
-
-
+            case R.id.user_realname: //实名认证
+            case R.id.user_authenticate: //实名认证
+                startActivity(UserInfoVerifiedActivity.getNewIntent(v.getContext()));
+                break;
         }
     }
 

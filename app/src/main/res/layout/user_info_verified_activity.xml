@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/realname_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        app:theme="@style/TextInputStyle"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        >
+
+        <EditText
+            android:id="@+id/realname_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="18dp"
+            android:textSize="16dp"
+            android:hint="请输入真实姓名"
+            android:inputType="text"
+            android:singleLine="true"
+            android:nextFocusForward="@+id/verifycode_text"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/idcard_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/realname_text_layout"
+        android:layout_marginTop="80dp"
+        app:theme="@style/TextInputStyle"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        >
+        <EditText
+            android:id="@+id/idcard_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="18dp"
+            android:textSize="16dp"
+            android:hint="请输入身份证号"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="确认"
+            android:imeOptions="actionUnspecified"
+            android:singleLine="true"
+            android:inputType="number"
+
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <View
+        android:id="@+id/centerView"
+        android:layout_width="15dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/idcard_text_layout"
+        />
+    <ImageView
+        android:id="@+id/phone_1_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_toLeftOf="@+id/centerView"
+        android:layout_alignTop="@+id/idcard_text_layout"
+        android:layout_marginTop="84dp"
+        app:srcCompat="@drawable/ic_chenggong_icon"
+        />
+    <ImageView
+        android:id="@+id/phone_2_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_toRightOf="@+id/centerView"
+        android:layout_alignTop="@+id/phone_1_view"
+        app:srcCompat="@drawable/ic_chenggong_icon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手持证件照"
+        android:layout_alignLeft="@+id/phone_1_view"
+        android:layout_alignRight="@+id/phone_1_view"
+        android:layout_below="@+id/phone_1_view"
+        android:gravity="center"
+        android:textColor="@color/colorListItemSubTitleText"
+        android:textSize="@dimen/item_sub_text_size"
+        android:layout_marginTop="8dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="证件正面照"
+        android:layout_alignLeft="@+id/phone_2_view"
+        android:layout_alignRight="@+id/phone_2_view"
+        android:layout_below="@+id/phone_2_view"
+        android:textColor="@color/colorListItemSubTitleText"
+        android:textSize="@dimen/item_sub_text_size"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="@dimen/item_sub_text_size"
+        android:text="为保障您和其他用户更好地使用健身房，需要您完成实名认证。"
+        android:layout_below="@+id/phone_1_view"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        />
+
+    <TextView
+        android:id="@+id/action_verified"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:text="认证"
+        android:gravity="center"
+        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:textSize="@dimen/item_text_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        />
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hxs.fitnessroom.Constants;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
@@ -41,6 +42,8 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     private String mCurrentUserSelectCounty = "";
     private int mPageIndex = 1;
 
+    private LoadMoreAdapterWrapper mLoadMoreAdapterWrapper;
+
     private LoadMoreAdapterWrapper.RequestToLoadMoreListener mRequestToLoadMoreListener = new LoadMoreAdapterWrapper.RequestToLoadMoreListener()
     {
         @Override
@@ -64,7 +67,8 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         super.onViewCreated(view, savedInstanceState);
         mStoreListUi = new StoreListUi(this);
         mStoreListUi.setTitle("健身房");
-        mStoreListUi.setLoadmoremListener(mRequestToLoadMoreListener);
+        mLoadMoreAdapterWrapper = new LoadMoreAdapterWrapper(mStoreListUi.new StoreRecyclerViewAdapter(),mRequestToLoadMoreListener);
+        mStoreListUi.setAdapter(mLoadMoreAdapterWrapper);
         mStoreListUi.setOnclick(this);
         doWork();
     }
@@ -73,7 +77,8 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     {
         if (null == mWorkAsyncTask)
         {
-            mStoreListUi.getLoadingView().show();
+            if(mPageIndex == 1)
+                mStoreListUi.getLoadingView().show();
             mWorkAsyncTask = new WorkAsyncTask();
             mWorkAsyncTask.execute(getBaseActivity());
         }
@@ -91,7 +96,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     {
         switch (v.getId())
         {
-            case R.id.city_item_select:
+            case R.id.city_item_select_onclick_view:
                 AreaSelectDialogFragment.show(getFragmentManager(), AreaSelectDialogFragment.SELECT_TYPE_CITY,
                         mCurrentCityIndex, mCurrentCountyIndex, mAreas,
                         new AreaSelectDialogFragment.OnSelectCallBack()
@@ -106,11 +111,12 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
                                 mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
                                 mStoreListUi.getLoadingView().showByNullBackground();
                                 mPageIndex = 1;
+                                mStoreListUi.addStoreList(null);
                                 doWork();
                             }
                         });
                 break;
-            case R.id.county_item_select:
+            case R.id.county_item_select_onclick_view:
                 AreaSelectDialogFragment.show(getFragmentManager(), AreaSelectDialogFragment.SELECT_TYPE_COUNTY,
                         mCurrentCityIndex, mCurrentCountyIndex, mAreas,
                         new AreaSelectDialogFragment.OnSelectCallBack()
@@ -123,6 +129,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
                                 mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
                                 mStoreListUi.getLoadingView().showByNullBackground();
                                 mPageIndex = 1;
+                                mStoreListUi.addStoreList(null);
                                 doWork();
                             }
                         });
@@ -130,7 +137,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         }
     }
 
-
+    private boolean isFirstQuery = true;
     /**
      * 查询城市列表及门店地址
      */
@@ -139,14 +146,22 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            int count = 0;
-            while (count < 5)
+            /**
+             * 地理定位会有一定延时，所以第一次进来需要等待一下
+             */
+            if(isFirstQuery)
             {
-                if(ValidateUtil.isNotEmpty(LocationUtil.getLastLocationPoints()))
+                int count = 0;
+                while (count < 5)
                 {
-                    break;
+                    if(ValidateUtil.isNotEmpty(LocationUtil.getLastLocationPoints()))
+                    {
+                        break;
+                    }
+                    Thread.sleep(1000);
+                    count++;
                 }
-                Thread.sleep(1000);
+                isFirstQuery = false;
             }
 
             if(mAreas == null)
@@ -165,7 +180,13 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected void onError(@Nullable Exception e)
         {
-            mStoreListUi.getLoadingView().showNetworkError();
+            if(mPageIndex == 1)
+                mStoreListUi.getLoadingView().showNetworkError();
+            else
+            {
+                mStoreListUi.getLoadingView().hide();
+                mLoadMoreAdapterWrapper.onDataReady(LoadMoreAdapterWrapper.ONDATAREADY_ERROR);
+            }
             mWorkAsyncTask = null;
         }
 
@@ -173,14 +194,16 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         protected void onSuccess(APIResponse data)
         {
             APIResponse<List<StoreBean>> stores = data;
-            if (ValidateUtil.isNotEmpty(stores.data))
-            {
-                mStoreListUi.addStoreList(stores.data);
-            }
             if(ValidateUtil.isNotEmpty(mAreas))
             {
                 mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
             }
+
+            if (ValidateUtil.isNotEmpty(stores.data))
+            {
+                mStoreListUi.addStoreList(stores.data);
+            }
+            mLoadMoreAdapterWrapper.onDataReady(stores.data.size());
             mWorkAsyncTask = null;
             mStoreListUi.getLoadingView().hide();
         }

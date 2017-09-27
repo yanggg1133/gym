@@ -1,5 +1,6 @@
 package com.hxs.fitnessroom.module.sports;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.R;
+import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.main.WelcomeActivity;
 import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
@@ -30,6 +33,7 @@ import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ScanCodeUtil;
+import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.VariableUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
@@ -119,8 +123,31 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void startSport()
     {
-        step1_checkLogin();
+        checkPermissions();//检查报像头权限
     }
+
+    private void checkPermissions()
+    {
+        getBaseActivity().requestPermission(new String[]{
+                Manifest.permission.CAMERA,
+        }, new BaseActivity.OnPermissionsCallback()
+        {
+            @Override
+            public void onPermissionsFail()
+            {
+                ToastUtil.toastShort("请设置权限后重新尝试");
+            }
+
+            @Override
+            public void onPermissionsPass()
+            {
+                step1_checkLogin();
+            }
+        });
+
+    }
+
+
 
     /**
      * 第一步 检查登陆
@@ -131,7 +158,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             step2_checkDeposit();
         else
         {
-            startActivityForResult(LoginActivity.getNewIntent(getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
+            startActivityForResult(WelcomeActivity.getNewIntent(getContext()), RequestCode_Login);
         }
     }
 
@@ -142,7 +169,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (mUserAccountBean == null)//初始查询，查询帐户情况
         {
-            new QueryAccountTask().execute(getBaseActivity(),mSportsMainUi);
+            new QueryAccountTask().execute(getBaseActivity(), mSportsMainUi);
         } else//初始查询完成后，判断数据
         {
             //用户已在健身房内还未出来
@@ -207,7 +234,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (ValidateUtil.isNotEmpty(openDoorCode))
         {
-            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(),mSportsMainUi);
+            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(), mSportsMainUi);
         }
     }
 
@@ -218,9 +245,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (null == mUserDeviceStatus)
         {
-            new GetUserDeviceStatusTask().execute(getBaseActivity(),mSportsMainUi);
-        }
-        else
+            new GetUserDeviceStatusTask().execute(getBaseActivity(), mSportsMainUi);
+        } else
         {
             step6_using();
         }
@@ -245,7 +271,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void step7_stopSportUsing(RechargeBean.BalancePay balancePay)
     {
-        startActivity(SportsEndingActivity.getNewIntent(getBaseActivity(),balancePay));
+        startActivity(SportsEndingActivity.getNewIntent(getBaseActivity(), balancePay));
     }
 
 
@@ -285,7 +311,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 String code = ScanCodeUtil.getResultScanCode(resultCode, data);
                 if (null != code)
                 {
-                    new ActionScanCodeTask(code).execute(getBaseActivity(),mSportsMainUi);
+                    new ActionScanCodeTask(code).execute(getBaseActivity(), mSportsMainUi);
                 }
                 break;
         }
@@ -324,13 +350,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_not_deposit()
     {
-        if(HXSUser.getDepositIsReturning() == AccountStatus_Deposit_Returning)
+        if (HXSUser.getDepositIsReturning() == AccountStatus_Deposit_Returning)
         {
             DialogUtil.showConfirmDialog("押金退回中\n暂无法使用健身房设备", "", "知道了",
-                    getFragmentManager(),null);
+                    getFragmentManager(), null);
             return;
         }
-        DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_deposit(), "取消", "去缴费",
+        DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_deposit(), "取消", "去缴纳",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()
                 {
@@ -439,7 +465,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            return UserAccountModel.getGymUserAccount();
+            return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_DEF);
         }
 
         @Override
@@ -481,18 +507,18 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             if (QRCodeBean.DEVICE_TYPE_DOOR.equals(qRCodeBean.data.type))
             {
                 mSportsMainUi.getLoadingView().showByNullBackground();
-                new SportsPayTask().execute(getBaseActivity(),mSportsMainUi);
+                new SportsPayTask().execute(getBaseActivity(), mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(qRCodeBean.data.type))
             {
-                mUserDeviceStatus.locker.status = mUserDeviceStatus.locker.status == 0 ? 1 :0;
+                mUserDeviceStatus.locker.status = mUserDeviceStatus.locker.status == 0 ? 1 : 0;
                 mSportsMainUi.setLockerIsUsing(mUserDeviceStatus.locker.status);
             } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(qRCodeBean.data.type))
             {
-                mUserDeviceStatus.run.status = mUserDeviceStatus.run.status == 0 ? 1 :0;
+                mUserDeviceStatus.run.status = mUserDeviceStatus.run.status == 0 ? 1 : 0;
                 mSportsMainUi.setRunIsUsing(mUserDeviceStatus.run.status);
             } else if (QRCodeBean.DEVICE_TYPE_SHOP.equals(qRCodeBean.data.type))
             {
-                startActivity(SportsShopActivity.getNewIntent(getBaseActivity(),qRCodeBean.data.name,qRCodeBean.data.price,qRCodeBean.data.number,qRCodeBean.data.id));
+                startActivity(SportsShopActivity.getNewIntent(getBaseActivity(), qRCodeBean.data.name, qRCodeBean.data.price, qRCodeBean.data.number, qRCodeBean.data.id));
             } else
             {
 
@@ -513,12 +539,12 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             while (count <= 5)
             {
                 APIResponse<UserDeviceStatusBean> userDeviceStatus = UserDeviceModel.getUserDeviceStatus();
-                if(userDeviceStatus.isSuccess())
+                if (userDeviceStatus.isSuccess())
                 {
                     return userDeviceStatus;
                 }
-                if(count < 5)
-                    Thread.sleep(1000*count);
+                if (count < 5)
+                    Thread.sleep(1000 * count);
                 count++;
             }
             return null;
@@ -547,13 +573,13 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             int count = 1;
             while (count <= 5)
             {
-                APIResponse<RechargeBean> response = RechargeModel.addRecharge(PayFactory.PAY_TYPE_BALANCE,null,PayFactory.PAY_ACTION_SPORTS);
-                if(response.isSuccess())
+                APIResponse<RechargeBean> response = RechargeModel.addRecharge(PayFactory.PAY_TYPE_BALANCE, null, PayFactory.PAY_ACTION_SPORTS);
+                if (response.isSuccess())
                 {
                     return response;
                 }
-                if(count < 5)
-                    Thread.sleep(1000*count);
+                if (count < 5)
+                    Thread.sleep(1000 * count);
                 count++;
             }
             return null;

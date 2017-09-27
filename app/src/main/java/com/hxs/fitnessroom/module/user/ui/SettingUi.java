@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.module.user.ui;
 
+import android.view.View;
+
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
@@ -17,6 +19,7 @@ public class SettingUi extends BaseUi
     private final SettingItemView deposit_statement;
     private final SettingItemView top_up_protocol;
     private final SettingItemView about_our;
+    private final View logout_button;
 
     public SettingUi(BaseActivity baseActivity)
     {
@@ -28,6 +31,7 @@ public class SettingUi extends BaseUi
         deposit_statement = findViewById(R.id.deposit_statement);
         top_up_protocol = findViewById(R.id.top_up_protocol);
         about_our = findViewById(R.id.about_our);
+        logout_button = findViewById(R.id.logout_button);
         initView();
     }
 
@@ -46,5 +50,6 @@ public class SettingUi extends BaseUi
         deposit_statement.setOnClickListener(getBaseOnclick());
         top_up_protocol.setOnClickListener(getBaseOnclick());
         about_our.setOnClickListener(getBaseOnclick());
+        logout_button.setOnClickListener(getBaseOnclick());
     }
 }

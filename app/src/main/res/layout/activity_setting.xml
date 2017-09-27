@@ -31,4 +31,27 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:id="@+id/logout_button"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:text="退出登录"
+            android:gravity="center"
+            android:textSize="@dimen/item_text_size"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_stroke_d8abff"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="65dp"
+            />
+
+    </RelativeLayout>
+
+
 </LinearLayout>

@@ -70,11 +70,10 @@ public class LoginModel
     /**
      * 获取用户信息
      */
-    public static APIResponse<UserBean> getSelfUserInfo(String sess_token)
+    public static APIResponse<UserBean> getSelfUserInfo()
     {
         return APIHttpClient.postForm(ConstantsApiUrl.GetSelfUserInfo.getUrl(),
-                ParamsBuilder.buildFormParam()
-                        .putParam("sess_token",sess_token),
+                ParamsBuilder.buildFormParam(),
                 new TypeToken<APIResponse<UserBean>>(){}.getType()
         );
     }

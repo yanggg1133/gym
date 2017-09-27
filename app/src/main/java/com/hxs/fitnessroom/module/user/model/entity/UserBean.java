@@ -34,4 +34,5 @@ public class UserBean
     public String province;
     public String city;
     public String vocation;
+    public String mobile;
 }

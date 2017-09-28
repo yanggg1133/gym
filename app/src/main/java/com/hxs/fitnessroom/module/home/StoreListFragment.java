@@ -40,7 +40,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     private int mCurrentCountyIndex = -1;
     private String mCurrentUserSelectCity = "";
     private String mCurrentUserSelectCounty = "";
-    private int mPageIndex = 0;
+    private int mPageIndex = 1;
 
     private LoadMoreAdapterWrapper mLoadMoreAdapterWrapper;
 
@@ -77,7 +77,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     {
         if (null == mWorkAsyncTask)
         {
-            if(mPageIndex == 0)
+            if(mPageIndex == 1)
                 mStoreListUi.getLoadingView().show();
             mWorkAsyncTask = new WorkAsyncTask();
             mWorkAsyncTask.execute(getBaseActivity());
@@ -88,6 +88,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     public void onReload()
     {
         mPageIndex = 1;
+        mLoadMoreAdapterWrapper = new LoadMoreAdapterWrapper(mStoreListUi.new StoreRecyclerViewAdapter(),mRequestToLoadMoreListener);
         doWork();
     }
 
@@ -116,9 +117,8 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
                                 mCurrentUserSelectCounty = "";
                                 mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
                                 mStoreListUi.getLoadingView().showByNullBackground();
-                                mPageIndex = 0;
                                 mStoreListUi.addStoreList(null);
-                                doWork();
+                                onReload();
                             }
                         });
                 break;
@@ -134,9 +134,8 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
                                 mCurrentUserSelectCounty = mCurrentCountyIndex == -1 ? "" : mAreas.get(mCurrentCityIndex).county[mCurrentCountyIndex];
                                 mStoreListUi.setCityAndCountyName(mCurrentUserSelectCity,mCurrentUserSelectCounty);
                                 mStoreListUi.getLoadingView().showByNullBackground();
-                                mPageIndex = 0;
                                 mStoreListUi.addStoreList(null);
-                                doWork();
+                                onReload();
                             }
                         });
                 break;
@@ -168,7 +167,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
         @Override
         protected void onError(@Nullable Exception e)
         {
-            if(mPageIndex == 0)
+            if(mPageIndex == 1)
                 mStoreListUi.getLoadingView().showNetworkError();
             else
             {

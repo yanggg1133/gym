@@ -41,6 +41,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
     private TextView money;
     private TextView deposit_return_tip;
     private View deposit_tips;
+    private TextView deposit_return_tip_confirm;
 
     public static Intent getNewIntent(Context context)
     {
@@ -64,6 +65,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         goto_deposit_button = mBaseUi.findViewByIdAndSetClick(R.id.goto_deposit_button);
         money = mBaseUi.findViewByIdAndSetClick(R.id.money);
         deposit = mBaseUi.findViewByIdAndSetClick(R.id.deposit);
+        deposit_return_tip_confirm = mBaseUi.findViewByIdAndSetClick(R.id.deposit_return_tip_confirm);
         deposit_return_tip = mBaseUi.findViewById(R.id.deposit_return_tip);
         deposit_tips = mBaseUi.findViewById(R.id.deposit_tips);
         onReload();
@@ -76,6 +78,17 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         {
             case R.id.toolbar_right_text_button://明细
                 startActivity(UserWalletDetailActivity.getNewIntent(v.getContext()));
+                break;
+            case R.id.deposit_return_tip_confirm://底部提示文案 按钮
+                if("重新申请".equals(deposit_return_tip_confirm.getText().toString()))
+                {
+                    gotoReturnDeposit();
+                }
+                else
+                {
+                    deposit_return_tip.setVisibility(View.GONE);
+                    deposit_return_tip_confirm.setVisibility(View.GONE);
+                }
                 break;
             case R.id.goto_recharge_button://去充值
                 startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
@@ -95,27 +108,32 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                         break;
                     case UserAccountBean.AccountStatus_NORMAL://正常
                     case UserAccountBean.AccountStatus_Deposit_Fial: //押金退回失败
-                        if (0d > VariableUtil.stringToDouble(mUserAccountBean.balance))
-                        {
-                            DialogUtil.showConfirmDialog("您还有尚未支付的费用\n支付后才能退回押金","充值","不退了",  getSupportFragmentManager(),
-                                    new ConfirmDialog.OnDialogCallbackAdapter()
-                                    {
-                                        @Override
-                                        public void onCancelClick()
-                                        {
-                                            startActivityForResult(PayRechargeActivity.getNewIntent(UserWalletActivity.this),RequestCode_Activity_ReturnDeposit);
-                                        }
-                                    });
-
-                        } else
-                        {
-                            startActivity(ReturnDepositActivity.getNewIntent(UserWalletActivity.this));
-                        }
+                        gotoReturnDeposit();
                         break;
                     case UserAccountBean.AccountStatus_Deposit_Returning://押金退回中
                         break;
                 }
                 break;
+        }
+    }
+
+    private void gotoReturnDeposit()
+    {
+        if (0d > VariableUtil.stringToDouble(mUserAccountBean.balance))
+        {
+            DialogUtil.showConfirmDialog("您还有尚未支付的费用\n支付后才能退回押金","充值","不退了",  getSupportFragmentManager(),
+                    new ConfirmDialog.OnDialogCallbackAdapter()
+                    {
+                        @Override
+                        public void onCancelClick()
+                        {
+                            startActivityForResult(PayRechargeActivity.getNewIntent(UserWalletActivity.this),RequestCode_Activity_ReturnDeposit);
+                        }
+                    });
+
+        } else
+        {
+            startActivity(ReturnDepositActivity.getNewIntent(UserWalletActivity.this));
         }
     }
 
@@ -132,6 +150,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         money.setText("￥" + mUserAccountBean.balance);
         goto_deposit_button.setTextColor(0xffffffff);
         deposit_tips.setVisibility(View.GONE);
+        deposit_return_tip_confirm.setVisibility(View.GONE);
 
         switch (mUserAccountBean.status)
         {
@@ -161,12 +180,17 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                 goto_deposit_button.setEnabled(true);
                 deposit_return_tip.setVisibility(View.VISIBLE);
                 deposit_tips.setVisibility(View.VISIBLE);
+                deposit_return_tip_confirm.setVisibility(View.VISIBLE);
+                deposit_return_tip_confirm.setText("确定");
                 break;
             case UserAccountBean.AccountStatus_Deposit_Fial: //押金退回失败
                 goto_deposit_button.setText("退还");
-                goto_deposit_button.setText("您的押金退回失败，请联系客服");
-                goto_deposit_button.setEnabled(true);
+                deposit_return_tip.setText("您的押金退回失败");
+                goto_deposit_button.setEnabled(false);
+                goto_deposit_button.setTextColor(getResources().getColor(R.color.colorListItemSubTitleText));
                 deposit_return_tip.setVisibility(View.VISIBLE);
+                deposit_return_tip_confirm.setVisibility(View.VISIBLE);
+                deposit_return_tip_confirm.setText("重新申请");
                 break;
         }
 

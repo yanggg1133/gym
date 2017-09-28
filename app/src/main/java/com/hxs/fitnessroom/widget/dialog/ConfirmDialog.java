@@ -30,11 +30,13 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
     private TextView confirm_action;
     private TextView cancel_action;
     private View dialog_content_layout;
+    private TextView title;
     private OnDialogCallback onDialogCallback;
     private String mContent;
     private String mCancelText;
     private String mConfirmText;
     private boolean mIsConfirm = false;
+    private String mTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -58,6 +60,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
         cancel_action = (TextView) view.findViewById(R.id.cancel_action);
         dialog_background = view.findViewById(R.id.dialog_background);
         dialog_content_layout = view.findViewById(R.id.dialog_content_layout);
+        title = (TextView) view.findViewById(R.id.title);
 
         if(ValidateUtil.isNotEmpty(mContent))
             content.setText(mContent);
@@ -65,6 +68,11 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
             confirm_action.setText(mConfirmText);
         if(null != mCancelText)
             cancel_action.setText(mCancelText);
+        if(null != mTitle)
+        {
+            title.setText(mTitle);
+            title.setVisibility(View.VISIBLE);
+        }
 
         windowInAnimate();
         confirm_action.setOnClickListener(this);
@@ -153,6 +161,10 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
     public void setConfirmText(String confirmText)
     {
         mConfirmText = confirmText;
+    }
+    public void setTitle(String title)
+    {
+        mTitle = title;
     }
 
 

@@ -15,9 +15,14 @@ public class DialogUtil
 
     public static void  showConfirmDialog(String content, FragmentManager fragmentManager,ConfirmDialog.OnDialogCallback onDialogCallback)
     {
-        showConfirmDialog(content,null,null,fragmentManager,onDialogCallback);
+        showConfirmDialog(null,content,null,null,fragmentManager,onDialogCallback);
     }
     public static void  showConfirmDialog(String content, @Nullable String cancelText, @Nullable String confirmText,
+                                          FragmentManager fragmentManager,ConfirmDialog.OnDialogCallback onDialogCallback)
+    {
+        showConfirmDialog(null,content,cancelText,confirmText,fragmentManager,onDialogCallback);
+    }
+    public static void  showConfirmDialog(String title,String content, @Nullable String cancelText, @Nullable String confirmText,
                                           FragmentManager fragmentManager,ConfirmDialog.OnDialogCallback onDialogCallback)
     {
         ConfirmDialog confirmDialog = new ConfirmDialog();
@@ -25,6 +30,7 @@ public class DialogUtil
         confirmDialog.setContent(content);
         confirmDialog.setCancelText(cancelText);
         confirmDialog.setConfirmText(confirmText);
+        confirmDialog.setTitle(title);
         confirmDialog.show(fragmentManager,ConfirmDialog.class.getSimpleName());
 
     }

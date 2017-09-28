@@ -181,6 +181,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
 
             switch (mUserAccountBean.status)
             {
+                case UserAccountBean.AccountStatus_Deposit_Returning://押金退回中
                 case UserAccountBean.AccountStatus_NoDeposit://未交押金
                     error_not_deposit();
                     return;
@@ -346,12 +347,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     private void error_not_deposit()
     {
-        if (HXSUser.getDepositIsReturning() == AccountStatus_Deposit_Returning)
-        {
-            DialogUtil.showConfirmDialog("押金退回中\n暂无法使用健身房设备", "", "知道了",
-                    getFragmentManager(), null);
-            return;
-        }
+
         DialogUtil.showConfirmDialog(mUserAccountBean.getTip_not_deposit(), "取消", "去缴纳",
                 getFragmentManager(),
                 new ConfirmDialog.OnDialogCallbackAdapter()

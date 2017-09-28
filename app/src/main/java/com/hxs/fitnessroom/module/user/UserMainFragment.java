@@ -17,7 +17,9 @@ import com.hxs.fitnessroom.module.openim.AliBaichuanYwIM;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.module.user.ui.UserMainUi;
 import com.hxs.fitnessroom.module.web.WebActivity;
+import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.LogUtil;
+import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Login;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;

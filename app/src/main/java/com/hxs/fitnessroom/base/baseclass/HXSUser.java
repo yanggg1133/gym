@@ -376,7 +376,7 @@ public class HXSUser
             @Override
             protected APIResponse doWorkBackground() throws Exception
             {
-                Thread.sleep(3000);
+                Thread.sleep(2000);
                 return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_DEF);
             }
 

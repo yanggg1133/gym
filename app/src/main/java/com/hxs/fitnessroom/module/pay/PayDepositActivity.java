@@ -14,6 +14,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.DepositModel;
 import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
@@ -52,6 +53,8 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
             }
         }
     };
+    private View success_layout;
+    private TextView balance_tips;
 
 
     public static Intent getNewIntent(Context context)
@@ -73,6 +76,10 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
         pay_select_alipy_icon = (ImageView) findViewById(R.id.pay_select_alipy_icon);
         goto_pay = findViewById(R.id.goto_pay);
         pay_amount = (TextView) findViewById(R.id.pay_amount);
+
+        success_layout = findViewById(R.id.success_layout);
+        balance_tips = (TextView) findViewById(R.id.balance_tips);
+        mBaseUi.findViewByIdAndSetClick(R.id.action_comfirm);
 
 
         pay_select_weixin.setOnClickListener(this);
@@ -114,6 +121,9 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
             case R.id.goto_pay:
                 mPayFlow.payForOrderData("", PayFactory.PAY_ACTION_DEPOSIT);
                 goto_pay.setEnabled(false);
+                break;
+            case R.id.action_comfirm:
+                finish();
                 break;
         }
     }
@@ -173,10 +183,9 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onSuccess(int payType)
         {
-            goto_pay.setEnabled(true);
+            mBaseUi.getLoadingView().hide();
             PayDepositActivity.this.setResult(RESULT_OK);
-            mBaseUi.getLoadingView().showSuccess("支付成功");
-            mHandler.sendEmptyMessageDelayed(0,1500);//1.5秒后关闭界面
+            success_layout.setVisibility(View.VISIBLE);
         }
 
         @Override

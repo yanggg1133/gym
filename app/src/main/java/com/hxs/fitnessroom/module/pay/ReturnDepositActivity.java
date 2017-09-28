@@ -16,7 +16,9 @@ import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.DepositModel;
 import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
+import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.widget.LoadingView;
+import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 /**
  * 退换押金
@@ -137,7 +139,14 @@ public class ReturnDepositActivity extends BaseActivity implements View.OnClickL
             mBaseUi.getLoadingView().hide();
             setResult(Activity.RESULT_OK);
             HXSUser.updateUserAccountInfoAsync();
-            finish();
+            HXSUser.sendUserInfoUpdateBroadcastReceiver();
+            DialogUtil.showConfirmDialog("押金退回申请已提交","您可在1-3个工作日内进入\"我的钱包\"查看退回结果","","确定",getSupportFragmentManager(),new ConfirmDialog.OnDialogCallbackAdapter(){
+                @Override
+                public void onConfirm()
+                {
+                    finish();
+                }
+            });
         }
     }
 

@@ -121,7 +121,7 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
             case R.id.action_button:
                 if(mShopSuccess)
                 {
-                    finish();
+
                 }
                 else
                 {
@@ -130,6 +130,7 @@ public class SportsShopResultActivity extends BaseActivity implements View.OnCli
                     else//去充值
                         startActivity(PayRechargeActivity.getNewIntent(v.getContext()));
                 }
+                finish();
                 break;
         }
     }

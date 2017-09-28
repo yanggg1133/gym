@@ -59,7 +59,7 @@
         android:layout_alignRight="@+id/realname_text_layout"
         android:layout_alignTop="@+id/realname_text_layout"
         android:text="发送验证码"
-        android:background="@drawable/bg_stroke_d8abff"
+        android:background="@drawable/bg_stroke_d8abff_r50"
         android:textColor="@color/colorTextDark"
         android:textSize="13dp"
         android:paddingTop="4dp"

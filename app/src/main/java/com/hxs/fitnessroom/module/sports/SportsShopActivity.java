@@ -84,7 +84,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
 
         number_tip.setText("共"+mShopCount);
         sum_amount_tip.setText("总计"+mShopAmount);
-
+        HXSUser.updateUserAccountInfoAsync();
     }
 
     @Override
@@ -148,7 +148,6 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         protected void onSuccess(APIResponse data)
         {
             mBaseUi.getLoadingView().hide();
-            APIResponse<RechargeBean> response = data;
             HXSUser.updateUserAccountInfoAsync();
             startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true,false));
             finish();

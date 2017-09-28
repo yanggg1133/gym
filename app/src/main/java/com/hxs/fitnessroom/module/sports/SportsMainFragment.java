@@ -294,16 +294,12 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             case RequestCode_Pay_Deposit:
                 if (resultCode == Activity.RESULT_OK)
                 {
-                    mUserAccountBean.status = UserAccountBean.AccountStatus_NORMAL;
                     step2_checkDeposit();
                 }
                 break;
             case RequestCode_Pay_Recharge:
                 if (resultCode == Activity.RESULT_OK)
                 {
-                    double amount = data.getDoubleExtra(PayRechargeActivity.RESULT_AMOUNT, 0d);
-                    mUserAccountBean.balance = String.valueOf(VariableUtil.stringToDouble(mUserAccountBean.balance) + amount);
-                    LogUtil.dClass("最新余额：" + mUserAccountBean.balance);
                     step2_checkDeposit();
                 }
                 break;
@@ -510,8 +506,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 new SportsPayTask().execute(getBaseActivity(), mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(qRCodeBean.data.type))
             {
-                mUserDeviceStatus.locker.status = mUserDeviceStatus.locker.status == 0 ? 1 : 0;
-                mSportsMainUi.setLockerIsUsing(mUserDeviceStatus.locker.status);
+                new GetUserDeviceStatusTask(3000).execute(getBaseActivity(), mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(qRCodeBean.data.type))
             {
                 mUserDeviceStatus.run.status = mUserDeviceStatus.run.status == 0 ? 1 : 0;
@@ -531,10 +526,24 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      */
     class GetUserDeviceStatusTask extends BaseAsyncTask
     {
+        public long latetime = 0;
+
+        public GetUserDeviceStatusTask()
+        {
+
+        }
+        public GetUserDeviceStatusTask(long latetime)
+        {
+            this.latetime = latetime;
+        }
+
 
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
+            if(latetime > 0)
+                Thread.sleep(latetime);
+
             int count = 1;
             while (count <= 5)
             {

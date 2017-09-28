@@ -52,24 +52,13 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
     private ImageView pay_select_alipy_icon;
     private RecyclerView amount_list_recycler_view;
     private PayFactory.PayFlow mPayFlow;
+    private View success_layout;
+    private TextView balance_tips;
     private List<TopupAmountBean> amountList = new ArrayList<>();
 
     private MyPayBroadcastReceiver myPayBroadcastReceiver;
     private String currentSelectId = "";
     private double currentSelectAmount = 0d;
-
-    private Handler mHandler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            super.handleMessage(msg);
-            if (!isDestroyed())
-            {
-                finish();
-            }
-        }
-    };
 
 
     public static Intent getNewIntent(Context context)
@@ -90,6 +79,10 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
         pay_select_alipy = findViewById(R.id.pay_select_alipy);
         pay_select_alipy_icon = (ImageView) findViewById(R.id.pay_select_alipy_icon);
         goto_pay = findViewById(R.id.goto_pay);
+
+        success_layout = findViewById(R.id.success_layout);
+        balance_tips = (TextView) findViewById(R.id.balance_tips);
+        mBaseUi.findViewByIdAndSetClick(R.id.action_comfirm);
 
         amount_list_recycler_view = (RecyclerView) findViewById(R.id.amount_list_recycler_view);
         amount_list_recycler_view.setLayoutManager(new GridLayoutManager(this, 4));
@@ -112,8 +105,6 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
     {
         super.onDestroy();
         myPayBroadcastReceiver.unregister(this);
-        mHandler.removeMessages(0);
-        mHandler = null;
     }
 
     @Override
@@ -136,13 +127,16 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
                 mPayFlow.payForOrderData(currentSelectId, PayFactory.PAY_ACTION_RECHARGE);
                 goto_pay.setEnabled(false);
                 break;
+            case R.id.action_comfirm:
+                finish();
+                break;
         }
     }
 
     @Override
     public void onReload()
     {
-        new QueryDepositTask().execute(this);
+        new QueryRechargeListTask().execute(this);
     }
 
 
@@ -202,9 +196,9 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
 
 
     /**
-     * 查询 押金金额
+     * 查询 可充值金额列表
      */
-    class QueryDepositTask extends BaseAsyncTask
+    class QueryRechargeListTask extends BaseAsyncTask
     {
 
         @Override
@@ -255,13 +249,20 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onSuccess(int payType)
         {
-            goto_pay.setEnabled(true);
-
+            mBaseUi.getLoadingView().hide();
             Intent intent = new Intent();
             intent.putExtra(RESULT_AMOUNT,currentSelectAmount);
             PayRechargeActivity.this.setResult(RESULT_OK,intent);
-            mBaseUi.getLoadingView().showSuccess("支付成功");
-            mHandler.sendEmptyMessageDelayed(0, 1500);//2秒后关闭界面
+            success_layout.setVisibility(View.VISIBLE);
+            try
+            {
+                balance_tips.setText("当前余额: ￥"+ (new Double(HXSUser.getUserAccountBalance())+new Double(currentSelectAmount)));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                balance_tips.setVisibility(View.GONE);
+            }
         }
 
         @Override

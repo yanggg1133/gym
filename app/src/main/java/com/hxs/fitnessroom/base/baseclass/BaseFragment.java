@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.hxs.fitnessroom.BuildConfig;
+import com.hxs.fitnessroom.util.LogUtil;
 
 /**
  * Fragment基类
@@ -32,6 +34,8 @@ public class BaseFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+        if(BuildConfig.DEBUG)
+            LogUtil.dClass("onStart");
         Glide.with(this).onStart();
     }
 
@@ -39,6 +43,8 @@ public class BaseFragment extends Fragment
     public void onStop()
     {
         super.onStop();
+        if(BuildConfig.DEBUG)
+            LogUtil.dClass("onStop");
         Glide.with(this).onStop();
     }
 
@@ -145,6 +151,8 @@ public class BaseFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
+        if(BuildConfig.DEBUG)
+            LogUtil.dClass("onDestroy");
         if (null != mUserUpdateBroadcastReceiver)
         {
             getBaseActivity().unregisterReceiver(mUserUpdateBroadcastReceiver);

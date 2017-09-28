@@ -57,7 +57,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RequestCode_Login && resultCode == RESULT_OK)
         {
-            //startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
+            startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
             setResult(RESULT_OK);
             HXSUser.sendUserInfoUpdateBroadcastReceiver();
             finish();

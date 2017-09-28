@@ -1,11 +1,13 @@
 package com.hxs.fitnessroom.module.user;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.UserMessageModel;
 import com.hxs.fitnessroom.module.user.model.entity.MessageBean;
+import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.util.ViewUtil;
 import com.hxs.fitnessroom.widget.LoadingView;
@@ -45,7 +48,6 @@ public class MessageActivity extends BaseActivity implements LoadingView.OnReloa
     {
         return new Intent(context, MessageActivity.class);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,22 +126,31 @@ public class MessageActivity extends BaseActivity implements LoadingView.OnReloa
             return mMessageList.size();
         }
 
-        class MessageViewHolder extends RecyclerView.ViewHolder
+        class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {
             TextView message_item_title;
             TextView message_item_msg;
+            private MessageBean.NoticeData noticeData;
 
             public MessageViewHolder(View itemView)
             {
                 super(LayoutInflater.from(itemView.getContext()).inflate(R.layout.user_message_item, (ViewGroup) itemView,false));
                 message_item_msg = (TextView) this.itemView.findViewById(R.id.message_item_msg);
                 message_item_title = (TextView) this.itemView.findViewById(R.id.message_item_title);
+                this.itemView.setOnClickListener(this);
             }
 
             public void bindData(MessageBean.NoticeData noticeData)
             {
                 message_item_msg.setText(noticeData.content);
                 message_item_title.setText(noticeData.title);
+                this.noticeData = noticeData;
+            }
+
+            @Override
+            public void onClick(View v)
+            {
+                WebActivity.gotoWeb(v.getContext(),noticeData.link);
             }
         }
 

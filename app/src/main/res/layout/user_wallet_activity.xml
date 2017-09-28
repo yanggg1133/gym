@@ -119,6 +119,7 @@
         />
 
     <TextView
+        android:id="@+id/deposit_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="温馨提示：如果要使用健身房需要先交押金"

@@ -16,6 +16,7 @@
     <string name="ssdk_laiwang_client_inavailable">目前您的来往版本过低或未安装，需要安装来往才能使用</string>
     <string name="ssdk_alipay_client_inavailable">目前您的支付宝版本过低或未安装，需要安装支付宝才能使用</string>
     <string name="ssdk_facebookmessenger_client_inavailable">目前您的FacebookMessenger版本过低或未安装，需要安装才能使用</string>
+	<string name="ssdk_telegram_client_inavailable">目前您的Telegram版本过低或未安装，需要安装才能使用</string>
 	<string name="ssdk_dont_keep_activitys_client">由于您已开启 不保留活动 ,导致授权功能无法正常使用.我们建议您点击左下方 设置 按钮,在 开发者选项 中关闭 不保留活动 功能.</string>
     
 	<string name="ssdk_sinaweibo">新浪微博</string>
@@ -70,6 +71,7 @@
 	<string name="ssdk_youtube">Youtube</string>
     <string name="ssdk_dingding">钉钉</string>
 	<string name="ssdk_meipai">美拍</string>
+	<string name="ssdk_telegram">Telegram</string>
 	<string name="ssdk_share_to_qzone">分享到QQ空间</string>
 	<string name="ssdk_share_to_qq">分享到QQ</string>
 	<string name="ssdk_share_to_facebook">分享到Facebook</string>

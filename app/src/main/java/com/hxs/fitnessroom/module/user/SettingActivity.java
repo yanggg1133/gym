@@ -36,13 +36,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.user_protocol:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_agreement.getH5Url(""), "用户协议");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_agreement.getH5Url(""));
                 break;
             case R.id.deposit_statement:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""), "押金说明");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_deposit.getH5Url(""));
                 break;
             case R.id.top_up_protocol:
-                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_recharge.getH5Url(""), "充值协议");
+                WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_recharge.getH5Url(""));
                 break;
             case R.id.about_our:
                 startActivity(AboutActivity.getNewIntent(v.getContext()));

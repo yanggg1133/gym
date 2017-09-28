@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean;
 import com.hxs.fitnessroom.module.user.model.LoginModel;
@@ -190,6 +191,10 @@ public class HXSUser
 
                 sendUserInfoUpdateBroadcastReceiver();
 
+                /**
+                 * 更新用户信息后，再更新用户帐户余额信息
+                 */
+                HXSUser.updateUserAccountInfoAsync();
             }
         }.execute(mContext);
     }
@@ -371,6 +376,7 @@ public class HXSUser
             @Override
             protected APIResponse doWorkBackground() throws Exception
             {
+                Thread.sleep(3000);
                 return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_DEF);
             }
 
@@ -379,6 +385,8 @@ public class HXSUser
             {
                 APIResponse<UserAccountBean> userAccount = data;
                 mUserAccountBean = userAccount.data;
+                if(BuildConfig.DEBUG)
+                    LogUtil.dClass("更新余额"+ mUserAccountBean.balance);
                 if(null != mUserAccountBean)
                 {
                     sendUserAccountUpdateBroadcastReceiver();

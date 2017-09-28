@@ -72,6 +72,7 @@ public class StoreListUi extends BaseUi
         if(null == loadMoreData)
         {
             storeBeanList.clear();
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
         else
         {
@@ -143,7 +144,7 @@ public class StoreListUi extends BaseUi
         @Override
         public void onClick(View v)
         {
-            WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_gymDetail.getH5Url(storeBean.uid),"健身房详情");
+            WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_gymDetail.getH5Url(storeBean.uid));
         }
     }
 

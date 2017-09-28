@@ -11,6 +11,7 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
@@ -39,6 +40,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
     private TextView deposit;
     private TextView money;
     private TextView deposit_return_tip;
+    private View deposit_tips;
 
     public static Intent getNewIntent(Context context)
     {
@@ -63,6 +65,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         money = mBaseUi.findViewByIdAndSetClick(R.id.money);
         deposit = mBaseUi.findViewByIdAndSetClick(R.id.deposit);
         deposit_return_tip = mBaseUi.findViewById(R.id.deposit_return_tip);
+        deposit_tips = mBaseUi.findViewById(R.id.deposit_tips);
         onReload();
     }
 
@@ -128,7 +131,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
         deposit.setText("￥" + mUserAccountBean.deposit);
         money.setText("￥" + mUserAccountBean.balance);
         goto_deposit_button.setTextColor(0xffffffff);
-
+        deposit_tips.setVisibility(View.GONE);
 
         switch (mUserAccountBean.status)
         {
@@ -137,6 +140,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                 goto_deposit_button.setEnabled(true);
                 goto_deposit_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1);
                 deposit_return_tip.setVisibility(View.GONE);
+                deposit_tips.setVisibility(View.VISIBLE);
                 break;
             case UserAccountBean.AccountStatus_NORMAL://正常
                 goto_deposit_button.setText("退还");
@@ -156,6 +160,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                 deposit_return_tip.setText("您的押金已退回");
                 goto_deposit_button.setEnabled(true);
                 deposit_return_tip.setVisibility(View.VISIBLE);
+                deposit_tips.setVisibility(View.VISIBLE);
                 break;
             case UserAccountBean.AccountStatus_Deposit_Fial: //押金退回失败
                 goto_deposit_button.setText("退还");

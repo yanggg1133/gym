@@ -32,7 +32,7 @@ import java.util.List;
  * @author shaojunjie on 9/2/17
  * @Email fgnna@qq.com
  */
-public class MainActivity extends BaseActivity implements BaseActivity.OnPermissionsCallback
+public class MainActivity extends BaseActivity
 {
 
 
@@ -102,19 +102,6 @@ public class MainActivity extends BaseActivity implements BaseActivity.OnPermiss
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        /**
-         * 如果性别为空，清除用户登录状态
-         */
-        if (HXSUser.isLogin() && UserBean.SEX_TYPE_NULL == HXSUser.getSex())
-        {
-            HXSUser.signOut();
-        }
-
-        HXSUser.updateUserInfoAsync();
-
-        requestPermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        },this);
 
         if (savedInstanceState != null)
         {
@@ -131,26 +118,7 @@ public class MainActivity extends BaseActivity implements BaseActivity.OnPermiss
 
     }
 
-    @Override
-    public void onPermissionsFail()
-    {
 
-    }
-
-    @Override
-    public void onPermissionsPass()
-    {
-        LocationUtil.refreshLocation();
-        new Handler().post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (!HXSUser.isLogin())
-                    startActivity(WelcomeActivity.getNewIntent(MainActivity.this));
-            }
-        });
-    }
 
 
     private void setupNavigation()
@@ -218,9 +186,9 @@ public class MainActivity extends BaseActivity implements BaseActivity.OnPermiss
 
     //退出确认
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
+    public boolean onKeyUp(int keyCode, KeyEvent event)
     {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP)
         {
             if ((System.currentTimeMillis() - exitTime) > 2000)
             {
@@ -232,7 +200,7 @@ public class MainActivity extends BaseActivity implements BaseActivity.OnPermiss
             }
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 }

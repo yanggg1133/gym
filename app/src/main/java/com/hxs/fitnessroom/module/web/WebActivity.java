@@ -39,7 +39,6 @@ import com.tencent.smtt.sdk.WebViewClient;
 public class WebActivity extends BaseActivity
 {
     public static final String KEY_URL = "KEY_URL";
-    public static final String KEY_TITLE = "KEY_TITLE";
 
     private String mWebUrl;
     private String mWebTitle;
@@ -47,11 +46,10 @@ public class WebActivity extends BaseActivity
     private WebView mWebView;
     private BaseUi mBaseUi;
 
-    public static void gotoWeb(Context context, String url, String title)
+    public static void gotoWeb(Context context, String url)
     {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(KEY_URL, url);
-        intent.putExtra(KEY_TITLE, title);
         context.startActivity(intent);
     }
 
@@ -65,13 +63,13 @@ public class WebActivity extends BaseActivity
         setContentView(R.layout.web_activity);
 
         mWebUrl = getIntent().getStringExtra(KEY_URL);
-        mWebTitle = getIntent().getStringExtra(KEY_TITLE);
         LogUtil.dClass(mWebUrl);
         mBaseUi = new BaseUi(this);
-        mBaseUi.setTitle(mWebTitle);
         mBaseUi.setBackAction(true);
 
         initWebView();
+
+        mBaseUi.getLoadingView().show();
         mWebView.loadUrl(mWebUrl);
     }
 
@@ -87,7 +85,7 @@ public class WebActivity extends BaseActivity
             public boolean shouldOverrideUrlLoading(final WebView view, String url)
             {
                 LogUtil.dClass("shouldOverrideUrlLoading");
-                mBaseUi.getLoadingView().show();
+
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
@@ -121,39 +119,37 @@ public class WebActivity extends BaseActivity
             }
         });
 
-        mWebView.setWebChromeClient(new WebChromeClient(){
+        mWebView.setWebChromeClient(new WebChromeClient()
+        {
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
+            public void onProgressChanged(WebView view, int newProgress)
+            {
                 LogUtil.dClass("onProgressChanged");
                 super.onProgressChanged(view, newProgress);
-                if(newProgress >= 88){
-                }else {
+                if (newProgress >= 88)
+                {
+                } else
+                {
                 }
 
             }
 
             @Override
-            public void onReceivedTitle(WebView view, final String title) {
-                LogUtil.dClass("onReceivedTitle");
+            public void onReceivedTitle(WebView view, final String title)
+            {
                 super.onReceivedTitle(view, title);
-//                setDefaleBarAndTitletext(title);
-//                try {
-//                    setWebTitle(title);
-//                }catch (Exception e){
-//
-//                }
+                mBaseUi.setTitle(title);
             }
 
             /**
              * create by shaojunjie at 2017.08.08
-             * @see TbsWebviewActivity#initJsConsoleMessageView()
              * @param consoleMessage
              * @return
              */
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage)
             {
-                if(BuildConfig.DEBUG)
+                if (BuildConfig.DEBUG)
                 {
 //                    jsConsoleMessage.append("\n-------------------------------------------------------\n");
 //                    jsConsoleMessage.append(consoleMessage.message()+"----js:"+consoleMessage.sourceId()+"-----第"+consoleMessage.lineNumber()+"行");
@@ -188,16 +184,16 @@ public class WebActivity extends BaseActivity
     }
 
 
-
-
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
-        outState.putString("currUrl",mWebUrl);
+        outState.putString("currUrl", mWebUrl);
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
         super.onRestoreInstanceState(savedInstanceState);
         mWebUrl = savedInstanceState.getString("currUrl");
     }
@@ -207,7 +203,7 @@ public class WebActivity extends BaseActivity
     protected boolean onBackUp()
     {
         LogUtil.dClass("onBackUp");
-        if(mWebView.canGoBack())
+        if (mWebView.canGoBack())
         {
             LogUtil.dClass("canGoBack");
             mWebView.goBack();
@@ -217,28 +213,32 @@ public class WebActivity extends BaseActivity
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         super.onBackPressed();
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
-        if(null != mWebView)
+        if (null != mWebView)
             mWebView.destroy();
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
-        if(null != mWebView)
+        if (null != mWebView)
             mWebView.onResume();
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
-        if(null != mWebView)
+        if (null != mWebView)
             mWebView.onPause();
     }
 }

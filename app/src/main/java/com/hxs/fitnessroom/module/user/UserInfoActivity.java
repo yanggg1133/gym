@@ -40,6 +40,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_activity);
         mUserInfoUi = new UserInfoUi(this);
+        mUserInfoUi.setTitle("我的资料");
+        mUserInfoUi.setBackAction(true);
         registerUserUpdateBroadcastReceiver();
         HXSUser.updateUserInfoAsync();
     }

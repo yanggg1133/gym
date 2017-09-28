@@ -92,6 +92,7 @@ public class AliBaichuanYwIM
                     //的setNeedByPass方法，参数为false。
                     //contact.setNeedByPass(false);
                     Intent intent = mIMKit.getChattingActivityIntent(contact);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
                 }
 

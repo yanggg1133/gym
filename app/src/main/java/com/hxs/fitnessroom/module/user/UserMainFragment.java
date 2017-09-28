@@ -73,10 +73,10 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
                 startActivity(UserWalletActivity.getNewIntent(v.getContext()));
                 break;
             case R.id.setting_tutorial://教程 H5
-                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_myTutorialList.getH5Url(""),"我的教程");
+                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_myTutorialList.getH5Url(""));
                 break;
             case R.id.setting_exercise://锻炼 H5
-                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_meExercise.getH5Url(""),"我的锻炼");
+                WebActivity.gotoWeb(getBaseActivity(), ConstantsApiUrl.H5_meExercise.getH5Url(""));
                 break;
             case R.id.setting_service://客服
                 AliBaichuanYwIM.gotoIM();
@@ -115,6 +115,7 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onUserAccountUpdate()
     {
+        LogUtil.dClass("更新用户余额："+HXSUser.getUserAccountBalance());
         mUserMainUi.initUserAccount();
     }
 }

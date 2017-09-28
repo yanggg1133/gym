@@ -188,6 +188,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
                 deposit_return_tip.setText("您的押金退回失败");
                 goto_deposit_button.setEnabled(false);
                 goto_deposit_button.setTextColor(getResources().getColor(R.color.colorListItemSubTitleText));
+                goto_deposit_button.setBackgroundResource(R.drawable.bg_round_656c91_r50);
                 deposit_return_tip.setVisibility(View.VISIBLE);
                 deposit_return_tip_confirm.setVisibility(View.VISIBLE);
                 deposit_return_tip_confirm.setText("重新申请");

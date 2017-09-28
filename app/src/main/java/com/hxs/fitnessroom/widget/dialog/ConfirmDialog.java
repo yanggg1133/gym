@@ -37,6 +37,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
     private String mConfirmText;
     private boolean mIsConfirm = false;
     private String mTitle;
+    private TextView confirm_action2;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -57,6 +58,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         content = (TextView) view.findViewById(R.id.content);
         confirm_action = (TextView) view.findViewById(R.id.confirm_action);
+        confirm_action2 = (TextView) view.findViewById(R.id.confirm_action2);
         cancel_action = (TextView) view.findViewById(R.id.cancel_action);
         dialog_background = view.findViewById(R.id.dialog_background);
         dialog_content_layout = view.findViewById(R.id.dialog_content_layout);
@@ -66,6 +68,12 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
             content.setText(mContent);
         if(null != mConfirmText)
             confirm_action.setText(mConfirmText);
+        if(null != mConfirmText && ValidateUtil.isEmpty(mCancelText))
+        {
+            confirm_action2.setText(mConfirmText);
+            confirm_action.setText("");
+            confirm_action2.setVisibility(View.VISIBLE);
+        }
         if(null != mCancelText)
             cancel_action.setText(mCancelText);
         if(null != mTitle)
@@ -76,6 +84,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
 
         windowInAnimate();
         confirm_action.setOnClickListener(this);
+        confirm_action2.setOnClickListener(this);
         dialog_content_layout.setOnClickListener(this);
         cancel_action.setOnClickListener(this);
         dialog_background.setOnClickListener(this);
@@ -114,6 +123,7 @@ public class ConfirmDialog extends DialogFragment implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.confirm_action:
+            case R.id.confirm_action2:
                 this.mIsConfirm = true;
                 windowOutAnimate();
                 if(null != onDialogCallback)

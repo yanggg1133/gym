@@ -37,13 +37,13 @@ public enum ConstantsApiUrl
     getRealname("https://api.hxsapp.com/account/UserInfo/getRealname"),//提交实名认证
 
     /** h5相关页面 **********************************************************/
-    H5_gymDetail("https://gym.hxsapp.com/gymDetail"),//健身房详情                     ***必须传id***
-    H5_myTutorialList("https://gym.hxsapp.com/myTutorialList"),//我的课程
+    H5_gymDetail("https://gymweb.hxsapp.com/gymDetail"),//健身房详情                     ***必须传id***
+    H5_myTutorialList("https://gymweb.hxsapp.com/myTutorialList"),//我的课程
     //H5_myTutorialDetail("https://gym.hxsapp.com/myTutorialDetail/"),//我的课程详情
-    H5_meExercise("https://gym.hxsapp.com/meExercise"),//我的锻炼
-    H5_recharge("https://gym.hxsapp.com/recharge"),//充值协议
-    H5_agreement("https://gym.hxsapp.com/agreement"),//用户协议
-    H5_deposit("https://gym.hxsapp.com/deposit"),//押金说明
+    H5_meExercise("https://gymweb.hxsapp.com/meExercise"),//我的锻炼
+    H5_recharge("https://gymweb.hxsapp.com/recharge"),//充值协议
+    H5_agreement("https://gymweb.hxsapp.com/agreement"),//用户协议
+    H5_deposit("https://gymweb.hxsapp.com/deposit"),//押金说明
     ;
 
     private String linkAddress;

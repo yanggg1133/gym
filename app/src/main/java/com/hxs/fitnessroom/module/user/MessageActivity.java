@@ -150,7 +150,8 @@ public class MessageActivity extends BaseActivity implements LoadingView.OnReloa
             @Override
             public void onClick(View v)
             {
-                WebActivity.gotoWeb(v.getContext(),noticeData.link);
+                if(ValidateUtil.isNotEmpty(noticeData.link))
+                    WebActivity.gotoWeb(v.getContext(),noticeData.link);
             }
         }
 

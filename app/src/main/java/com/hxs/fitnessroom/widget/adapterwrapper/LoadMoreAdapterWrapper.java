@@ -98,6 +98,11 @@ public class LoadMoreAdapterWrapper extends RecyclerView.Adapter
         }
     }
 
+    public void keepOnAppending()
+    {
+        keepOnAppending = true;
+    }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

@@ -88,7 +88,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
     public void onReload()
     {
         mPageIndex = 1;
-        mLoadMoreAdapterWrapper = new LoadMoreAdapterWrapper(mStoreListUi.new StoreRecyclerViewAdapter(),mRequestToLoadMoreListener);
+        mLoadMoreAdapterWrapper.keepOnAppending();
         doWork();
     }
 

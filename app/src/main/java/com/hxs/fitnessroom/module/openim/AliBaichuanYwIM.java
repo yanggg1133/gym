@@ -77,6 +77,7 @@ public class AliBaichuanYwIM
             APIResponse<OpenIMAccountBean> response = data;
             final YWIMKit mIMKit = YWAPI.getIMKitInstance(response.data.gym_account, APP_KEY);
             final String userid = response.data.gym_account;
+            final String serverid = response.data.gym_server;
             String password = "Ftp2Ub18";
             IYWLoginService loginService = mIMKit.getLoginService();
             YWLoginParam loginParam = YWLoginParam.createLoginParam(userid, password);
@@ -87,11 +88,11 @@ public class AliBaichuanYwIM
                 public void onSuccess(Object... arg0)
                 {
                     //userid是客服帐号，第一个参数是客服帐号，第二个是组ID，如果没有，传0
-                    EServiceContact contact = new EServiceContact(userid, 0);
+//                    EServiceContact contact = new EServiceContact(serverid, 0);
                     //如果需要发给指定的客服帐号，不需要Server进行分流(默认Server会分流)，请调用EServiceContact对象
                     //的setNeedByPass方法，参数为false。
-                    //contact.setNeedByPass(false);
-                    Intent intent = mIMKit.getChattingActivityIntent(contact);
+//                    contact.setNeedByPass(false);
+                    Intent intent = mIMKit.getChattingActivityIntent(serverid,APP_KEY);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
                 }

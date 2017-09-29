@@ -53,9 +53,9 @@ android {
             //指定签名
             signingConfig signingConfigs.release
             //混淆压缩编译源码
-            minifyEnabled true
+            minifyEnabled false
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {

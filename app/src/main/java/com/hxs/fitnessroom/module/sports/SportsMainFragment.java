@@ -182,6 +182,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             switch (mUserAccountBean.status)
             {
                 case UserAccountBean.AccountStatus_Deposit_Returning://押金退回中
+                    error_deposit_returning();
+                    return;
                 case UserAccountBean.AccountStatus_NoDeposit://未交押金
                     error_not_deposit();
                     return;
@@ -211,6 +213,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             step3_scan_open_door();
         }
     }
+
 
 
     /**
@@ -318,6 +321,27 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
      *** 所有操作异常处理 ********************************************************************************************
      ************************************************************************************************************/
 
+    /**
+     * 押金返回中，无法使用健身康
+     */
+    private void error_deposit_returning()
+    {
+        DialogUtil.showConfirmDialog("押金正在退还审核中，暂时无法使用健身房", null, "确定",
+                getFragmentManager(),
+                new ConfirmDialog.OnDialogCallbackAdapter()
+                {
+                    @Override
+                    public void onConfirm()
+                    {
+                    }
+
+                    @Override
+                    public void onCancel()
+                    {
+                    }
+                });
+        mUserAccountBean = null;
+    }
 
     /**
      * 有未结算的订单

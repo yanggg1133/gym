@@ -365,6 +365,15 @@ public class HXSUser
      */
     public static void updateUserAccountInfoAsync()
     {
+        updateUserAccountInfoAsync(0);
+    }
+
+    /**
+     *
+     * @param lateTime 延时查询
+     */
+    public static void updateUserAccountInfoAsync(final long lateTime)
+    {
         if(!isLogin())
         {
             mUserAccountBean = null;
@@ -376,7 +385,7 @@ public class HXSUser
             @Override
             protected APIResponse doWorkBackground() throws Exception
             {
-                Thread.sleep(2000);
+                Thread.sleep(lateTime == 0 ? 2000 : lateTime);
                 return UserAccountModel.getGymUserAccount(UserAccountModel.FROMPAGE_DEF);
             }
 

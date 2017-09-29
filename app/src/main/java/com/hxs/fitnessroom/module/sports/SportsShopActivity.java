@@ -148,7 +148,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         protected void onSuccess(APIResponse data)
         {
             mBaseUi.getLoadingView().hide();
-            HXSUser.updateUserAccountInfoAsync();
+            HXSUser.updateUserAccountInfoAsync(8000 );
             startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true,false));
             finish();
         }

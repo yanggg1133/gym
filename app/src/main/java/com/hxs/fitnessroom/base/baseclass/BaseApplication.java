@@ -11,6 +11,7 @@ import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
+import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 
@@ -53,13 +54,11 @@ public class BaseApplication extends Application
          */
         AliBaichuanYwIM.appInitialization(this);
 
+        /**
+         * shareSDK
+         */
+        MobSDK.init(this, "2150d9f4cb6fcc", "60b3ab05fb7b2c155107af79e0c17a69");
 
-
-//        initJpush();
-//        com.saidian.zuqiukong.login.user.AVUser.initialize(this);
-//        ZqkongDB.init(this);
-//        ToastUtil.init(this);
-//        SharedPreferencesUtils.init(this);
     }
 
     @Override

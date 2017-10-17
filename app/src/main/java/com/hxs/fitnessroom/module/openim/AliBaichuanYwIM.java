@@ -14,8 +14,7 @@ import com.alibaba.wxlib.util.SysUtil;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.openim.model.entity.OpenIMAccountBean;
-import com.hxs.fitnessroom.module.openim.model.entity.OpenIMModel;
-import com.hxs.fitnessroom.util.LogUtil;
+import com.hxs.fitnessroom.module.openim.model.OpenIMModel;
 
 /**
  * 阿里的IM SDK 工具类

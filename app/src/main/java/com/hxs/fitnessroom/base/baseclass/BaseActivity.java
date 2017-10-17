@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,21 @@ public class BaseActivity extends AppCompatActivity
             unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
             mUserAccountUpdateBroadcastReceiver = null;
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

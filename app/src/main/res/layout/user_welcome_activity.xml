@@ -74,4 +74,14 @@
         android:layout_marginTop="12dp"
         />
 
+
+    <ImageView
+        android:id="@+id/login_weixin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_login_weixin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <com.hxs.fitnessroom.widget.LoadingView  style="@style/LoadingViewStyle" />
 </android.support.constraint.ConstraintLayout>

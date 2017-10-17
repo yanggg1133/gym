@@ -119,7 +119,7 @@ dependencies {
     //二维码扫描
     compile project(':module_codescan')
     //友盟第三方登录及分享
-    //compile project(':module_ushare')
+    compile project(':module_sharesdk')
     //上下滚动选择器
     compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 

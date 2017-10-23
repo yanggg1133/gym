@@ -17,6 +17,7 @@ import com.hxs.fitnessroom.module.user.model.UserAccountModel;
 import com.hxs.fitnessroom.module.user.model.entity.RealnameBean;
 import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.util.LogUtil;
+import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
 /**
@@ -158,6 +159,9 @@ public class HXSUser
     }
 
 
+    /**
+     * 更新用户基本信息
+     */
     public static void updateUserInfoAsync()
     {
         if(!isLogin())
@@ -173,6 +177,18 @@ public class HXSUser
                 userResponse = LoginModel.getSelfUserInfo();
                 realnameResponse =  UserAccountModel.getRealname();
                 return realnameResponse;
+            }
+
+            @Override
+            protected void onAPIError(APIResponse apiResponse)
+            {
+                if("401".equals(apiResponse.code))
+                {
+                    //如果出现登录过期，清除登录缓存
+                    //切换测试和正式环境时候容易出现这种问题
+                    ToastUtil.toastShort("登录过期");
+                    signOut();
+                }
             }
 
             @Override

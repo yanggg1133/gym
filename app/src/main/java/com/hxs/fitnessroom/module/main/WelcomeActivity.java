@@ -3,6 +3,8 @@ package com.hxs.fitnessroom.module.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.hxs.fitnessroom.R;
@@ -10,12 +12,10 @@ import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
+import com.hxs.fitnessroom.util.LogUtil;
 
-import java.util.HashMap;
-
-import MTT.ThirdAppInfoNew;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import fitnessroom.hxs.com.sharesdk.ShareUtil;
 
 
@@ -49,10 +49,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.login_button:
-                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_LOGIN),RequestCode_Login);
+                startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_LOGIN), RequestCode_Login);
                 break;
             case R.id.register_button:
-                startActivityForResult(LoginActivity.getNewIntent(v.getContext(),LoginActivity.VALUE_TYPE_REGISTER),RequestCode_Login);
+                startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_REGISTER), RequestCode_Login);
                 break;
             case R.id.login_weixin:
                 thirdParth();
@@ -72,28 +72,29 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     {
 
         mBaseUi.getLoadingView().showByNullBackground();
-        ShareUtil.loginByWechat(new PlatformActionListener()
-        {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap)
-            {
-                mBaseUi.getLoadingView().hide();
-            }
+        //weixin
+        //nickname=having ,
+        //openid=oMwZm1Zlkyo8d6fK7ZF1kt8zPdGs,
+        //bind_type
+        //bind_head_img
+//        ShareUtil.thirdPartylogin(WechatMoments.NAME, new ShareUtil.LoginCallBack()
+//        {
+//            @Override
+//            public void onComplete(@Nullable PlatformDb platformDb)
+//            {
+//                mBaseUi.getLoadingView().hide();
+//                LogUtil.e("onComplete");
+//                if(null != platformDb)
+//                {
+//                    LogUtil.e(platformDb.getUserId());
+//                    LogUtil.e(platformDb.getUserName());
+//                    LogUtil.e(platformDb.getUserIcon());
+//                    LogUtil.e(platformDb.get("headimgurl"));
+//                }
+//            }
+//        });
 
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable)
-            {
-                mBaseUi.getLoadingView().hide();
-
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i)
-            {
-                mBaseUi.getLoadingView().hide();
-
-            }
-        });
+        ShareUtil.showShare(this);
     }
 
 
@@ -101,7 +102,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RequestCode_Login && resultCode == RESULT_OK)
+        if (requestCode == RequestCode_Login && resultCode == RESULT_OK)
         {
             startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
             setResult(RESULT_OK);

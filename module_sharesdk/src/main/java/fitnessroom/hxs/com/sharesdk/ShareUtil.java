@@ -1,12 +1,15 @@
 package fitnessroom.hxs.com.sharesdk;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.tencent.qq.QQ;
@@ -22,9 +25,10 @@ public class ShareUtil
 
     /**
      * 调用shareSDk的一键分享UI
+     *
      * @param context
      */
-    private void showShare(Context context)
+    public static void showShare(Context context)
     {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -57,7 +61,7 @@ public class ShareUtil
     /**
      * 分享回调
      */
-    class  OneKeyShareCallback implements PlatformActionListener
+    static class OneKeyShareCallback implements PlatformActionListener
     {
 
         @Override
@@ -80,56 +84,77 @@ public class ShareUtil
     }
 
 
-
-
-    public static void loginByWechat(PlatformActionListener platformActionListener)
+    /**
+     * 第三方登陆授权
+     *
+     * @param name          授权类型名
+     * @param loginCallBack 结果回调
+     * @see WechatMoments#NAME
+     * @see QQ#NAME
+     */
+    public static void thirdPartylogin(String name, final LoginCallBack loginCallBack)
     {
-        Platform wechat = ShareSDK.getPlatform(WechatMoments.NAME);
-        wechat.SSOSetting(false);  //设置false表示使用SSO授权方式
+        final Platform _platform = ShareSDK.getPlatform(name);
+//        _platform.SSOSetting(true);  //设置false表示使用SSO授权方式
+        /**
+         * 由于回调是非主程，所以要用handler切换到主线程
+         */
+        final Handler handle = new Handler();
+        _platform.setPlatformActionListener(new PlatformActionListener()
+        {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap)
+            {
+                handle.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        loginCallBack.onComplete(_platform.getDb());
+                    }
+                });
+            }
 
-        Log.e("ShareUtil",""+wechat.getDb().getUserId());
-        wechat.setPlatformActionListener(platformActionListener);
-//        wechat.setPlatformActionListener(new PlatformActionListener()
-//        {
-//            @Override
-//            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap)
-//            {
-//                /**
-//                {sex=0,
-//                 privilege=[],
-//                 unionid=odparxBXSEJNE0xYnt1GFhQvcue4,
-//                 province=,
-//                 language=zh_CN,
-//                 headimgurl=/0,
-//                 city=,
-//                 country=}
-//                */
-//
-//                //weixin
-//                //nickname=having ,
-//                //openid=oMwZm1Zlkyo8d6fK7ZF1kt8zPdGs,
-//                //bind_type
-//                //bind_head_img
-//
-//                //qq
-//
-//                Log.e("ShareUtil","onComplete"+hashMap.toString());
-//            }
-//
-//            @Override
-//            public void onError(Platform platform, int i, Throwable throwable)
-//            {
-//                Log.e("ShareUtil","onError="+throwable.getMessage());
-//            }
-//
-//            @Override
-//            public void onCancel(Platform platform, int i)
-//            {
-//                Log.e("ShareUtil","onCancel");
-//            }
-//        }); // 设置分享事件回调
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable)
+            {
+                handle.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        loginCallBack.onComplete(null);
+                    }
+                });
+            }
 
-//        wechat.authorize();//单独授权
-        wechat.showUser(null);//授权并获取用户信息
+            @Override
+            public void onCancel(Platform platform, int i)
+            {
+                handle.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        loginCallBack.onComplete(null);
+                    }
+                });
+            }
+        }); // 设置分享事件回调
+
+        _platform.authorize();//单独授权
+    }
+
+    /**
+     * 第三方登录授权回调接口
+     */
+    public interface LoginCallBack
+    {
+        /**
+         * 回调
+         *
+         * @param platformDb 如果为空，为授权失败
+         */
+        void onComplete(@Nullable PlatformDb platformDb);
     }
 }

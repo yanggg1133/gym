@@ -146,8 +146,8 @@ public class APIHttpClient
             httpConn.setDoInput(true);//使用 URL 连接进行输入
             httpConn.setUseCaches(true);//忽略缓存
             httpConn.setRequestMethod(REQUEST_METHOD);//设置URL请求方法
-            httpConn.setConnectTimeout(10000);
-            httpConn.setReadTimeout(10000);
+            httpConn.setConnectTimeout(10000);//连接超时
+            httpConn.setReadTimeout(10000);//读取超时
             String requestString = params;
             //设置请求属性
             //获得数据字节数据，请求数据流的编码，必须和下面服务器端处理请求流的编码一致

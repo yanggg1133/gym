@@ -9,6 +9,10 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
+    <style name="LoadingScreenTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@mipmap/launcher_page</item>
+    </style>
 
     <!-- DialogFragment统一主题样式   无过场动画  -->
     <style name="DialogFragmentTheme" parent="@style/AppTheme">

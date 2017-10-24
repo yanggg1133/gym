@@ -29,9 +29,7 @@ import com.hxs.fitnessroom.module.sports.model.entity.QRCodeBean;
 import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
 import com.hxs.fitnessroom.module.sports.ui.SportsMainUi;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
-import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
-import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ScanCodeUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
@@ -45,7 +43,6 @@ import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_De
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Pay_Recharge;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_Scan_OpenDoor;
 import static com.hxs.fitnessroom.base.baseclass.BaseActivity.RequestCode_action_scan_code;
-import static com.hxs.fitnessroom.module.pay.model.entity.UserAccountBean.AccountStatus_Deposit_Returning;
 
 /**
  * 运动主入口界面
@@ -74,7 +71,9 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         mSportsMainUi = new SportsMainUi(this);
         mSportsMainUi.setTitle("运动");
         registerUserUpdateBroadcastReceiver();
+        autoCheck();
     }
+
 
     @Override
     public void onStart()
@@ -89,6 +88,18 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         super.onStop();
         mSportsMainUi.onStop();
     }
+
+    /**
+     * 页面创建时自动检查用户是否处于健身房启用状态
+     */
+    private void autoCheck()
+    {
+        if (HXSUser.isLogin())
+        {
+            new GetUserDeviceStatusTask(true).go(getActivity(), mSportsMainUi);
+        }
+    }
+
 
     private boolean isScaning = false;//防止同一时间多次点击扫描二维码
 
@@ -148,7 +159,6 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     }
 
 
-
     /**
      * 第一步 检查登陆
      */
@@ -169,7 +179,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (mUserAccountBean == null)//初始查询，查询帐户情况
         {
-            new QueryAccountTask().execute(getBaseActivity(), mSportsMainUi);
+            new QueryAccountTask().go(getBaseActivity(), mSportsMainUi);
         } else//初始查询完成后，判断数据
         {
             //用户已在健身房内还未出来
@@ -215,7 +225,6 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     }
 
 
-
     /**
      * 第三步 扫码开门
      */
@@ -238,7 +247,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (ValidateUtil.isNotEmpty(openDoorCode))
         {
-            new OpenDoorAsyncTask(openDoorCode).execute(getBaseActivity(), mSportsMainUi);
+            new OpenDoorAsyncTask(openDoorCode).go(getBaseActivity(), mSportsMainUi);
         }
     }
 
@@ -249,7 +258,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         if (null == mUserDeviceStatus)
         {
-            new GetUserDeviceStatusTask().execute(getBaseActivity(), mSportsMainUi);
+            new GetUserDeviceStatusTask().go(getBaseActivity(), mSportsMainUi);
         } else
         {
             step6_using();
@@ -311,7 +320,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                 String code = ScanCodeUtil.getResultScanCode(resultCode, data);
                 if (null != code)
                 {
-                    new ActionScanCodeTask(code).execute(getBaseActivity(), mSportsMainUi);
+                    new ActionScanCodeTask(code).go(getBaseActivity(), mSportsMainUi);
                 }
                 break;
         }
@@ -523,10 +532,10 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             if (QRCodeBean.DEVICE_TYPE_DOOR.equals(qRCodeBean.data.type))
             {
                 mSportsMainUi.getLoadingView().showByNullBackground();
-                new SportsPayTask().execute(getBaseActivity(), mSportsMainUi);
+                new SportsPayTask().go(getBaseActivity(), mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_LOCKER.equals(qRCodeBean.data.type))
             {
-                new GetUserDeviceStatusTask(3000).execute(getBaseActivity(), mSportsMainUi);
+                new GetUserDeviceStatusTask(3000).go(getBaseActivity(), mSportsMainUi);
             } else if (QRCodeBean.DEVICE_TYPE_RUN.equals(qRCodeBean.data.type))
             {
                 mUserDeviceStatus.run.status = mUserDeviceStatus.run.status == 0 ? 1 : 0;
@@ -548,10 +557,21 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         public long latetime = 0;
 
+        /**
+         * 是否为界面第一次启动
+         */
+        public boolean isInitTask = false;
+
         public GetUserDeviceStatusTask()
         {
 
         }
+
+        public GetUserDeviceStatusTask(boolean isInitTask)
+        {
+            this.isInitTask = isInitTask;
+        }
+
         public GetUserDeviceStatusTask(long latetime)
         {
             this.latetime = latetime;
@@ -561,13 +581,19 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         @Override
         protected APIResponse doWorkBackground() throws Exception
         {
-            if(latetime > 0)
+            if (latetime > 0)
                 Thread.sleep(latetime);
 
             int count = 1;
             while (count <= 5)
             {
                 APIResponse<UserDeviceStatusBean> userDeviceStatus = UserDeviceModel.getUserDeviceStatus();
+
+                if (isInitTask)
+                {
+                    return userDeviceStatus;
+                }
+
                 if (userDeviceStatus.isSuccess())
                 {
                     return userDeviceStatus;
@@ -579,13 +605,24 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             return null;
         }
 
+        @Override
+        protected void onAPIError(APIResponse apiResponse)
+        {
+            //如果用户还没使用健身房，这里不需要作任何处理
+        }
 
         @Override
         protected void onSuccess(APIResponse data)
         {
             APIResponse<UserDeviceStatusBean> userDeviceStatus = data;
-            mUserDeviceStatus = userDeviceStatus.data;
-            step6_using();
+            if (isInitTask)
+            {
+                startSport();
+            } else
+            {
+                mUserDeviceStatus = userDeviceStatus.data;
+                step6_using();
+            }
         }
     }
 

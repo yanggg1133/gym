@@ -14,11 +14,9 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
-import com.hxs.fitnessroom.base.baseclass.BaseCallBack;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.user.model.UserAccountModel;
-import com.hxs.fitnessroom.module.user.model.entity.UserBean;
 import com.hxs.fitnessroom.module.user.ui.UserInfoVerifiedUi;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
@@ -121,7 +119,7 @@ public class UserInfoVerifiedActivity extends BaseActivity implements View.OnCli
     private void upLoadSuccess()
     {
 
-        new SaveRealnameTask().execute(this);
+        new SaveRealnameTask().go(this);
     }
 
 

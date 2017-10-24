@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hxs.fitnessroom.Constants;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseFragment;
@@ -80,7 +79,7 @@ public class StoreListFragment extends BaseFragment implements LoadingView.OnRel
             if(mPageIndex == 1)
                 mStoreListUi.getLoadingView().show();
             mWorkAsyncTask = new WorkAsyncTask();
-            mWorkAsyncTask.execute(getBaseActivity());
+            mWorkAsyncTask.go(getBaseActivity());
         }
     }
 

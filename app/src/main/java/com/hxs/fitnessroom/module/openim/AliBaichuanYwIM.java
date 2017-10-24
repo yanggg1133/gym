@@ -9,13 +9,11 @@ import com.alibaba.mobileim.YWAPI;
 import com.alibaba.mobileim.YWIMKit;
 import com.alibaba.mobileim.YWLoginParam;
 import com.alibaba.mobileim.channel.event.IWxCallback;
-import com.alibaba.mobileim.conversation.EServiceContact;
 import com.alibaba.wxlib.util.SysUtil;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.openim.model.entity.OpenIMAccountBean;
 import com.hxs.fitnessroom.module.openim.model.entity.OpenIMModel;
-import com.hxs.fitnessroom.util.LogUtil;
 
 /**
  * 阿里的IM SDK 工具类
@@ -60,7 +58,7 @@ public class AliBaichuanYwIM
 
     public static void gotoIM()
     {
-        new GetOpenIMAccountTask().execute(mContext);
+        new GetOpenIMAccountTask().go(mContext);
     }
 
     static class GetOpenIMAccountTask extends BaseAsyncTask

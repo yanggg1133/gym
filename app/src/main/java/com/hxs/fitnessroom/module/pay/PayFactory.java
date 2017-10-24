@@ -246,7 +246,7 @@ public class PayFactory
                     PayFactory.PayBroadcastReceiver.sendOrderNo(baseActivity,response.data.orderNo);
                     gotoPay(response.data);
                 }
-            }.execute(baseActivity);
+            }.go(baseActivity);
         }
 
         abstract void gotoPay(RechargeBean payBean);
@@ -313,7 +313,7 @@ public class PayFactory
                         {
                             HXSUser.updateUserAccountInfoAsync();
                         }
-                    }.execute(context.getApplicationContext());
+                    }.go(context.getApplicationContext());
                     break;
                 case PAY_STATUS_CANCEL:
                     onCancel();

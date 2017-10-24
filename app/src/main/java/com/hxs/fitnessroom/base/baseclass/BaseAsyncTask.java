@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.hxs.fitnessroom.base.network.APIResponse;
-import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 
 import java.lang.ref.WeakReference;
@@ -20,7 +19,11 @@ import java.net.UnknownHostException;
  *      任务异步执行完毕后，会判断{@link BaseActivity#isDestroyed()},如果为true ,
  *      则不会继续往下执行
  *
- * Created by jie on 16-7-4.
+ * 重点：继承后，线程执行函数必须使用{@link #go(Context)...}
+ *      绝对不可用{@link #execute(Object[])}
+ * @see #go(Context)
+ * @see #go(Context,BaseUi)
+ * reated by jie on 16-7-4.
  */
 public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIResponse>
 {
@@ -32,17 +35,17 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      * 否则会出现 {@link RuntimeException}
      * @param context
      */
-    public final void  execute(Context context)
+    public final void go(Context context)
     {
-        execute(context,null,null);
+        go(context,null,null);
     }
 
-    public final void  execute(Context context,BaseUi baseUi)
+    public final void go(Context context, BaseUi baseUi)
     {
-        execute(context,baseUi,null);
+        go(context,baseUi,null);
     }
 
-    public final void  execute(Context context,BaseUi baseUi,Object... objects)
+    public final void go(Context context, BaseUi baseUi, Object... objects)
     {
         if (null == context)
             throw new NullPointerException();

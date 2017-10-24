@@ -196,7 +196,7 @@ public class HXSUser
                  */
                 HXSUser.updateUserAccountInfoAsync();
             }
-        }.execute(mContext);
+        }.go(mContext);
     }
 
 
@@ -402,7 +402,7 @@ public class HXSUser
                 }
 
             }
-        }.execute(mContext);
+        }.go(mContext);
 
 
     }

@@ -95,7 +95,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if(ValidateUtil.isNotEmpty(mPhoneNum))
                 {
                     mLoginUi.setVerifyCodeIsSended(true);
-                    new SendSMSTask().execute(LoginActivity.this);
+                    new SendSMSTask().go(LoginActivity.this);
                 }
                 break;
             case R.id.login_button:
@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if(ValidateUtil.isNotEmpty(mVerifyCode))
                 {
                     mLoginUi.setIsLoggingIn(true);
-                    new LoginTask().execute(LoginActivity.this,mLoginUi);
+                    new LoginTask().go(LoginActivity.this,mLoginUi);
                 }
                 break;
             case R.id.close_button:

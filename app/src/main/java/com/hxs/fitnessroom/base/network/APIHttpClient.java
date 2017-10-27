@@ -177,17 +177,7 @@ public class APIHttpClient
                     sb.append(readLine).append("\n");
                 }
                 responseReader.close();
-
-                if (BuildConfig.DEBUG)
-                {
-                    try
-                    {
-                        LogUtil.dClass("response:" + new Gson().fromJson(sb.toString(), Object.class));
-                    } catch (Exception e)
-                    {
-                        LogUtil.dClass("response:" + sb.toString());
-                    }
-                }
+                showDebugLog(sb);
                 return sb.toString();
             }
         } catch (UnknownHostException ue)
@@ -215,6 +205,24 @@ public class APIHttpClient
             }
         }
         return null;
+    }
+
+    /**
+     * debug状态下打印log
+     * @param sb
+     */
+    private static void showDebugLog(StringBuffer sb)
+    {
+        if (BuildConfig.DEBUG)
+        {
+            try
+            {
+                LogUtil.dClass("response:" + new Gson().fromJson(sb.toString(), Object.class));
+            } catch (Exception e)
+            {
+                LogUtil.dClass("response:" + sb.toString());
+            }
+        }
     }
 
 

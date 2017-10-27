@@ -75,12 +75,72 @@
         />
 
 
+    <View
+        android:id="@+id/line_thirdparth"
+        android:layout_width="1px"
+        android:layout_height="13dp"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="30dp"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/login_qq"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ic_login_weixin"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/line_thirdparth"
+        app:layout_constraintTop_toTopOf="@+id/line_thirdparth"
+        app:layout_constraintRight_toLeftOf="@+id/login_qq_text"
+        android:alpha="0.6"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/login_qq_text"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="QQ登录"
+        app:layout_constraintBottom_toBottomOf="@+id/line_thirdparth"
+        app:layout_constraintTop_toTopOf="@+id/line_thirdparth"
+        app:layout_constraintRight_toLeftOf="@+id/line_thirdparth"
+        android:textSize="13dp"
+        android:textColor="#8B92B8"
+        android:alpha="0.6"
+        android:layout_marginRight="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:visibility="gone"
+        />
     <ImageView
         android:id="@+id/login_weixin"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/ic_login_weixin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ic_login_qq"
+        app:layout_constraintBottom_toBottomOf="@+id/line_thirdparth"
+        app:layout_constraintTop_toTopOf="@+id/line_thirdparth"
+        app:layout_constraintLeft_toRightOf="@+id/line_thirdparth"
+        android:scaleType="centerInside"
+        android:layout_marginLeft="20dp"
+        android:alpha="0.6"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/login_weixin_text"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="微信登录"
+        app:layout_constraintBottom_toBottomOf="@+id/line_thirdparth"
+        app:layout_constraintTop_toTopOf="@+id/line_thirdparth"
+        app:layout_constraintLeft_toRightOf="@+id/login_weixin"
+        android:textSize="13dp"
+        android:textColor="#8B92B8"
+        android:paddingLeft="8dp"
+        android:alpha="0.6"
+        android:gravity="center_vertical"
+        android:visibility="gone"
         />
 
     <com.hxs.fitnessroom.widget.LoadingView  style="@style/LoadingViewStyle" />

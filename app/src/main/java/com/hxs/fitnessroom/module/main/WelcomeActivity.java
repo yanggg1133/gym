@@ -3,7 +3,6 @@ package com.hxs.fitnessroom.module.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -41,6 +40,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.register_button).setOnClickListener(this);
         findViewById(R.id.dont_login_button).setOnClickListener(this);
         findViewById(R.id.login_weixin).setOnClickListener(this);
+        findViewById(R.id.login_qq).setOnClickListener(this);
+        findViewById(R.id.login_weixin_text).setOnClickListener(this);
+        findViewById(R.id.login_qq_text).setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +57,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 startActivityForResult(LoginActivity.getNewIntent(v.getContext(), LoginActivity.VALUE_TYPE_REGISTER), RequestCode_Login);
                 break;
             case R.id.login_weixin:
+            case R.id.login_weixin_text:
+                thirdParth();
+                break;
+            case R.id.login_qq:
+            case R.id.login_qq_text:
                 thirdParth();
                 break;
             case R.id.dont_login_button:
@@ -77,24 +84,24 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         //openid=oMwZm1Zlkyo8d6fK7ZF1kt8zPdGs,
         //bind_type
         //bind_head_img
-//        ShareUtil.thirdPartylogin(WechatMoments.NAME, new ShareUtil.LoginCallBack()
-//        {
-//            @Override
-//            public void onComplete(@Nullable PlatformDb platformDb)
-//            {
-//                mBaseUi.getLoadingView().hide();
-//                LogUtil.e("onComplete");
-//                if(null != platformDb)
-//                {
-//                    LogUtil.e(platformDb.getUserId());
-//                    LogUtil.e(platformDb.getUserName());
-//                    LogUtil.e(platformDb.getUserIcon());
-//                    LogUtil.e(platformDb.get("headimgurl"));
-//                }
-//            }
-//        });
+        ShareUtil.thirdPartylogin(WechatMoments.NAME, new ShareUtil.LoginCallBack()
+        {
+            @Override
+            public void onComplete(@Nullable PlatformDb platformDb)
+            {
+                mBaseUi.getLoadingView().hide();
+                LogUtil.e("onComplete");
+                if(null != platformDb)
+                {
+                    LogUtil.e(platformDb.getUserId());
+                    LogUtil.e(platformDb.getUserName());
+                    LogUtil.e(platformDb.getUserIcon());
+                    LogUtil.e(platformDb.get("headimgurl"));
 
-        ShareUtil.showShare(this);
+                }
+            }
+        });
+
     }
 
 

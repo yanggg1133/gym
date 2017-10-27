@@ -3,30 +3,20 @@ package com.hxs.fitnessroom.module.web;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.view.View;
 
 import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
-import com.hxs.fitnessroom.base.network.ParamsBuilder;
-import com.hxs.fitnessroom.util.Base64Util;
 import com.hxs.fitnessroom.util.LocationUtil;
 import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.PhoneInfoUtil;
-import com.hxs.fitnessroom.util.ValidateUtil;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
-import com.tencent.smtt.export.external.interfaces.WebResourceError;
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -43,13 +33,16 @@ public class WebActivity extends BaseActivity
     private String mWebUrl;
     private String mWebTitle;
 
-    private WebView mWebView;
-    private BaseUi mBaseUi;
+    public WebView mWebView;
+    public BaseUi mBaseUi;
 
     public static void gotoWeb(Context context, String url)
     {
         Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra(KEY_URL, url);
+        if(BuildConfig.DEBUG)
+            intent.putExtra(KEY_URL, "file:///android_asset/test.html");
+        else
+            intent.putExtra(KEY_URL, url);
         context.startActivity(intent);
     }
 
@@ -73,22 +66,18 @@ public class WebActivity extends BaseActivity
         mWebView.loadUrl(mWebUrl);
     }
 
+    /**
+     * 初始货webview的一些参数
+     */
     private void initWebView()
     {
         mWebView = (com.tencent.smtt.sdk.WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);// 支持js
         mWebView.getSettings().setUseWideViewPort(true); //自适应屏幕
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + getAPPUserAgent());
+        JsController.initJs(this,mWebView);//注册js
         mWebView.setWebViewClient(new WebViewClient()
         {
-            @Override
-            public boolean shouldOverrideUrlLoading(final WebView view, String url)
-            {
-                LogUtil.dClass("shouldOverrideUrlLoading");
-
-                return super.shouldOverrideUrlLoading(view, url);
-            }
-
             @Override
             public void onPageFinished(final WebView view, String url)
             {
@@ -104,19 +93,6 @@ public class WebActivity extends BaseActivity
                 sslErrorHandler.proceed();//接受所有证书HTTS
             }
 
-            @Override
-            public void onReceivedError(WebView webView, WebResourceRequest webResourceRequest, WebResourceError webResourceError)
-            {
-                LogUtil.dClass("onReceivedError");
-                super.onReceivedError(webView, webResourceRequest, webResourceError);
-            }
-
-            @Override
-            public void onReceivedHttpError(WebView webView, WebResourceRequest webResourceRequest, WebResourceResponse webResourceResponse)
-            {
-                LogUtil.dClass("onReceivedHttpError");
-                super.onReceivedHttpError(webView, webResourceRequest, webResourceResponse);
-            }
         });
 
         mWebView.setWebChromeClient(new WebChromeClient()
@@ -124,13 +100,6 @@ public class WebActivity extends BaseActivity
             @Override
             public void onProgressChanged(WebView view, int newProgress)
             {
-                LogUtil.dClass("onProgressChanged");
-                super.onProgressChanged(view, newProgress);
-                if (newProgress >= 88)
-                {
-                } else
-                {
-                }
 
             }
 

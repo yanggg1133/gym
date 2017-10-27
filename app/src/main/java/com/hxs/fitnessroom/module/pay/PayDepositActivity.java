@@ -14,7 +14,6 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
-import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.model.DepositModel;
 import com.hxs.fitnessroom.module.pay.model.entity.DepositBean;
@@ -131,7 +130,7 @@ public class PayDepositActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onReload()
     {
-        new QueryDepositTask().execute(this);
+        new QueryDepositTask().go(this);
     }
 
 

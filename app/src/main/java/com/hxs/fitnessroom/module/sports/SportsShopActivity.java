@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayFactory;
 import com.hxs.fitnessroom.module.pay.model.RechargeModel;
-import com.hxs.fitnessroom.module.pay.model.entity.RechargeBean;
 
 /**
  * 购物界面
@@ -93,7 +91,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         switch (v.getId())
         {
             case R.id.action_pay_button:
-                new SportsPayTask().execute(SportsShopActivity.this);
+                new SportsPayTask().go(SportsShopActivity.this);
                 break;
         }
     }
@@ -126,7 +124,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
                 startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,false,false));
                 mBaseUi.getLoadingView().hide();
             }
-            else if(APIResponse.error_order_fail.equals(apiResponse.code ))
+            else if(APIResponse.error_fail.equals(apiResponse.code ))
             {
                 startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,false,true));
                 mBaseUi.getLoadingView().hide();
@@ -148,7 +146,7 @@ public class SportsShopActivity extends BaseActivity implements View.OnClickList
         protected void onSuccess(APIResponse data)
         {
             mBaseUi.getLoadingView().hide();
-            HXSUser.updateUserAccountInfoAsync();
+            HXSUser.updateUserAccountInfoAsync(8000 );
             startActivity(SportsShopResultActivity.getNewIntent(SportsShopActivity.this,mShopName,mShopAmount,mShopCount,true,false));
             finish();
         }

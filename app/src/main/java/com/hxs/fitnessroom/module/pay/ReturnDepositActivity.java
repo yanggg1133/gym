@@ -60,7 +60,7 @@ public class ReturnDepositActivity extends BaseActivity implements View.OnClickL
         switch (v.getId())
         {
             case R.id.action_comfirm:
-                new SubmitRefundDepositTask().execute(v.getContext());
+                new SubmitRefundDepositTask().go(v.getContext());
                 break;
         }
     }
@@ -68,7 +68,7 @@ public class ReturnDepositActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onReload()
     {
-        new GetDepositInfoTask().execute(this);
+        new GetDepositInfoTask().go(this);
     }
 
 

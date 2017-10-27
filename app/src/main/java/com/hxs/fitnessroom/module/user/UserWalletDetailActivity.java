@@ -69,7 +69,7 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
     @Override
     public void onReload()
     {
-        new GetAccountLogTask().execute(this);
+        new GetAccountLogTask().go(this);
     }
 
     @Override

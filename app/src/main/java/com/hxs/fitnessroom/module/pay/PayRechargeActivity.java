@@ -3,8 +3,6 @@ package com.hxs.fitnessroom.module.pay;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -136,7 +134,7 @@ public class PayRechargeActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onReload()
     {
-        new QueryRechargeListTask().execute(this);
+        new QueryRechargeListTask().go(this);
     }
 
 

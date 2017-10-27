@@ -11,7 +11,6 @@ import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
-import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.module.pay.PayDepositActivity;
 import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
@@ -140,7 +139,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onReload()
     {
-        new QueryAccountTask().execute(this);
+        new QueryAccountTask().go(this);
     }
 
 

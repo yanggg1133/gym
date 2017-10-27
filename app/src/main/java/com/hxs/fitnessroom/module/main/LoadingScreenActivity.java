@@ -1,11 +1,13 @@
 package com.hxs.fitnessroom.module.main;
 
 import android.Manifest;
+import android.media.MediaCodec;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
@@ -18,7 +20,8 @@ import com.hxs.fitnessroom.util.LocationUtil;
  */
 public class LoadingScreenActivity extends BaseActivity implements BaseActivity.OnPermissionsCallback
 {
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler()
+    {
         @Override
         public void handleMessage(Message msg)
         {
@@ -53,19 +56,23 @@ public class LoadingScreenActivity extends BaseActivity implements BaseActivity.
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,
-        },this);
+        }, this);
     }
 
+    /**
+     * 跳转主页的延时时间
+     */
+    private final int gotoLaterTime = BuildConfig.DEBUG ? 0 : 3000;
 
     @Override
     public void onPermissionsFail()
     {
-        mHandler.sendEmptyMessageDelayed(0,3000);
+        mHandler.sendEmptyMessageDelayed(0, gotoLaterTime);
     }
 
     @Override
     public void onPermissionsPass()
     {
-        mHandler.sendEmptyMessageDelayed(0,3000);
+        mHandler.sendEmptyMessageDelayed(0, gotoLaterTime);
     }
 }

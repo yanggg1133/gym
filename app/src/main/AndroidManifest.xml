@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.hxs.fitnessroom"
     >
 
@@ -41,6 +42,10 @@
     <!-- 扫二维码，摄像头权限  组：CAMERA -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <!-- 由于阿里百川IM的傻屌弄的ＢＵＧ，在gradle3.0.0中必须把这个activity去掉才能正常编译 -->
+    <activity
+        android:name="com.alibaba.wxlib.util.RequestPermissionActivity"
+        tools:node="remove"/>
 
     <application
         android:name=".base.baseclass.BaseApplication"

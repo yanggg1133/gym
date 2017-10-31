@@ -43,6 +43,21 @@ public class LogUtil
         }
     }
 
+    public static void dClass(Object msg) {
+        if (BuildConfig.LOG_DEBUG && ValidateUtil.isNotEmpty(msg))
+        {
+            String clazzName = new Throwable().getStackTrace()[1].getClassName();
+            String[] clazzNames = clazzName.split("\\.");
+            try
+            {
+                Log.d(clazzNames[clazzNames.length - 1], msg.toString());
+            }catch (RuntimeException e)
+            {
+                System.out.println(msg.toString());
+            }
+        }
+    }
+
     public static void v(String msg) {
         if (BuildConfig.LOG_DEBUG && ValidateUtil.isNotEmpty(msg))
             Log.v(TAG, msg);

@@ -20,7 +20,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.user_about);
         mBaseUi = new BaseUi(this);
         mBaseUi.setTitle("关于我们");
         mBaseUi.setBackAction(true);

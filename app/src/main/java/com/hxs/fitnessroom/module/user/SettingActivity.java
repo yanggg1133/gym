@@ -25,7 +25,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.user_setting);
         mSettingUi = new SettingUi(this);
         mSettingUi.setOnClickListener();
     }

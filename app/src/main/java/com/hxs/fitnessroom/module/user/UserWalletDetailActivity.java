@@ -48,7 +48,7 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wallet_detail);
+        setContentView(R.layout.user_wallet_detail);
 
         mBaseUi = new BaseUi(this);
         mBaseUi.setTitle("钱包明细");

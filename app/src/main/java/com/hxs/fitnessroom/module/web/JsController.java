@@ -2,8 +2,6 @@ package com.hxs.fitnessroom.module.web;
 
 import android.app.Activity;
 
-import com.hxs.fitnessroom.BuildConfig;
-import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.module.web.js.BaseJs;
 import com.hxs.fitnessroom.module.web.js.WebTitleJs;
 import com.tencent.smtt.sdk.WebView;
@@ -76,7 +74,7 @@ public class JsController
 
         public String getJsObjectName()
         {
-            return "HxsApp";
+            return "FitnessApp";
         }
     }
 

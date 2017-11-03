@@ -1,5 +1,10 @@
 package com.hxs.fitnessroom.module.home.model.entity;
 
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * 门店实体类
  * Created by je on 9/5/17.
@@ -7,12 +12,32 @@ package com.hxs.fitnessroom.module.home.model.entity;
 
 public class StoreBean
 {
+    /**
+     * 0 已过期  ， 1,清闲  ，2 适中 3，拥挤，4 爆满 （0,4状态下禁止预约）
+     */
+    public static final int STATUS_Timeout = 0;//已过期
+    public static final int STATUS_Idle = 1;//清闲
+    public static final int STATUS_Moderate = 2;//适中
+    public static final int STATUS_Crowded = 3;//拥挤
+    public static final int STATUS_Full = 4;//爆满
+
+    @IntDef({STATUS_Timeout ,STATUS_Idle,STATUS_Moderate,STATUS_Crowded,STATUS_Full})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface StoreStatus{}
+
     public String uid;
     public String name;
     public String address;
     public String distance;
     public String img;
-
+    public String stime;//: "2017/10/31 09:00",
+    public String etime;//: "2017/11/02 22:00",
+    public String fee;//: "33.00",
+    public String points;//: "113.232193,23.060807",
+    public String online;//: 3,
+    public String statusDesc;//: "适中，先到先得"
+    @StoreStatus
+    public int status;
     /*
     "uid":2310972319,
     "name":"绿瘦健身房（天河店）",
@@ -22,4 +47,19 @@ public class StoreBean
     */
 
 
+    public String getStatusName()
+    {
+        switch (status)
+        {
+            case STATUS_Idle:
+                return "清闲";
+            case STATUS_Moderate:
+                return "适中";
+            case STATUS_Crowded:
+                return "拥挤";
+            case STATUS_Full:
+                return "爆满";
+        }
+        return "清闲";
+    }
 }

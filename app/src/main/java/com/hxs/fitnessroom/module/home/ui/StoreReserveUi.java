@@ -1,16 +1,15 @@
 package com.hxs.fitnessroom.module.home.ui;
 
-import android.view.View;
-
 import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
-import com.hxs.fitnessroom.base.baseclass.BaseFragment;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.module.home.model.StoreModel;
+import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
+import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
 import com.hxs.fitnessroom.module.home.widget.StoreInfoView;
 import com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,25 +36,27 @@ public class StoreReserveUi extends BaseUi
         store_info_view = findViewById(R.id.store_info_view);
         store_info_view.hideLine();
         select_time_view = findViewById(R.id.select_time_view);
-        if(BuildConfig.DEBUG)
-        {
-            List<List> lists = new ArrayList<>();
-            List list = new ArrayList<>();
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            list.add(new Object());
-            lists.add(list);
-            lists.add(list);
-            lists.add(list);
-            select_time_view.setData(lists);
-        }
+    }
+
+    @Override
+    public void startLoading()
+    {
+        getLoadingView().showByNullBackground();
+    }
+
+    @Override
+    public void endLoading()
+    {
+        getLoadingView().hide();
+    }
+
+    public void setStoreInfoViewData(StoreBean store)
+    {
+        store_info_view.setStoreBean(store);
+    }
+    public void setStoreReserveSelectTimeViewData(StoreReserveBean appointment)
+    {
+        select_time_view.setData(appointment);
     }
 
 }

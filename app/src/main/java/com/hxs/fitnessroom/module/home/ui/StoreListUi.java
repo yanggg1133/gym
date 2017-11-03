@@ -127,7 +127,7 @@ public class StoreListUi extends BaseUi
         {
             if(BuildConfig.DEBUG)
             {
-                itemView.getContext().startActivity(StoreReserveActivity.getNewIntent(itemView.getContext(),""));
+                itemView.getContext().startActivity(StoreReserveActivity.getNewIntent(itemView.getContext(),storeBean.uid));
             }
             else
             {

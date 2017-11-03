@@ -122,7 +122,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:textSize="18dp"
-        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
         android:layout_below="@+id/idcard_text_layout"
         android:layout_marginTop="114dp"
         android:text="登录"

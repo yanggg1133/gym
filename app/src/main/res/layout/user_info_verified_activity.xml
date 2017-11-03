@@ -122,7 +122,7 @@
         android:layout_height="45dp"
         android:text="认证"
         android:gravity="center"
-        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
         android:textSize="@dimen/item_text_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

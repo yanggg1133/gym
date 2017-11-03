@@ -151,7 +151,7 @@
         android:layout_width="115dp"
         android:layout_height="35dp"
         android:gravity="center"
-        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_4"
         app:layout_constraintRight_toRightOf="parent"

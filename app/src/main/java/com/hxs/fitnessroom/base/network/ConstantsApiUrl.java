@@ -10,6 +10,7 @@ public enum ConstantsApiUrl
     TestUrl("api/Test/api"),
     /** gym **************************************************/
     StoreList("https://api.hxsapp.com/gym/Store/storeList"),//门店列表
+    Appointment("https://api.hxsapp.com/gym/Appointment/add"),//门店预约列表
     AreaList("https://api.hxsapp.com/gym/Store/areaList"),//所有城市列表
 
     AddRecharge("https://api.hxsapp.com/mall/GymOrder/addPay"),//发起充值 发起支付 通用

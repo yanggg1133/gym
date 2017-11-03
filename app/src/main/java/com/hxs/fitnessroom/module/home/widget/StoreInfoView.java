@@ -74,6 +74,20 @@ public class StoreInfoView extends ConstraintLayout
         store_name.setText(storeBean.name);
         store_distance.setText(storeBean.distance);
         store_address.setText(storeBean.address);
+
+        store_status_text.setText(storeBean.getStatusName());
+        store_status_tips.setText(storeBean.statusDesc);
+        switch (storeBean.status)
+        {
+            case StoreBean.STATUS_Idle:
+                store_status_icon.setImageResource(R.mipmap.ic_status_qingxian);
+            case StoreBean.STATUS_Moderate:
+                store_status_icon.setImageResource(R.mipmap.ic_status_shizhong);
+            case StoreBean.STATUS_Crowded:
+            case StoreBean.STATUS_Full:
+                store_status_icon.setImageResource(R.mipmap.ic_status_baoman);
+        }
+
         if(ValidateUtil.isEmpty(storeBean.img))
             Glide.with(getContext()).clear(store_image);
         else

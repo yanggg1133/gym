@@ -2,6 +2,7 @@ package com.hxs.fitnessroom.module.home.model;
 
 import android.support.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hxs.fitnessroom.base.network.APIHttpClient;
 import com.hxs.fitnessroom.base.network.APIResponse;
@@ -9,6 +10,7 @@ import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
 import com.hxs.fitnessroom.module.home.model.entity.AreaBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
+import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
 
 import java.util.List;
 
@@ -51,6 +53,20 @@ public class StoreModel
                         .putParam("location",location),
                 new TypeToken<APIResponse<List<AreaBean>>>(){}.getType()
                 );
+    }
+
+    /**
+     * 获取门店的预约时间段列表
+     * @param storeId 门店ID
+     * @return
+     */
+    public static APIResponse<StoreReserveBean> getStoreAppointment(@Nullable String storeId)
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.Appointment.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("uid",storeId),
+                new TypeToken<APIResponse<StoreReserveBean> >(){}.getType()
+        );
     }
 
 }

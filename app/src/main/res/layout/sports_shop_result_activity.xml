@@ -145,7 +145,7 @@
         android:id="@+id/action_button"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:background="@drawable/bg_gradient_d068ff_e452b1"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

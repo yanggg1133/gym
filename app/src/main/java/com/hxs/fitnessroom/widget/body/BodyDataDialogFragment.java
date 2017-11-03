@@ -144,13 +144,13 @@ public class BodyDataDialogFragment extends DialogFragment implements View.OnCli
         {
             case R.id.boy_button:
                 body_image.setBackgroundResource(R.drawable.boy);
-                boy_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1);
+                boy_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1_r50);
                 girl_button.setBackground(null);
                 mSex = UserBean.SEX_TYPE_BOY;
                 break;
             case R.id.girl_button:
                 body_image.setBackgroundResource(R.drawable.girl);
-                girl_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1);
+                girl_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1_r50);
                 boy_button.setBackground(null);
                 mSex = UserBean.SEX_TYPE_GIRL;
                 break;

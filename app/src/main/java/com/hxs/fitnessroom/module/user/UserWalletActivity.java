@@ -156,7 +156,7 @@ public class UserWalletActivity extends BaseActivity implements View.OnClickList
             case UserAccountBean.AccountStatus_NoDeposit://还没交押金
                 goto_deposit_button.setText("去支付");
                 goto_deposit_button.setEnabled(true);
-                goto_deposit_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1);
+                goto_deposit_button.setBackgroundResource(R.drawable.bg_gradient_d068ff_e452b1_r50);
                 deposit_return_tip.setVisibility(View.GONE);
                 deposit_tips.setVisibility(View.VISIBLE);
                 break;

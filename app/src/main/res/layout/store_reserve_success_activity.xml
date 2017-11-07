@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/ic_chenggong_icon"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:id="@+id/ending_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:textSize="17dp"
+        android:text="预约成功"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+
+
+    <View
+        android:id="@+id/divider_line_0"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintTop_toBottomOf="@+id/ending_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        android:text="预约门店"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+
+    <TextView
+        android:id="@+id/store_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="250dp"
+        android:singleLine="true"
+        android:text=""
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+    <View
+        android:id="@+id/divider_line_1"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
+        android:layout_marginTop="@dimen/item_height"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        android:text="使用时间"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+
+    <View
+        android:id="@+id/divider_line_2"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        android:layout_marginTop="@dimen/item_height"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        android:text="支付金额"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+
+    <TextView
+        android:id="@+id/money_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+    <View
+        android:id="@+id/divider_line_3"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        android:layout_marginTop="@dimen/item_height"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        android:text="支付金额"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+
+    <TextView
+        android:id="@+id/pay_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="钱包余额"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+    <View
+        android:id="@+id/divider_line_4"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        android:layout_marginTop="@dimen/item_height"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_0"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_0"
+        />
+
+    <TextView
+        android:id="@+id/goto_user_reserve_button"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:text="查看我的预约"
+        android:gravity="center"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toLeftOf="@id/divider_line_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/divider_line_0"
+        android:textSize="17dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

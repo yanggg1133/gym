@@ -113,10 +113,17 @@
         >
     </com.hxs.fitnessroom.widget.SettingItemView>
     <com.hxs.fitnessroom.widget.SettingItemView
-        android:id="@+id/setting_tutorial"
+        android:id="@+id/setting_reserve"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
         app:layout_constraintTop_toBottomOf="@+id/setting_wallet"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/setting_tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        app:layout_constraintTop_toBottomOf="@+id/setting_reserve"
         >
     </com.hxs.fitnessroom.widget.SettingItemView>
     <com.hxs.fitnessroom.widget.SettingItemView

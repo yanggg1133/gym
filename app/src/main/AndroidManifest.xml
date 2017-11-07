@@ -80,21 +80,23 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".module.user.UserInfoActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.PayDepositActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.PayRechargeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.pay.ReturnDepositActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserNicknameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserWalletActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.MessageActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.AboutActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserWalletDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserInfoVerifiedActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserReserveActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsEndingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopResultActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.home.StoreReserveActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.home.StoreReserveSuccessActivity" android:screenOrientation="portrait"/>
 
         <!-- ***************************************************** -->
         <!-- *********************其他第三方配置******************** -->

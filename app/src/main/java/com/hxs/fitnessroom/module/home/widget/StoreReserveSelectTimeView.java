@@ -277,9 +277,15 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
      */
     private void onChenged()
     {
-        if (null != mOnSelectChangedListener && selectedViewBeanList.size() > 0)
+        if(null == mOnSelectChangedListener)
+            return ;
+        if (selectedViewBeanList.size() > 0)
         {
             mOnSelectChangedListener.onSelectChanged(selectedViewBeanList.get(0).date,  getTimes());
+        }
+        else
+        {
+            mOnSelectChangedListener.onSelectChanged("",  null);
         }
     }
 

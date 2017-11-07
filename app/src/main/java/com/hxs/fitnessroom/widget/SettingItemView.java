@@ -35,6 +35,7 @@ public class SettingItemView extends ConstraintLayout
     public static final int TYPE_USERINFO = 2;
     private ImageView setting_right_image;
     private ImageView setting_right_icon;
+    private ImageView setting_icon_noTint;
 
     @IntDef({TYPE_SETTING, TYPE_USERINFO})
     @Retention(RetentionPolicy.SOURCE)
@@ -81,6 +82,7 @@ public class SettingItemView extends ConstraintLayout
         bottom_line =  findViewById(R.id.bottom_line);
         setting_right_image = (ImageView) findViewById(R.id.setting_right_image);
         setting_right_icon = (ImageView) findViewById(R.id.setting_right_icon);
+        setting_icon_noTint = (ImageView) findViewById(R.id.setting_icon_noTint);
 
         TypedValue typedValue = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
@@ -137,6 +139,11 @@ public class SettingItemView extends ConstraintLayout
         setting_name.setText(name);
         if(null != content)
             setting_content.setText(content);
+    }
+
+    public void setNoTintIcon(@DrawableRes int iconResId)
+    {
+        setting_icon_noTint.setImageResource(iconResId);
     }
 
     public ImageView getRightImageView()

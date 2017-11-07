@@ -81,11 +81,14 @@ public class StoreInfoView extends ConstraintLayout
         {
             case StoreBean.STATUS_Idle:
                 store_status_icon.setImageResource(R.mipmap.ic_status_qingxian);
+                break;
             case StoreBean.STATUS_Moderate:
                 store_status_icon.setImageResource(R.mipmap.ic_status_shizhong);
+                break;
             case StoreBean.STATUS_Crowded:
             case StoreBean.STATUS_Full:
                 store_status_icon.setImageResource(R.mipmap.ic_status_baoman);
+                break;
         }
 
         if(ValidateUtil.isEmpty(storeBean.img))

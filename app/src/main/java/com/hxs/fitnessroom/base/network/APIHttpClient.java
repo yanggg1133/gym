@@ -114,7 +114,7 @@ public class APIHttpClient
         params.putParam("app_version", PhoneInfoUtil.AppVersion);
         params.putParam("platform", PhoneInfoUtil.HxsAppType);
         params.putParam("app_name", PhoneInfoUtil.AppName);
-        long utime = System.currentTimeMillis();
+        long utime = System.currentTimeMillis()/1000;
         params.putParam("utime", utime);
         params.putParam("sign", Base64Util.encodeToString(ValidateUtil.getMD5(utime + SIGN_KEY).getBytes()));
         params.putParam("sess_token", HXSUser.getUserSessToken());

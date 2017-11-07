@@ -32,7 +32,7 @@ public class StoreBean
     public String img;
     public String stime;//: "2017/10/31 09:00",
     public String etime;//: "2017/11/02 22:00",
-    public String fee;//: "33.00",
+    public double fee;//: "33.00",
     public String points;//: "113.232193,23.060807",
     public String online;//: 3,
     public String statusDesc;//: "适中，先到先得"

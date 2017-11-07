@@ -34,6 +34,7 @@ public class UserMainUi extends BaseUi
     private final TextView user_authenticate;
     private final View goto_recharge_icon;
     private final View goto_recharge_text;
+    private final SettingItemView setting_reserve;
 
     public UserMainUi(BaseFragment baseFragment)
     {
@@ -55,6 +56,7 @@ public class UserMainUi extends BaseUi
         setting_service = findViewById(R.id.setting_service);
         setting_message = findViewById(R.id.setting_message);
         setting_system = findViewById(R.id.setting_system);
+        setting_reserve = findViewById(R.id.setting_reserve);
         not_login_tip = findViewById(R.id.not_login_tip);
         initView();
         initUserInfo();
@@ -71,6 +73,7 @@ public class UserMainUi extends BaseUi
         setting_system.setOnClickListener(getBaseOnclick());
         goto_recharge.setOnClickListener(getBaseOnclick());
         user_avatar.setOnClickListener(getBaseOnclick());
+        setting_reserve.setOnClickListener(getBaseOnclick());
     }
 
     private void initView()
@@ -82,6 +85,7 @@ public class UserMainUi extends BaseUi
         setting_service.hideLine();
         setting_message.setValue(R.drawable.ic_user_xiaoxi, "我的消息", null);
         setting_system.setValue(R.drawable.ic_user_shezhi, "系统设置", null);
+        setting_reserve.setValue(R.mipmap.ic_setting_yuyue, "我的预约", null);
     }
 
     public void initUserInfo()

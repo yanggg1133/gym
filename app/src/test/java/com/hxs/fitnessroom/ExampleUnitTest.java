@@ -2,6 +2,8 @@ package com.hxs.fitnessroom;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,4 +21,19 @@ public class ExampleUnitTest
         System.out.print(sss[0]);
 //        assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void testUtime() throws Exception
+    {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(System.currentTimeMillis());
+//        calendar.setTimeInMillis(1509987737144l);
+        calendar.setTimeInMillis(1509959554636l);
+        System.out.println(calendar.get(Calendar.AM_PM));
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
+        System.out.println(calendar.get(Calendar.HOUR));
+        System.out.println(calendar.get(Calendar.MINUTE));
+    }
+
+
 }

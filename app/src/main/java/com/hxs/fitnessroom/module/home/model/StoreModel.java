@@ -60,11 +60,32 @@ public class StoreModel
      * @param storeId 门店ID
      * @return
      */
-    public static APIResponse<StoreReserveBean> getStoreAppointment(@Nullable String storeId)
+    public static APIResponse<StoreReserveBean> getStoreAppointment( String storeId)
     {
         return APIHttpClient.postForm(ConstantsApiUrl.Appointment.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("uid",storeId),
+                new TypeToken<APIResponse<StoreReserveBean> >(){}.getType()
+        );
+    }
+
+    /**
+     * 获取门店的预约确认
+     * @return
+     */
+    public static APIResponse payStoreAppointment(String storeId,List<StoreReserveBean.Time> selectTimes)
+    {
+        String tiems = "";
+        for(StoreReserveBean.Time time : selectTimes)
+        {
+            tiems += time.time+",";
+        }
+
+
+        return APIHttpClient.postForm(ConstantsApiUrl.AppointmentUPay.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("uid",storeId)
+                        .putParam("time",tiems),
                 new TypeToken<APIResponse<StoreReserveBean> >(){}.getType()
         );
     }

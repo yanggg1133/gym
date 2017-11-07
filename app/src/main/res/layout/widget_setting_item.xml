@@ -17,6 +17,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+    <ImageView
+        android:id="@+id/setting_icon_noTint"
+        android:layout_width="@dimen/setting_item_icon_size"
+        android:layout_height="@dimen/setting_item_icon_size"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/setting_name"

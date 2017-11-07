@@ -92,6 +92,9 @@ public class UserMainFragment extends BaseFragment implements View.OnClickListen
             case R.id.goto_recharge://去充值
                 startActivityForResult(PayRechargeActivity.getNewIntent(getBaseActivity()), RequestCode_Pay_Recharge);
                 break;
+            case R.id.setting_reserve://我的预约
+                startActivity(UserReserveActivity.getNewIntent(getBaseActivity()));
+                break;
         }
     }
 

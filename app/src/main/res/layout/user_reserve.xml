@@ -13,23 +13,93 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/goto_reserve_overlist"
+        app:layout_constraintBottom_toTopOf="@+id/indexView"
         >
     </android.support.v4.view.ViewPager>
 
 
-
+    <cn.com.someday.fgnna.indexview.IndexView
+        android:id="@+id/indexView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:layout_constraintBottom_toTopOf="@+id/goto_reserve_overlist"
+        >
+    </cn.com.someday.fgnna.indexview.IndexView>
 
     <TextView
         android:id="@+id/goto_reserve_overlist"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查看已完成预约"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indexView"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorAccent"
+        android:text="查看已完成预约"
+        android:textSize="13dp"
         />
 
+    <ImageView
+        android:id="@+id/setting_right_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:tint="@color/colorTextDark"
+        app:layout_constraintBottom_toBottomOf="@+id/goto_reserve_overlist"
+        app:layout_constraintTop_toTopOf="@+id/goto_reserve_overlist"
+        app:layout_constraintLeft_toRightOf="@+id/goto_reserve_overlist"
+        android:layout_marginLeft="4dp"
+        app:srcCompat="@drawable/ic_right_goto"
+        />
 
-
+    <RelativeLayout
+        android:id="@+id/none_data"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/kong_bg"
+            android:layout_marginTop="170dp"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:id="@+id/tip_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无预约信息"
+            android:layout_below="@id/icon"
+            android:textSize="19dp"
+            android:textColor="@color/colorListItemTitleText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            />
+        <TextView
+            android:id="@+id/goto_reserve_overlist2"
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:text="查看已完成预约"
+            android:layout_below="@id/tip_text"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/bg_stroke_d8abff_r50"
+            />
+    </RelativeLayout>
     <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
 
 </android.support.constraint.ConstraintLayout>

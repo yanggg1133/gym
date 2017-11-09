@@ -82,7 +82,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-
+    repositories{flatDir{dirs 'libs'}}
 }
 ext {
     SUPPORT_LIB_VERSION = '26.1.0'
@@ -133,7 +133,7 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     //友盟统计
     implementation 'com.umeng.analytics:analytics:latest.integration'
-
+    implementation (name:'indexview',ext:'aar')
 }
 /**
  * 打包命名

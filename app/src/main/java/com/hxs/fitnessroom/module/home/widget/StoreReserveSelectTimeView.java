@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
+import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ViewUtil;
 
@@ -306,13 +307,7 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
      */
     private void selectedDataReorder()
     {
-        Collections.sort(selectedViewBeanList, new Comparator<SelectViewBean>()
-        {
-            public int compare(SelectViewBean arg0, SelectViewBean arg1)
-            {
-                return arg0.index > arg1.index ? 1 : 0;
-            }
-        });
+        Collections.sort(selectedViewBeanList);
     }
 
 
@@ -415,7 +410,7 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
      * 连接上一个和下一个时段view,型一个链表，方便判断用户是否连续时段选择
      * 缓存时段顺序及这个时段view对应的数据实体
      */
-    class SelectViewBean
+    class SelectViewBean implements Comparable<SelectViewBean>
     {
         TextView timeView;
         StoreReserveBean.Time mTime;
@@ -427,6 +422,11 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
         SelectViewBean previousBean;
         SelectViewBean nextBean;
 
+        @Override
+        public int compareTo(@NonNull SelectViewBean o)
+        {
+            return index > o.index ? 1 : -1;
+        }
     }
 
     public interface OnSelectChangedListener

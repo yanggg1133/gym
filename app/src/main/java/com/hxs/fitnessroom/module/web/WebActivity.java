@@ -39,9 +39,9 @@ public class WebActivity extends BaseActivity
     public static void gotoWeb(Context context, String url)
     {
         Intent intent = new Intent(context, WebActivity.class);
-        if(BuildConfig.DEBUG)
-            intent.putExtra(KEY_URL, "file:///android_asset/test.html");
-        else
+//        if(BuildConfig.DEBUG)
+//            intent.putExtra(KEY_URL, "file:///android_asset/test.html");
+//        else
             intent.putExtra(KEY_URL, url);
         context.startActivity(intent);
     }

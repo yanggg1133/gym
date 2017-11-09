@@ -9,6 +9,7 @@ import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.base.network.ParamsBuilder;
 import com.hxs.fitnessroom.module.home.model.entity.AreaBean;
+import com.hxs.fitnessroom.module.home.model.entity.StoreAppointment;
 import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
 
@@ -78,15 +79,41 @@ public class StoreModel
         String tiems = "";
         for(StoreReserveBean.Time time : selectTimes)
         {
-            tiems += time.time+",";
+            tiems += ","+time.time;
         }
-
+        tiems = tiems.replaceFirst(",","");
 
         return APIHttpClient.postForm(ConstantsApiUrl.AppointmentUPay.getUrl(),
                 ParamsBuilder.buildFormParam()
                         .putParam("uid",storeId)
                         .putParam("time",tiems),
                 new TypeToken<APIResponse<StoreReserveBean> >(){}.getType()
+        );
+    }
+
+    /**
+     * 获取我的预约列表
+     * @return
+     */
+    public static APIResponse<List<StoreAppointment>> getStoreAppointmentList(int type)
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.AppointmentList.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("status",type),
+                new TypeToken<APIResponse<List<StoreAppointment>> >(){}.getType()
+        );
+    }
+
+    /**
+     * 取消预约
+     * @return
+     */
+    public static APIResponse storeAppointmenCancel(String id)
+    {
+        return APIHttpClient.postForm(ConstantsApiUrl.AppointmentCancel.getUrl(),
+                ParamsBuilder.buildFormParam()
+                        .putParam("id",id),
+                new TypeToken<APIResponse >(){}.getType()
         );
     }
 

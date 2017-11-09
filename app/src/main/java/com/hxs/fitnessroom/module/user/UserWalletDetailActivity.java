@@ -48,7 +48,7 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_wallet_detail);
+        setContentView(R.layout.base_list_layout);
 
         mBaseUi = new BaseUi(this);
         mBaseUi.setTitle("钱包明细");
@@ -60,7 +60,7 @@ public class UserWalletDetailActivity extends BaseActivity implements LoadingVie
 
     private void initView()
     {
-        mWalletList = (RecyclerView) findViewById(R.id.wallet_list);
+        mWalletList = (RecyclerView) findViewById(R.id.recycler_view);
         mWalletList.setLayoutManager(new LinearLayoutManager(this));
         loadMoreAdapterWrapper = new LoadMoreAdapterWrapper(new WalletAdapter(this), this);
         mWalletList.setAdapter(loadMoreAdapterWrapper);

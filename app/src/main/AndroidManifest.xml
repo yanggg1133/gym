@@ -92,6 +92,7 @@
         <activity android:name=".module.user.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserInfoVerifiedActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.user.UserReserveActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".module.user.UserReserveOverListActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsEndingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopActivity" android:screenOrientation="portrait"/>
         <activity android:name=".module.sports.SportsShopResultActivity" android:screenOrientation="portrait"/>

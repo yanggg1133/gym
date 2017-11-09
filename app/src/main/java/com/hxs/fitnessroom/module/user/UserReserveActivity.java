@@ -12,17 +12,27 @@ import android.view.View;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseActivity;
+import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
+import com.hxs.fitnessroom.base.network.APIResponse;
+import com.hxs.fitnessroom.module.home.model.StoreModel;
+import com.hxs.fitnessroom.module.home.model.entity.StoreAppointment;
+
+import java.util.List;
+
+import cn.com.someday.fgnna.indexview.IndexView;
 
 /**
  * 我的预约
  * Created by shaojunjie on 17-11-6.
  */
 
-public class UserReserveActivity extends BaseActivity
+public class UserReserveActivity extends BaseActivity implements View.OnClickListener
 {
-    private BaseUi mUi;
+    public BaseUi mUi;
     private ViewPager viewPager;
+    private IndexView indexView;
+    private View none_data;
 
     public static Intent getNewIntent(Context context)
     {
@@ -39,26 +49,72 @@ public class UserReserveActivity extends BaseActivity
         mUi.setTitle("我的预约");
         mUi.setBackAction(true);
         viewPager = mUi.findViewById(R.id.viewpager);
+        indexView = mUi.findViewById(R.id.indexView);
+        none_data = mUi.findViewById(R.id.none_data);
+        mUi.findViewByIdAndSetClick(R.id.goto_reserve_overlist);
+        mUi.findViewByIdAndSetClick(R.id.goto_reserve_overlist2);
+
+
 
         doWork();
     }
 
     private void doWork()
     {
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager())
+        mUi.getLoadingView().show();
+        new BaseAsyncTask()
         {
             @Override
-            public int getCount()
+            protected APIResponse doWorkBackground() throws Exception
             {
-                return 3;
+                return StoreModel.getStoreAppointmentList(3);
             }
 
             @Override
-            public Fragment getItem(int position)
+            protected void onSuccess(APIResponse data)
             {
-                return UserReserveItemFragment.getNewFragment();
-            }
+                mUi.getLoadingView().hide();
+                final APIResponse<List<StoreAppointment>> response = data;
 
-        });
+                if(response.data.size() == 0)
+                {
+                    none_data.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    none_data.setVisibility(View.GONE);
+                    viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager())
+                    {
+                        @Override
+                        public int getCount()
+                        {
+                            return response.data.size();
+                        }
+
+                        @Override
+                        public Fragment getItem(int position)
+                        {
+                            return UserReserveItemFragment.getNewFragment(response.data.get(position));
+                        }
+
+                    });
+                    indexView.setupByViewPager(viewPager);
+                }
+            }
+        }.go(this);
+
+    }
+
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.goto_reserve_overlist:
+            case R.id.goto_reserve_overlist2:
+                startActivity(UserReserveOverListActivity.getNewIntent(v.getContext()));
+                break;
+        }
     }
 }

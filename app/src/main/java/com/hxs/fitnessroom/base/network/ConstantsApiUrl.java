@@ -12,6 +12,8 @@ public enum ConstantsApiUrl
     StoreList("https://api.hxsapp.com/gym/Store/storeList"),//门店列表
     Appointment("https://api.hxsapp.com/gym/Appointment/add"),//门店预约列表
     AppointmentUPay("https://api.hxsapp.com/gym/Appointment/upay"),//门店预约支付
+    AppointmentList("https://api.hxsapp.com/gym/Appointment/myList"),//我的预约列表
+    AppointmentCancel("https://api.hxsapp.com/gym/Appointment/cancel"),//取消预约
     AreaList("https://api.hxsapp.com/gym/Store/areaList"),//所有城市列表
 
     AddRecharge("https://api.hxsapp.com/mall/GymOrder/addPay"),//发起充值 发起支付 通用
@@ -40,6 +42,7 @@ public enum ConstantsApiUrl
 
     /** h5相关页面 **********************************************************/
     H5_gymDetail("https://gymweb.hxsapp.com/gymDetail"),//健身房详情                     ***必须传id***
+    H5_gymDetailBaiduMap("https://gymweb.hxsapp.com/baiduMap"),//健身房地图                     ***必须传id***
     H5_myTutorialList("https://gymweb.hxsapp.com/myTutorialList"),//我的课程
     //H5_myTutorialDetail("https://gym.hxsapp.com/myTutorialDetail/"),//我的课程详情
     H5_meExercise("https://gymweb.hxsapp.com/meExercise"),//我的锻炼

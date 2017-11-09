@@ -32,6 +32,8 @@
         android:id="@+id/setting_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxWidth="220dp"
         android:layout_marginLeft="12dp"
         android:textColor="@color/colorListItemTitleText"
         android:textSize="@dimen/item_text_size"

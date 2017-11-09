@@ -124,6 +124,9 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
     }
 
 
+    /**
+     * 查询该店预约
+     */
     class StoreReserveInfoTask extends BaseAsyncTask
     {
 
@@ -150,6 +153,9 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
     }
 
 
+    /**
+     * 确定预约
+     */
     class PayStoreReserveTask extends BaseAsyncTask
     {
         @Override
@@ -170,11 +176,6 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
         {
             super.onError(e);
             mUi.getLoadingView().hide();
-            if(BuildConfig.DEBUG)
-            {
-                startActivity(StoreReserveSuccessActivity.getNewIntent(StoreReserveActivity.this,
-                        responseBean.store.name,mSelectTimesText,String.valueOf(mSumFee)));
-            }
         }
 
         @Override

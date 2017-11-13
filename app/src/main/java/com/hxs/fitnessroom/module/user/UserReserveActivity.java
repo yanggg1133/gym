@@ -117,4 +117,9 @@ public class UserReserveActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+
+    public void reload()
+    {
+        doWork();
+    }
 }

@@ -1,9 +1,6 @@
 package com.hxs.fitnessroom.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * 日期工具类
@@ -64,6 +61,7 @@ public class DateUtil
         long defference = new Long(TimeMills1) - new Long(TimeMills2);
         return defference;
     }
+
     /**
      * 计算两个时间的时间差
      *
@@ -87,4 +85,18 @@ public class DateUtil
     }
 
 
+    public static String millsToHHMMSS(long timeMills)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeMills);
+        return toTwoStr(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + toTwoStr(calendar.get(Calendar.MINUTE)) + ":" + toTwoStr(calendar.get(Calendar.SECOND));
+    }
+
+    private static String toTwoStr(int number)
+    {
+        if(number<10)
+            return "0"+number;
+        else
+            return number+"";
+    }
 }

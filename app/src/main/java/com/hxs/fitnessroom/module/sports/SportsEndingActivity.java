@@ -25,6 +25,10 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
     private static final String KEY_BALANCE = "KEY_BALANCE";
     private static final String KEY_BALANCEDESC = "KEY_BALANCEDESC";
     private static final String KEY_USETIME = "KEY_USETIME";
+    private static final String KEY_AppointmentDate = "KEY_AppointmentDate";
+    private static final String KEY_useDate = "KEY_useDate";
+    private static final String KEY_overTime = "KEY_overTime";
+    private static final String KEY_allcost = "KEY_allcost";
 
     private BaseUi mBaseUi;
 
@@ -40,6 +44,18 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
     private double mBalance;
     private String mUseTime;
     private String mBalanceDesc;
+    private String mAppointmentDate;
+    private String mOverTime;
+    private String mUseDate;
+    private String mAllcost;
+
+
+    private TextView resvere_time_text;
+    private TextView out_time_text;
+    private TextView money2_text;
+    private TextView over_time_text;
+    private View over_time_title;
+    private View divider_line_11;
 
     public static Intent getNewIntent(Context context,RechargeBean.BalancePay balancePay)
     {
@@ -48,6 +64,10 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
         intent.putExtra(KEY_BALANCE,balancePay.balance);
         intent.putExtra(KEY_BALANCEDESC,balancePay.balanceDesc);
         intent.putExtra(KEY_USETIME,balancePay.useTime);
+        intent.putExtra(KEY_AppointmentDate,balancePay.appointmentDate);
+        intent.putExtra(KEY_overTime,balancePay.overTime);
+        intent.putExtra(KEY_useDate,balancePay.useDate);
+        intent.putExtra(KEY_allcost,balancePay.allcost);
         return intent;
     }
 
@@ -65,14 +85,39 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
         mBalance = getIntent().getDoubleExtra(KEY_BALANCE,0.0);
         mBalanceDesc = getIntent().getStringExtra(KEY_BALANCEDESC);
         mUseTime = getIntent().getStringExtra(KEY_USETIME);
+        mAppointmentDate = getIntent().getStringExtra(KEY_AppointmentDate);
+        mOverTime = getIntent().getStringExtra(KEY_overTime);
+        mUseDate = getIntent().getStringExtra(KEY_useDate);
+        mAllcost = getIntent().getStringExtra(KEY_allcost);
 
         use_time_text = mBaseUi.findViewById(R.id.use_time_text);
         money_text = mBaseUi.findViewById(R.id.money_text);
         balance_text = mBaseUi.findViewById(R.id.balance_text);
 
+        resvere_time_text = mBaseUi.findViewById(R.id.resvere_time_text);
+        out_time_text = mBaseUi.findViewById(R.id.out_time_text);
+        money2_text = mBaseUi.findViewById(R.id.money2_text);
+        over_time_text = mBaseUi.findViewById(R.id.over_time_text);
+        over_time_title = mBaseUi.findViewById(R.id.over_time_title);
+        divider_line_11 = mBaseUi.findViewById(R.id.divider_line_11);
+
         use_time_text.setText(mUseTime);
-        money_text.setText(mMoney);
+        money_text.setText(mAllcost);
         balance_text.setText(mBalanceDesc);
+
+        resvere_time_text.setText(mAppointmentDate);
+        out_time_text.setText(mUseDate);
+        money2_text.setText(mMoney);
+        if("00:00:00".equals(mOverTime))
+        {
+            over_time_text.setVisibility(View.GONE);
+            over_time_title.setVisibility(View.GONE);
+            divider_line_11.setVisibility(View.GONE);
+        }
+        else
+        {
+            over_time_text.setText(mOverTime);
+        }
 
         goto_recharge_button = mBaseUi.findViewByIdAndSetClick(R.id.goto_recharge_button);
         goto_recharge_wallet_detail = mBaseUi.findViewByIdAndSetClick(R.id.goto_recharge_wallet_detail);

@@ -36,6 +36,8 @@ public class WebActivity extends BaseActivity
     public WebView mWebView;
     public BaseUi mBaseUi;
 
+    private String baseUA = "";
+
     public static void gotoWeb(Context context, String url)
     {
         Intent intent = new Intent(context, WebActivity.class);
@@ -64,6 +66,15 @@ public class WebActivity extends BaseActivity
 
         mBaseUi.getLoadingView().show();
         mWebView.loadUrl(mWebUrl);
+
+        registerUserUpdateBroadcastReceiver();
+    }
+
+    @Override
+    public void onUserUpdate()
+    {
+        mWebView.getSettings().setUserAgentString(baseUA + getAPPUserAgent());
+        LogUtil.dClass(mWebView.getSettings().getUserAgentString());
     }
 
     /**
@@ -74,7 +85,8 @@ public class WebActivity extends BaseActivity
         mWebView = (com.tencent.smtt.sdk.WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);// 支持js
         mWebView.getSettings().setUseWideViewPort(true); //自适应屏幕
-        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + getAPPUserAgent());
+        baseUA = mWebView.getSettings().getUserAgentString();
+        mWebView.getSettings().setUserAgentString(baseUA + getAPPUserAgent());
         JsController.initJs(this,mWebView);//注册js
         mWebView.setWebViewClient(new WebViewClient()
         {
@@ -210,4 +222,7 @@ public class WebActivity extends BaseActivity
         if (null != mWebView)
             mWebView.onPause();
     }
+
+
+
 }

@@ -34,11 +34,21 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity
 {
+    public static final String KEY_INDEX = "KEY_INDEX";
 
+    public static final int INDEX_STORE = R.id.navigation_home;
+    public static final int INDEX_SPORT = R.id.navigation_scan_code;
+    public static final int INDEX_USER = R.id.navigation_user;
 
     public static final Intent getNewIntent(Context context)
     {
-        return new Intent(context, MainActivity.class);
+        return getNewIntent(context,INDEX_STORE);
+    }
+    public static final Intent getNewIntent(Context context,int index)
+    {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(KEY_INDEX,index);
+        return intent;
     }
 
     private BottomNavigationView navigation;
@@ -96,6 +106,25 @@ public class MainActivity extends BaseActivity
 
     };
 
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        int index = getIntent().getIntExtra(KEY_INDEX,0);
+        navigation.setSelectedItemId(index);
+        if(index == INDEX_SPORT)
+        {
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mSportsMainFragment.startSport();
+                }
+            },500);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -1,1 +1,1 @@
-include ':app', ':module_codescan', ':module_sharesdk'
+include ':app', ':module_codescan', ':module_sharesdk', ':module_xingesdk'

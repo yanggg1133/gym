@@ -125,14 +125,7 @@ public class StoreListUi extends BaseUi
         @Override
         public void onClick(View v)
         {
-            if(BuildConfig.DEBUG)
-            {
-                itemView.getContext().startActivity(StoreReserveActivity.getNewIntent(itemView.getContext(),storeBean.uid));
-            }
-            else
-            {
                 WebActivity.gotoWeb(v.getContext(), ConstantsApiUrl.H5_gymDetail.getH5Url(storeBean.uid));
-            }
         }
     }
 

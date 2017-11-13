@@ -15,6 +15,8 @@ import com.mob.MobSDK;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 
+import cn.com.someday.fgnna.module_xingesdk.XingeSdk;
+
 /**
  * Application基类
  * Created by je on 8/31/17.
@@ -37,6 +39,7 @@ public class BaseApplication extends Application
         HXSUser.appInitialization(this);
         ToastUtil.appInitialization(this);
         HXSUser.updateUserAccountInfoAsync();
+        XingeSdk.initSdk(this);
 
         /**
          * 腾讯x5预加载

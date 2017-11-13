@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
 import com.hxs.fitnessroom.base.baseclass.BaseAsyncTask;
@@ -15,6 +16,7 @@ import com.hxs.fitnessroom.base.network.APIResponse;
 import com.hxs.fitnessroom.base.network.ConstantsApiUrl;
 import com.hxs.fitnessroom.module.home.model.StoreModel;
 import com.hxs.fitnessroom.module.home.model.entity.StoreAppointment;
+import com.hxs.fitnessroom.module.main.MainActivity;
 import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.widget.SettingItemView;
@@ -35,6 +37,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
     private StoreAppointment mStoreAppointment;
     private View cancel_action;
     private View goto_open;
+    private TextView status_text;
 
     public static Fragment getNewFragment(StoreAppointment storeAppointment)
     {
@@ -63,6 +66,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
         store_address = mUi.findViewByIdAndSetClick(R.id.store_address);
         time = mUi.findViewById(R.id.time);
         money = mUi.findViewById(R.id.money);
+        status_text = mUi.findViewById(R.id.status_text);
 
         cancel_action = mUi.findViewByIdAndSetClick(R.id.cancel_action);
         goto_open = mUi.findViewByIdAndSetClick(R.id.goto_open);
@@ -77,10 +81,22 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
         money.hideLine();
 
 
-
         store_address.setValue(mStoreAppointment.address,"");
         time.setValue(mStoreAppointment.timeDesc,"");
         money.setValue(mStoreAppointment.cost,"");
+        if(mStoreAppointment.status != 6 )
+        {
+            status_text.setText("待锻炼");
+            cancel_action.setVisibility(View.VISIBLE);
+            goto_open.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            status_text.setText("锻炼中");
+            cancel_action.setVisibility(View.INVISIBLE);
+            goto_open.setVisibility(View.INVISIBLE);
+        }
+
     }
 
 
@@ -105,7 +121,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
                         });
                 break;
             case R.id.goto_open:
-
+                startActivity(MainActivity.getNewIntent(v.getContext(),MainActivity.INDEX_SPORT));
                 break;
         }
     }
@@ -140,6 +156,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
         protected void onSuccess(APIResponse data)
         {
             ((UserReserveActivity)getContext()).mUi.getLoadingView().hide();
+            ((UserReserveActivity)getContext()).reload();
         }
     }
 

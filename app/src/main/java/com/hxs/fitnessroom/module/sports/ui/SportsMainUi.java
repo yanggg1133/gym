@@ -11,6 +11,8 @@ import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.module.sports.model.entity.UserDeviceStatusBean;
 import com.hxs.fitnessroom.util.DateUtil;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 运动 主界面UI操作类
  * Created by je on 9/15/17.
@@ -33,6 +35,8 @@ public class SportsMainUi extends BaseUi
     private final TextView sport_lockers_status;
     private final TextView sport_readmill_status;
     private final TextView leave_tip_content;
+    private final TextView sport_reserve_time;
+    private final TextView sport_in_time;
     private Long startTimeCaceh;
     private boolean isUsingSport = false;
 
@@ -58,6 +62,8 @@ public class SportsMainUi extends BaseUi
         sport_lockers_status = findViewById(R.id.sport_lockers_status);
         sport_readmill_status = findViewById(R.id.sport_readmill_status);
         leave_tip_content = findViewById(R.id.leave_tip_content);
+        sport_reserve_time = findViewById(R.id.sport_reserve_time);
+        sport_in_time = findViewById(R.id.sport_in_time);
 
 
         initOnclick();
@@ -100,7 +106,8 @@ public class SportsMainUi extends BaseUi
         sport_store_time.setText(userDeviceStatus.store.openTime);
         leave_tip_content.setText(userDeviceStatus.warmimg);
         sport_using_money.setText(userDeviceStatus.store.feeDesc);
-
+        sport_reserve_time.setText(userDeviceStatus.appointmentDate);
+        sport_in_time.setText(DateUtil.millsToHHMMSS(new Long(userDeviceStatus.startTime)*1000));
         setLockerIsUsing(userDeviceStatus.locker.status);
         setRunIsUsing(userDeviceStatus.run.status);
         /**

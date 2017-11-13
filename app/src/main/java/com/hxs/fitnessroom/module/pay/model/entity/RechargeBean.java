@@ -28,6 +28,11 @@ public class RechargeBean
         public double balance;
         public String balanceDesc;
         public String useTime;
+        public String allcost;
+
+        public String appointmentDate;//: ”2017/11/13 15:00-15:15“,   //预约时间
+        public String useDate;//: "2017/11/13 15:06-15:23",     //使用时间
+        public String overTime;//: "00:08:31",                            //超时
     }
 
 }

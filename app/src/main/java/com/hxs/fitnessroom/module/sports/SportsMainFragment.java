@@ -132,7 +132,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     /**
      * 开始扫描 使用健身房流程
      */
-    private void startSport()
+    public void startSport()
     {
         checkPermissions();//检查报像头权限
     }
@@ -171,6 +171,8 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
             startActivityForResult(WelcomeActivity.getNewIntent(getContext()), RequestCode_Login);
         }
     }
+
+
 
     /**
      * 第二步 检查押金/余额/及上次消费情况

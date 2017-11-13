@@ -3,6 +3,8 @@ package com.hxs.fitnessroom.module.web;
 import android.app.Activity;
 
 import com.hxs.fitnessroom.module.web.js.BaseJs;
+import com.hxs.fitnessroom.module.web.js.JumpWindowJs;
+import com.hxs.fitnessroom.module.web.js.TestJs;
 import com.hxs.fitnessroom.module.web.js.WebTitleJs;
 import com.tencent.smtt.sdk.WebView;
 
@@ -35,6 +37,7 @@ public class JsController
         List<BaseJsImpl> jsList = new LinkedList<>();
         jsList.add(new WebTitleJs(webActivity, webView));
         jsList.add(new BaseJs(webActivity, webView));
+        jsList.add(new JumpWindowJs(webActivity, webView));
 
         for (BaseJsImpl jsObject : jsList)
         {

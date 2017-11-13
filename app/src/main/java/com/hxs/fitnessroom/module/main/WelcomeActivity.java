@@ -11,6 +11,7 @@ import com.hxs.fitnessroom.base.baseclass.BaseActivity;
 import com.hxs.fitnessroom.base.baseclass.BaseUi;
 import com.hxs.fitnessroom.base.baseclass.HXSUser;
 import com.hxs.fitnessroom.module.user.LoginActivity;
+import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.LogUtil;
 
 import cn.sharesdk.framework.PlatformDb;
@@ -23,11 +24,19 @@ import fitnessroom.hxs.com.sharesdk.ShareUtil;
  */
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener
 {
+    private static final String KEY_IS_NEED_JUMP_MAINACTIVITY = "KEY_IS_NEED_JUMP_MAINACTIVITY";
     private BaseUi mBaseUi;
+    private boolean mIsNeedJumpMainActivity;
+
 
     public static Intent getNewIntent(Context context)
     {
-        return new Intent(context, WelcomeActivity.class);
+        Intent intent = new Intent(context, WelcomeActivity.class);
+        if(context instanceof WebActivity)
+            intent.putExtra(KEY_IS_NEED_JUMP_MAINACTIVITY,false);
+        else
+            intent.putExtra(KEY_IS_NEED_JUMP_MAINACTIVITY,true);
+        return intent;
     }
 
     @Override
@@ -35,6 +44,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_welcome_activity);
+        mIsNeedJumpMainActivity = getIntent().getBooleanExtra(KEY_IS_NEED_JUMP_MAINACTIVITY,true);
         mBaseUi = new BaseUi(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.register_button).setOnClickListener(this);
@@ -111,7 +121,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RequestCode_Login && resultCode == RESULT_OK)
         {
-            startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
+            if(mIsNeedJumpMainActivity)
+                startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
             setResult(RESULT_OK);
             HXSUser.sendUserInfoUpdateBroadcastReceiver();
             finish();

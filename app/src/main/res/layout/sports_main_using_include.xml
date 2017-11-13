@@ -70,7 +70,74 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sport_store_name"
         />
+    <!-- 预约时间 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="预约时段"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_01"
+        app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
+        />
 
+    <TextView
+        android:id="@+id/sport_reserve_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_01"
+        app:layout_constraintRight_toRightOf="@+id/sport_store_name"
+        android:textColor="@color/colorListItemTitleText"
+        android:textSize="14dp"
+        android:text="￥30.00"
+        />
+    <View
+        android:id="@+id/divider_line_01"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
+        app:layout_constraintRight_toRightOf="@id/sport_store_name"
+        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        />
+    <!-- 进店时间 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="进店时间"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_01"
+        app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
+        />
+
+    <TextView
+        android:id="@+id/sport_in_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_01"
+        app:layout_constraintRight_toRightOf="@+id/sport_store_name"
+        android:textColor="@color/colorListItemTitleText"
+        android:textSize="14dp"
+        android:text="￥30.00"
+        />
+    <View
+        android:id="@+id/divider_line_0"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
+        app:layout_constraintRight_toRightOf="@id/sport_store_name"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_01"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +147,7 @@
         android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
-        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
         />
 
     <Chronometer
@@ -88,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
-        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
         app:layout_constraintRight_toRightOf="@+id/sport_store_name"
         android:textColor="@color/colorAccent"
         android:textSize="14dp"
@@ -102,19 +169,20 @@
         android:background="@color/colorDividerLine"
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
         app:layout_constraintRight_toRightOf="@id/sport_store_name"
-        app:layout_constraintTop_toBottomOf="@+id/sport_top_background"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_0"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:text="收费标准"
+        android:text="已消费"
         android:textColor="@color/colorListItemContentText"
         android:textSize="14dp"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
         app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
+        android:visibility="gone"
         />
 
     <TextView
@@ -127,6 +195,7 @@
         android:textColor="@color/colorListItemTitleText"
         android:textSize="14dp"
         android:text="￥30.00"
+        android:visibility="gone"
         />
 
     <View
@@ -137,7 +206,9 @@
         android:background="@color/colorDividerLine"
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
         app:layout_constraintRight_toRightOf="@id/sport_store_name"
-        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -147,7 +218,7 @@
         android:textColor="@color/colorListItemContentText"
         android:textSize="14dp"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
-        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
         />
 
@@ -156,7 +227,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
-        app:layout_constraintBottom_toTopOf="@+id/divider_line_4"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
         app:layout_constraintRight_toRightOf="@+id/sport_store_name"
         android:textColor="@color/colorListItemContentText"
         android:textSize="14dp"
@@ -173,7 +244,6 @@
         app:layout_constraintLeft_toLeftOf="@id/sport_using_tip"
         app:layout_constraintRight_toRightOf="@id/sport_store_name"
         app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
-        android:visibility="gone"
         />
 
     <TextView
@@ -206,9 +276,9 @@
         android:id="@+id/divider_line_4"
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:layout_marginTop="50dp"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_3"
+        />
 
     <TextView
         android:id="@+id/leave_tip"

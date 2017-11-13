@@ -13,6 +13,7 @@ public class UserDeviceStatusBean
     public String endTime;//结束时间       毫秒数
     public String nowTime;//服务器当前时间  毫秒数
     public String warmimg;//: "结束使用健身房请在关闭健身房设备后扫描二维码开门"
+    public String appointmentDate;//: 预约时段
 
     public Store store;
     public Locker locker;

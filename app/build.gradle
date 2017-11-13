@@ -114,10 +114,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     implementation 'jp.wasabeef:glide-transformations:3.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
     //二维码扫描
     implementation project(':module_codescan')
     //友盟第三方登录及分享
     implementation project(':module_sharesdk')
+    //信鸽推送sdk
+    implementation project(':module_xingesdk')
+
     //上下滚动选择器
     implementation 'cn.carbswang.android:NumberPickerView:1.1.1'
     //阿里云图片上传
@@ -133,6 +137,7 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     //友盟统计
     implementation 'com.umeng.analytics:analytics:latest.integration'
+    //预约时段选择列表的自定义view
     implementation (name:'indexview',ext:'aar')
 }
 /**

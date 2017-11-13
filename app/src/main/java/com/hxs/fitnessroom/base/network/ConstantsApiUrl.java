@@ -1,5 +1,7 @@
 package com.hxs.fitnessroom.base.network;
 
+import com.hxs.fitnessroom.BuildConfig;
+
 /**
  * 用于获取后台接口Url地址的工具类
  * Created by jie on 16-2-14.
@@ -54,6 +56,8 @@ public enum ConstantsApiUrl
     private String linkAddress;
     ConstantsApiUrl(String linkAddress)
     {
+        if(BuildConfig.DEBUG)
+            linkAddress = linkAddress.replace("https","http");
         this.linkAddress = linkAddress;
     }
 

@@ -99,7 +99,7 @@ public class StoreModel
     {
         return APIHttpClient.postForm(ConstantsApiUrl.AppointmentList.getUrl(),
                 ParamsBuilder.buildFormParam()
-                        .putParam("status",type),
+                        .putParam("status",type ==3?"":type),
                 new TypeToken<APIResponse<List<StoreAppointment>> >(){}.getType()
         );
     }

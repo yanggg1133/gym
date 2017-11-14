@@ -59,7 +59,7 @@ public class AliBaichuanYwIM
 
     public static void gotoIM()
     {
-        new GetOpenIMAccountTask().execute(mContext);
+        new GetOpenIMAccountTask().go(mContext);
     }
 
     static class GetOpenIMAccountTask extends BaseAsyncTask

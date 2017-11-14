@@ -7,66 +7,81 @@
 
     <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
 
-
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         >
-        <LinearLayout
+
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             >
-            <com.hxs.fitnessroom.module.home.widget.StoreInfoView
-                android:id="@+id/store_info_view"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 >
-            </com.hxs.fitnessroom.module.home.widget.StoreInfoView>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginTop="15dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/colorListItemContentText"
-                android:text="预约时间段"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                />
-            <TextView
-                android:id="@+id/select_datetime_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="17dp"
-                android:textColor="#ff9ae1"
-                android:gravity="center"
-                android:text=" "
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorDividerLine"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
-                />
-            <com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView
-                android:id="@+id/select_time_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView>
-        </LinearLayout>
-    </ScrollView>
+
+                <com.hxs.fitnessroom.module.home.widget.StoreInfoView
+                    android:id="@+id/store_info_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </com.hxs.fitnessroom.module.home.widget.StoreInfoView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimaryDark"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="预约时间段"
+                    android:textColor="@color/colorListItemContentText"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/select_datetime_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text=" "
+                    android:textColor="#ff9ae1"
+                    android:textSize="17dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorDividerLine"
+                    />
+
+                <com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView
+                    android:id="@+id/select_time_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
@@ -74,16 +89,17 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         >
+
         <TextView
             android:id="@+id/sum_amount_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="225"
             android:background="@color/colorPrimaryDark"
-            android:textSize="15dp"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorListItemTitleText"
+            android:textSize="15dp"
             />
 
         <TextView
@@ -92,11 +108,12 @@
             android:layout_height="match_parent"
             android:layout_weight="150"
             android:background="@drawable/bg_gradient_d068ff_e452b1"
+            android:gravity="center"
             android:text="确认预约"
             android:textColor="#ffffff"
             android:textSize="15dp"
-            android:gravity="center"
             />
     </LinearLayout>
+
     <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
 </android.support.constraint.ConstraintLayout>

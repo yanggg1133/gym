@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hxs.fitnessroom.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,8 +44,8 @@ public class ViewUtil
      */
     public static void initSwipeRefreshLayoutColor(SwipeRefreshLayout swipeRefreshLayout)
     {
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
-            android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,
+                R.color.colorAccent, R.color.colorAccent, R.color.colorAccent);
     }
 
     /**

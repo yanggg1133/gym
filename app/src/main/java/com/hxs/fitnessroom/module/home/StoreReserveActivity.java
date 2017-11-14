@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.hxs.fitnessroom.BuildConfig;
@@ -16,8 +17,10 @@ import com.hxs.fitnessroom.module.home.model.StoreModel;
 import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
 import com.hxs.fitnessroom.module.home.ui.StoreReserveUi;
 import com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView;
+import com.hxs.fitnessroom.module.pay.PayRechargeActivity;
 import com.hxs.fitnessroom.util.DialogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
+import com.hxs.fitnessroom.util.ValidateUtil;
 import com.hxs.fitnessroom.widget.dialog.ConfirmDialog;
 
 import java.util.List;
@@ -27,7 +30,7 @@ import java.util.List;
  * Created by shaojunjie on 17-10-30.
  */
 
-public class StoreReserveActivity extends BaseActivity implements StoreReserveSelectTimeView.OnSelectChangedListener, View.OnClickListener
+public class StoreReserveActivity extends BaseActivity implements StoreReserveSelectTimeView.OnSelectChangedListener, View.OnClickListener,SwipeRefreshLayout.OnRefreshListener
 {
     private static final String KEY_STROE_ID = "KEY_STROE_ID";
     private StoreReserveUi mUi;
@@ -106,7 +109,7 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
 
                 } else
                 {
-                    DialogUtil.showConfirmDialog("你的预约时间段为\n\n" + mSelectTimesText + "\n\n预约成功后系统将在您的钱包余额自动扣款" + mSumFee + "元",
+                    DialogUtil.showConfirmDialog("你的预约时间段为\n\n" + mSelectTimesText + "\n\n预约成功后系统将在您的钱包余额自动扣款" + mSumFee + "元,取消预约需提前30分钟",
                             "取消", "确定", getSupportFragmentManager(), new ConfirmDialog.OnDialogCallbackAdapter()
                             {
                                 @Override
@@ -121,6 +124,12 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        doWork();
     }
 
 
@@ -169,6 +178,31 @@ public class StoreReserveActivity extends BaseActivity implements StoreReserveSe
         protected APIResponse doWorkBackground() throws Exception
         {
             return StoreModel.payStoreAppointment(mStoreId, mSelectTimes);
+        }
+
+        @Override
+        protected void onAPIError(APIResponse apiResponse)
+        {
+            if(APIResponse.error_not_money.equals(apiResponse.code))
+            {
+                mUi.getLoadingView().hide();
+                DialogUtil.showConfirmDialog("余额不足，请先充值",
+                        "取消", "支充值", getSupportFragmentManager(), new ConfirmDialog.OnDialogCallbackAdapter()
+                        {
+                            @Override
+                            public void onConfirm()
+                            {
+                                startActivity(PayRechargeActivity.getNewIntent(getContext()));
+                            }
+                        }
+                );
+            }
+            else if(ValidateUtil.isNotEmpty(apiResponse.msg))
+            {
+                DialogUtil.showConfirmDialog(apiResponse.msg,
+                        null, "知道了", getSupportFragmentManager(),new ConfirmDialog.OnDialogCallbackAdapter());
+            }
+            mUi.getLoadingView().hide();
         }
 
         @Override

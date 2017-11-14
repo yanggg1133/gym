@@ -247,11 +247,19 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
              */
             else
             {
-                ToastUtil.toastShort("只能选择连续时间段");
+                if ((System.currentTimeMillis() - exitTime) > 2000)
+                {
+                    exitTime = System.currentTimeMillis();
+                    ToastUtil.toastShort("只能选择连续时间段");
+                } else
+                {
+                }
             }
         }
         onChenged();
     }
+
+    private long exitTime = 0;
 
     /**
      * 把从当前view开始后面的选中view都设为非选中状态

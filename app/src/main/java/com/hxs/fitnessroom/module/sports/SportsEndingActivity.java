@@ -56,6 +56,7 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
     private TextView over_time_text;
     private View over_time_title;
     private View divider_line_11;
+    private TextView over_tiem_tip_text;
 
     public static Intent getNewIntent(Context context,RechargeBean.BalancePay balancePay)
     {
@@ -100,6 +101,7 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
         over_time_text = mBaseUi.findViewById(R.id.over_time_text);
         over_time_title = mBaseUi.findViewById(R.id.over_time_title);
         divider_line_11 = mBaseUi.findViewById(R.id.divider_line_11);
+        over_tiem_tip_text = mBaseUi.findViewById(R.id.over_tiem_tip_text);
 
         use_time_text.setText(mUseTime);
         money_text.setText(mAllcost);
@@ -113,10 +115,12 @@ public class SportsEndingActivity extends BaseActivity implements View.OnClickLi
             over_time_text.setVisibility(View.GONE);
             over_time_title.setVisibility(View.GONE);
             divider_line_11.setVisibility(View.GONE);
+            over_tiem_tip_text.setVisibility(View.GONE);
         }
         else
         {
             over_time_text.setText(mOverTime);
+            over_tiem_tip_text.setVisibility(View.VISIBLE);
         }
 
         goto_recharge_button = mBaseUi.findViewByIdAndSetClick(R.id.goto_recharge_button);

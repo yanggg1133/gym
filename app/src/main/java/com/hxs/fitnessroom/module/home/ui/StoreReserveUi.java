@@ -1,5 +1,6 @@
 package com.hxs.fitnessroom.module.home.ui;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.TextView;
 
 import com.hxs.fitnessroom.R;
@@ -9,6 +10,7 @@ import com.hxs.fitnessroom.module.home.model.entity.StoreBean;
 import com.hxs.fitnessroom.module.home.model.entity.StoreReserveBean;
 import com.hxs.fitnessroom.module.home.widget.StoreInfoView;
 import com.hxs.fitnessroom.module.home.widget.StoreReserveSelectTimeView;
+import com.hxs.fitnessroom.util.ViewUtil;
 
 /**
  * 预约界面的UI操作类
@@ -23,6 +25,7 @@ public class StoreReserveUi extends BaseUi
     private TextView sum_amount_text;
     private TextView action_comfirm_button;
     private TextView select_datetime_text;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public StoreReserveUi(BaseActivity activity)
     {
@@ -40,6 +43,9 @@ public class StoreReserveUi extends BaseUi
         sum_amount_text = findViewById(R.id.sum_amount_text);
         select_datetime_text = findViewById(R.id.select_datetime_text);
         action_comfirm_button = findViewByIdAndSetClick(R.id.action_comfirm_button);
+        swipeRefreshLayout = findViewByIdAndSetClick(R.id.swipeRefreshLayout);
+        ViewUtil.initSwipeRefreshLayoutColor(swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) getBaseActivity());
         select_time_view.setOnSelectChangedListener((StoreReserveSelectTimeView.OnSelectChangedListener) getBaseActivity());
 
         setSelectTime("","","");
@@ -56,6 +62,7 @@ public class StoreReserveUi extends BaseUi
     public void endLoading()
     {
         getLoadingView().hide();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void setStoreInfoViewData(StoreBean store)

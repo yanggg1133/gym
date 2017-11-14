@@ -43,11 +43,24 @@
                 android:text="结束使用"
                 android:textColor="@color/colorListItemContentText"
                 />
+            <TextView
+                android:id="@+id/over_tiem_tip_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/ending_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="10dp"
+                android:textSize="15dp"
+                android:text="已超时,请下次妥善安排锻炼时间"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/divider_line_0"
                 android:layout_width="0dp"
                 android:layout_height="1px"
-                app:layout_constraintTop_toBottomOf="@+id/ending_text"
+                app:layout_constraintTop_toBottomOf="@+id/over_tiem_tip_text"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"

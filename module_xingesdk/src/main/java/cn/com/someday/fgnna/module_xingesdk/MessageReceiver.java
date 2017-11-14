@@ -1,8 +1,6 @@
 package cn.com.someday.fgnna.module_xingesdk;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.tencent.android.tpush.XGPushBaseReceiver;

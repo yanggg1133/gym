@@ -38,6 +38,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
     private View cancel_action;
     private View goto_open;
     private TextView status_text;
+    private TextView store_name;
 
     public static Fragment getNewFragment(StoreAppointment storeAppointment)
     {
@@ -67,6 +68,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
         time = mUi.findViewById(R.id.time);
         money = mUi.findViewById(R.id.money);
         status_text = mUi.findViewById(R.id.status_text);
+        store_name = mUi.findViewById(R.id.store_name);
 
         cancel_action = mUi.findViewByIdAndSetClick(R.id.cancel_action);
         goto_open = mUi.findViewByIdAndSetClick(R.id.goto_open);
@@ -84,6 +86,7 @@ public class UserReserveItemFragment extends BaseFragment implements View.OnClic
         store_address.setValue(mStoreAppointment.address,"");
         time.setValue(mStoreAppointment.timeDesc,"");
         money.setValue(mStoreAppointment.cost,"");
+        store_name.setText(mStoreAppointment.name);
         if(mStoreAppointment.status != 6 )
         {
             status_text.setText("待锻炼");

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.R;
@@ -65,16 +66,32 @@ public class WebActivity extends BaseActivity
         initWebView();
 
         mBaseUi.getLoadingView().show();
-        mWebView.loadUrl(mWebUrl);
 
         registerUserUpdateBroadcastReceiver();
+        loadUrl();
+    }
+
+    /**
+     * 这里的代码是为了配合解决 IOS 的技术问题
+     */
+    private void loadUrl()
+    {
+        mWebView.getSettings().setUserAgentString(baseUA + getAPPUserAgent());
+        String sess_token = "&sess_token="+HXSUser.getUserSessToken();
+        if(-1 == mWebUrl.indexOf("?"))
+        {
+            mWebView.loadUrl(mWebUrl+"?"+sess_token);
+        }
+        else
+        {
+            mWebView.loadUrl(mWebUrl+sess_token);
+        }
     }
 
     @Override
     public void onUserUpdate()
     {
-        mWebView.getSettings().setUserAgentString(baseUA + getAPPUserAgent());
-        LogUtil.dClass(mWebView.getSettings().getUserAgentString());
+        loadUrl();
     }
 
     /**

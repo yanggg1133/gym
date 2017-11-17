@@ -11,7 +11,7 @@ public class Base64Util
 
     /**
      * base64加密
-     *   try 部份是为了在junit单无测试中，无法访问android API时改为调用本地提取的API
+     *   try 部份是为了在junit单元测试中，无法访问android API时改为调用本地提取的API
      * @param bytes
      * @return
      */

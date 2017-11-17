@@ -1,9 +1,12 @@
 package com.hxs.fitnessroom.util;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
@@ -37,7 +40,11 @@ public class PhoneInfoUtil
         try
         {
             TelephonyManager mTm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (mTm.getDeviceId() != null)
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
+            {
+                PhoneIMEI = "";
+            }
+            else if (mTm.getDeviceId() != null)
             {
                 PhoneIMEI = mTm.getDeviceId();
             } else
@@ -47,8 +54,8 @@ public class PhoneInfoUtil
 
         } catch (Exception e)
         {
+            PhoneIMEI = "";
         }
-        PhoneIMEI = "";
         //分辩率
         DisplayMetrics metric = context.getResources().getDisplayMetrics();
         DisplaySize = metric.widthPixels + "*" + metric.heightPixels;

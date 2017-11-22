@@ -1,7 +1,9 @@
 package com.hxs.fitnessroom.base.baseclass;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -11,6 +13,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.hxs.fitnessroom.BuildConfig;
 import com.hxs.fitnessroom.util.LogUtil;
+
+import cn.com.someday.fgnna.module_xingesdk.MessageReceiver;
 
 /**
  * Fragment基类
@@ -23,6 +27,7 @@ public class BaseFragment extends Fragment
 
     private HXSUser.UserUpdateBroadcastReceiver mUserUpdateBroadcastReceiver;
     private HXSUser.UserAccountUpdateBroadcastReceiver mUserAccountUpdateBroadcastReceiver;
+    private BroadcastReceiver mCloseAnAccountBroadcastReceiver;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -112,8 +117,34 @@ public class BaseFragment extends Fragment
                 onUserAccountUpdate();
             }
         };
-
         HXSUser.registerUserAccountUpateBroadcastReceiver(getBaseActivity(), mUserAccountUpdateBroadcastReceiver);
+    }
+    /**
+     * 监听 结算 推送广播
+     * 确保开启监听后，重写{@link #onCloseAnAccount()}方法
+     *
+     * @see #onCloseAnAccount()
+     */
+    public void registerCloseAnAccountBroadcastReceiver()
+    {
+        try
+        {
+            if (null != mCloseAnAccountBroadcastReceiver)
+                getBaseActivity().unregisterReceiver(mCloseAnAccountBroadcastReceiver);
+        } catch (Exception e)
+        {
+            //预防某种未情况引发的异常
+        }
+
+        mCloseAnAccountBroadcastReceiver = new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                onCloseAnAccount();
+            }
+        };
+        getBaseActivity().registerReceiver(mCloseAnAccountBroadcastReceiver,new IntentFilter(MessageReceiver.ReceiverKey));
     }
 
 
@@ -130,6 +161,13 @@ public class BaseFragment extends Fragment
      * 接收到用户信息变化后的广播回调
      */
     public void onUserUpdate()
+    {
+
+    }
+    /**
+     * 接收到用户信息变化后的广播回调
+     */
+    public void onCloseAnAccount()
     {
 
     }
@@ -162,6 +200,11 @@ public class BaseFragment extends Fragment
         {
             getBaseActivity().unregisterReceiver(mUserAccountUpdateBroadcastReceiver);
             mUserAccountUpdateBroadcastReceiver = null;
+        }
+        if (null != mCloseAnAccountBroadcastReceiver)
+        {
+            getBaseActivity().unregisterReceiver(mCloseAnAccountBroadcastReceiver);
+            mCloseAnAccountBroadcastReceiver = null;
         }
     }
 }

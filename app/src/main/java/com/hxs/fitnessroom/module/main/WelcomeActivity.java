@@ -14,6 +14,7 @@ import com.hxs.fitnessroom.module.user.LoginActivity;
 import com.hxs.fitnessroom.module.web.WebActivity;
 import com.hxs.fitnessroom.util.LogUtil;
 
+import cn.com.someday.fgnna.module_xingesdk.XingeSdk;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import fitnessroom.hxs.com.sharesdk.ShareUtil;
@@ -124,6 +125,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             if(mIsNeedJumpMainActivity)
                 startActivity(MainActivity.getNewIntent(WelcomeActivity.this));
             setResult(RESULT_OK);
+            XingeSdk.initSdk(this,HXSUser.getMobile());
             HXSUser.sendUserInfoUpdateBroadcastReceiver();
             finish();
         }

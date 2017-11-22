@@ -71,6 +71,7 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
         mSportsMainUi = new SportsMainUi(this);
         mSportsMainUi.setTitle("运动");
         registerUserUpdateBroadcastReceiver();
+        registerCloseAnAccountBroadcastReceiver();
         autoCheck();
     }
 
@@ -433,8 +434,19 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
     {
         mUserAccountBean = null;
         mUserDeviceStatus = null;
+        mSportsMainUi.stopSportUsingUi();
     }
 
+    /**
+     * 响应结算推送通知　
+     */
+    @Override
+    public void onCloseAnAccount()
+    {
+        mUserAccountBean = null;
+        mUserDeviceStatus = null;
+        mSportsMainUi.stopSportUsingUi();
+    }
 
     /****************************************************************************************************
      * 服务端请求 ****************************************************************************************

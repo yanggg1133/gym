@@ -39,7 +39,7 @@ public class BaseApplication extends Application
         HXSUser.appInitialization(this);
         ToastUtil.appInitialization(this);
         HXSUser.updateUserAccountInfoAsync();
-        XingeSdk.initSdk(this);
+        XingeSdk.initSdk(this,HXSUser.getMobile());
 
         /**
          * 腾讯x5预加载

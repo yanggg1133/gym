@@ -20,6 +20,8 @@ import com.hxs.fitnessroom.util.LogUtil;
 import com.hxs.fitnessroom.util.ToastUtil;
 import com.hxs.fitnessroom.util.ValidateUtil;
 
+import cn.com.someday.fgnna.module_xingesdk.XingeSdk;
+
 /**
  * 好享瘦用户信息处理类
  * 状态缓存,更新
@@ -438,6 +440,7 @@ public class HXSUser
         SharedPreferences sp = mContext.getSharedPreferences(HXSUser.class.getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear().apply();
+        XingeSdk.initSdk(mContext,HXSUser.getMobile());
         sendUserInfoUpdateBroadcastReceiver();
         sendUserAccountUpdateBroadcastReceiver();
     }

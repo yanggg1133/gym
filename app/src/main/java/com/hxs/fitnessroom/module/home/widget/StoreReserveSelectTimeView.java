@@ -110,7 +110,7 @@ public class StoreReserveSelectTimeView extends GridLayout implements View.OnCli
      */
     private void initializView()
     {
-
+        removeAllViews();
         for (StoreReserveBean.Appointment appointment : mData.appointment)
         {
             /**

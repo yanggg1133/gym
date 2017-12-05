@@ -208,20 +208,6 @@ public class SportsMainFragment extends BaseFragment implements View.OnClickList
                     return;
             }
 
-
-//            double mincost = VariableUtil.stringToDouble(mUserAccountBean.mincost);//最低消费
-            double balance = VariableUtil.stringToDouble(mUserAccountBean.balance);//余额
-//            if (balance >= 0d && balance < mincost)
-//            {
-//                error_insufficient_balance();//余额不满足最低消费
-//                return;
-//            }
-            if (0d > balance)
-            {
-                error_order_is_not_settled();//有未结算的消费
-                return;
-            }
-
             //去扫码开门
             step3_scan_open_door();
         }

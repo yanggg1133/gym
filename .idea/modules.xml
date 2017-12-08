@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Fitness.iml" filepath="$PROJECT_DIR$/Fitness.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appDeviceTest/appDeviceTest.iml" filepath="$PROJECT_DIR$/appDeviceTest/appDeviceTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_codescan/module_codescan.iml" filepath="$PROJECT_DIR$/module_codescan/module_codescan.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" filepath="$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_xingesdk/module_singesdk.iml" filepath="$PROJECT_DIR$/module_xingesdk/module_singesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_xingesdk/module_xingesdk.iml" filepath="$PROJECT_DIR$/module_xingesdk/module_xingesdk.iml" />
     </modules>
   </component>

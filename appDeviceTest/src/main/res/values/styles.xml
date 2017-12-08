@@ -1,0 +1,91 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- APP主题. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+    <style name="LoadingScreenTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@mipmap/launcher_page</item>
+    </style>
+
+    <!-- DialogFragment统一主题样式   无过场动画  -->
+    <style name="DialogFragmentTheme" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <!--   这个如果开启，dialog会带有默认的padding值
+        <item name="android:windowIsFloating">true</item>
+        -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- 顶栏 Mytoobar 统一样式 -->
+    <style name="ToolbarStyle" parent="Base.V7.Theme.AppCompat.Light">
+        <item name="android:id">@id/toolbar</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <!-- LoadingView 统一样式 -->
+    <style name="LoadingViewStyle" >
+        <item name="android:id">@id/loading_view</item>
+        <item name="android:layout_marginTop">@dimen/toolbar_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!-- 文字输入框的统一样式 -->
+    <style name="TextInputStyle" parent="Base.V7.Theme.AppCompat.Light">
+        <!-- 未获取焦点时，提示文案颜色 -->
+        <item name="android:textColorHint">@color/colorListItemContentText</item>
+        <!-- 未获取焦点时，下划线颜色 -->
+        <item name="android:textColorSecondary">@color/colorListItemContentText</item>
+        <!-- 获取焦点时，提示文案和下划线颜色 -->
+        <item name="colorAccent">@color/colorListItemTitleText</item>
+        <!-- 录入文字颜色 -->
+        <item name="android:textColorPrimary">@color/colorListItemTitleText</item>
+    </style>
+
+    <!-- PhotoPicker 图片选择器样式 -->
+    <style name="PhotoPickerAppTheme" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
+    <!-- 微信支付，无过场动画，无背景，无顶栏样式，防止闪屏 -->
+    <style name="WXPayTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/noAnimation</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="noAnimation">
+
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_1"
+        android:text="商品名称"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_1"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_1"
+        android:text="商品名称"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+    <View
+        android:id="@id/divider_line_1"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginTop="@dimen/item_height"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_1"
+        android:text="单价"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+    <TextView
+        android:id="@+id/shop_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_2"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_1"
+        android:text="商品名称"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+    <View
+        android:id="@id/divider_line_2"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_1"
+        android:layout_marginTop="@dimen/item_height"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintLeft_toLeftOf="@+id/divider_line_2"
+        android:text="数量"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+    <TextView
+        android:id="@+id/shop_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line_3"
+        app:layout_constraintRight_toRightOf="@+id/divider_line_2"
+        android:text="商品名称"
+        android:textSize="15dp"
+        android:textColor="@color/colorListItemContentText"
+        />
+
+    <View
+        android:id="@id/divider_line_3"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_2"
+        android:layout_marginTop="@dimen/item_height"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        />
+
+
+    <View
+        android:id="@id/divider_line_4"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        />
+
+
+    <TextView
+        android:id="@+id/number_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:textColor="@color/colorListItemContentText"
+        android:text="共1件"
+        />
+    <TextView
+        android:id="@+id/sum_amount_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_4"
+        app:layout_constraintLeft_toRightOf="@+id/number_tip"
+        android:layout_marginLeft="4dp"
+        android:text="总计22222"
+        android:textColor="@color/colorListItemTitleText"
+        />
+
+    <TextView
+        android:id="@+id/action_pay_button"
+        android:layout_width="115dp"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line_4"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:text="去支付"
+        />
+
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
+</android.support.constraint.ConstraintLayout>

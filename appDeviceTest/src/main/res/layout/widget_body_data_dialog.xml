@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+    >
+
+    <com.hxs.fitnessroom.widget.MyToolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle">
+    </com.hxs.fitnessroom.widget.MyToolbar>
+
+    <View
+        android:id="@+id/bg_select_sex_layout"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_round_22253e_r50"
+        />
+
+    <TextView
+        android:id="@+id/girl_button"
+        android:layout_width="86dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@+id/bg_select_sex_layout"
+        android:layout_alignLeft="@+id/bg_select_sex_layout"
+        android:layout_alignTop="@+id/bg_select_sex_layout"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="女神"
+        />
+
+    <TextView
+        android:id="@+id/boy_button"
+        android:layout_width="86dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@+id/bg_select_sex_layout"
+        android:layout_alignRight="@+id/bg_select_sex_layout"
+        android:layout_alignTop="@+id/bg_select_sex_layout"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="男神"
+        />
+
+    <TextView
+        android:id="@+id/next_button"
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="下一步"
+        />
+
+    <TextView
+        android:id="@+id/body_height_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/next_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:text="160"
+        android:textColor="@color/colorText"
+        android:textSize="40dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/body_height_text"
+        android:layout_toRightOf="@+id/body_height_text"
+        android:text=" cm"
+        android:textColor="@color/colorText"
+        android:textSize="22dp"
+        />
+
+    <com.hxs.fitnessroom.widget.body.RulerViewLayout
+        android:id="@+id/rulerViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bg_select_sex_layout"
+        android:layout_alignBottom="@+id/body_height_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="34dp"
+        >
+
+        <com.hxs.fitnessroom.widget.body.VerticalScaleView
+            android:id="@+id/verticalScaleView"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            />
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="10dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/widget_body_height_cursor"
+            />
+
+        <ImageView
+            android:id="@+id/body_image"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/girl"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="24dp"
+            />
+    </com.hxs.fitnessroom.widget.body.RulerViewLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/birthday_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/next_button"
+        android:background="@color/colorPrimary"
+        android:paddingTop="60dp"
+        android:paddingBottom="60dp"
+        android:paddingRight="50dp"
+        android:paddingLeft="50dp"
+        android:visibility="gone"
+        >
+
+        <View
+            android:id="@+id/temp_center_point"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:layout_centerHorizontal="true"
+            />
+
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+            android:id="@+id/picker_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:npv_ItemPaddingHorizontal="5dp"
+            app:npv_ItemPaddingVertical="5dp"
+            app:npv_ShowCount="5"
+            app:npv_RespondChangeOnDetached="false"
+            app:npv_TextSizeNormal="18dp"
+            app:npv_TextSizeSelected="18dp"
+            app:npv_WrapSelectorWheel="true"
+            app:npv_DividerColor="@color/colorDividerLine"
+            app:npv_DividerHeight="1px"
+            android:layout_alignRight="@+id/temp_center_point"
+            app:npv_TextColorSelected="@color/colorListItemTitleText"
+            app:npv_TextColorNormal="@color/colorListItemContentText"
+            />
+
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+            android:id="@+id/picker_month"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:npv_ItemPaddingHorizontal="5dp"
+            app:npv_ItemPaddingVertical="0dp"
+            app:npv_ShowCount="5"
+            app:npv_RespondChangeOnDetached="false"
+            app:npv_TextSizeNormal="16sp"
+            app:npv_TextSizeSelected="20sp"
+            app:npv_WrapSelectorWheel="true"
+            app:npv_DividerColor="@color/colorDividerLine"
+            app:npv_DividerHeight="1px"
+            android:layout_alignLeft="@+id/temp_center_point"
+            app:npv_TextColorSelected="@color/colorListItemTitleText"
+            app:npv_TextColorNormal="@color/colorListItemContentText"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

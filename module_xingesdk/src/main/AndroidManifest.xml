@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="cn.com.someday.fgnna.module_xingesdk"
+          package="fitnessroom.hxs.com.singesdk"
     >
+
     <!-- 【必须】 信鸽SDK所需权限   -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -21,6 +22,8 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BATTERY_STATS"/>
+
+
 
     <application>
         <!-- 【必须】 信鸽receiver广播接收 -->
@@ -120,7 +123,8 @@
             android:name="XG_V2_ACCESS_KEY"
             android:value="A1J9VN8UJ46S"
             />
-    </application>
 
+
+    </application>
 
 </manifest>

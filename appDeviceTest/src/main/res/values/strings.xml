@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">好享瘦健身房</string>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">运动</string>
+    <string name="title_notifications">我的</string>
+
+    <string name="network_error_tip">网络加载出错\n点击重试</string>
+
+</resources>

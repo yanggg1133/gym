@@ -1,1 +1,2 @@
 include ':app', ':module_codescan', ':module_sharesdk', ':module_xingesdk'
+include ':appDeviceTest'

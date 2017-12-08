@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hxs.fitnessroom.module.user.SettingActivity">
+
+    <com.hxs.fitnessroom.widget.MyToolbar style="@style/ToolbarStyle"/>
+    
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_protocol"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/deposit_statement"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/top_up_protocol"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/about_our"
+        app:layoutType="setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:id="@+id/logout_button"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:text="退出登录"
+            android:gravity="center"
+            android:textSize="@dimen/item_text_size"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_stroke_d8abff_r50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="65dp"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

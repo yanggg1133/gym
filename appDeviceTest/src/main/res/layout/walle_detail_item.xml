@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/pay_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorListItemTitleText"
+        android:textSize="@dimen/item_sub_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="14dp"
+        android:text="付款成功"
+        />
+
+    <TextView
+        android:id="@+id/wallet_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="2017-06-22 14:25:54"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintLeft_toLeftOf="@+id/pay_msg"
+        app:layout_constraintTop_toBottomOf="@+id/pay_msg"/>
+
+
+    <TextView
+        android:id="@+id/wallet_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:text="$15.00"
+        android:textSize="21dp"
+        android:textColor="@color/colorListItemTitleText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pay_msg"
+        app:layout_constraintBottom_toBottomOf="@+id/pay_msg"
+        />
+
+    <TextView
+        android:id="@+id/pay_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="2dp"
+        android:text="微信支付"
+        android:textColor="@color/colorListItemContentText"
+        android:textSize="14dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_money"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginTop="70dp"
+        android:background="@color/colorDividerLine"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        />
+</android.support.constraint.ConstraintLayout>

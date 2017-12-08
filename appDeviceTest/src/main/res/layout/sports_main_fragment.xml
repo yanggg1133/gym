@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar
+        style="@style/ToolbarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <!-- 健身房 未使用 的界面 -->
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textColor="@color/colorListItemTitleText"
+        android:text="欢迎使用\n好享瘦健身房"
+        android:lineSpacingExtra="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/start_scan"
+        />
+    <TextView
+        android:id="@+id/start_scan"
+        android:layout_below="@+id/text_welcome"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:text="开始使用"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:background="@drawable/bg_gradient_d068ff_e452b1_r50"
+        app:layout_constraintTop_toBottomOf="@+id/text_welcome"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <!-- 健身房使用中的界面 -->
+    <include layout="@layout/sports_main_using_include"/>
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle" />
+</android.support.constraint.ConstraintLayout>

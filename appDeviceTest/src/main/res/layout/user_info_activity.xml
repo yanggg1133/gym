@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <com.hxs.fitnessroom.widget.MyToolbar
+        style="@style/ToolbarStyle">
+    </com.hxs.fitnessroom.widget.MyToolbar>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layoutType="userinfo"
+        android:layout_below="@+id/toolbar"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layoutType="userinfo"
+        android:layout_below="@+id/user_avatar"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_sex"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layoutType="userinfo"
+        android:layout_below="@+id/user_nickname"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layoutType="userinfo"
+        android:layout_below="@+id/user_sex"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/setting_service"
+        android:layout_below="@+id/user_phone"
+        />
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_realname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layoutType="userinfo"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/user_phone"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+    <com.hxs.fitnessroom.widget.SettingItemView
+        android:id="@+id/user_authenticate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layoutType="userinfo"
+        android:layout_below="@+id/user_realname"
+        >
+    </com.hxs.fitnessroom.widget.SettingItemView>
+
+
+
+    <com.hxs.fitnessroom.widget.LoadingView style="@style/LoadingViewStyle"/>
+
+</RelativeLayout>

@@ -37,15 +37,10 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
      */
     public final void go(Context context)
     {
-        go(context,null,null);
+        go(context,null);
     }
 
     public final void go(Context context, BaseUi baseUi)
-    {
-        go(context,baseUi,null);
-    }
-
-    public final void go(Context context, BaseUi baseUi, Object... objects)
     {
         if (null == context)
             throw new NullPointerException();
@@ -54,7 +49,7 @@ public abstract class BaseAsyncTask extends AsyncTask<Object, Object, APIRespons
 
         mBaseUi = new WeakReference<>(baseUi);
 
-        execute(objects);
+        execute();
     }
 
 

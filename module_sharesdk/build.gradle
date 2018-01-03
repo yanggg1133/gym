@@ -22,9 +22,6 @@ android {
             minifyEnabled false
         }
     }
-    dexOptions {
-        incremental true
-    }
 }
 
 dependencies {

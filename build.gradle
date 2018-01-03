@@ -3,22 +3,96 @@
 buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-
+        classpath 'com.novoda:bintray-release:0.5.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-    repositories {
+    repositories { 
+        jcenter()
+        mavenCentral()
         google()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
     }
 }
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        mavenCentral()
+        google()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
     }
 }
 
 //task clean(type: Delete) {
 //    delete rootProject.buildDir
 //}
+
+ext {
+    //配置信息
+    compileAndTargetVersion = 26
+    minSdkVersionVersion = 18
+    versionCode  = 2
+    versionName = "1.1.0"
+    //library
+    versionCodeLibrary = 1
+    versionNameLibrary = "1.0"
+    //依赖版本
+    supportVersion = '26.1.0'
+    supportConstraintVersion = '1.0.2'
+    gsonGoogleVersion = '2.8.1'
+    photoViewVersion = '2.1.3'
+    squareupOkhttp3Version = '3.9.0'
+    squareupRetrofit2Version = '2.3.0'
+    squareupOkioVersion = '1.13.0'
+    glideVersion = '4.3.1'
+    glideTransformVersion = '3.0.0'
+    bannerVersion = '1.4.10'
+    archVersion = '1.0.0-alpha5'
+    rxjava2Version = '2.0.7'
+    rxandroidVersion = '2.0.1'
+    rxbinding2Version = '2.0.0'
+    arouterVersion = '1.3.0'
+    arouterCompilerVersion = '1.1.4'
+
+    //utils
+    supportV7 = "com.android.support:appcompat-v7:$supportVersion"
+    supportDesign = "com.android.support:design:$supportVersion"
+    supportVector = "com.android.support:support-vector-drawable:$supportVersion"
+    supportRecyclerview = "com.android.support:recyclerview-v7:$supportVersion"
+    supportV4 = "com.android.support:support-v4:$supportVersion"
+    supportConstraint = "com.android.support.constraint:constraint-layout:$supportConstraintVersion"
+    gsonGoogle =  "com.google.code.gson:gson:$gsonGoogleVersion"
+
+    //widget
+    photoView = "com.github.chrisbanes:PhotoView:$photoViewVersion"
+    //http
+    squareupOkhttp3  = "com.squareup.okhttp3:okhttp:$squareupOkhttp3Version"
+    squareupOkhttp3Logging = "com.squareup.okhttp3:logging-interceptor:$squareupOkhttp3Version"
+    squareupRetrofit2 = "com.squareup.retrofit2:retrofit:$squareupRetrofit2Version"
+    squareupRetrofit2Gson = "com.squareup.retrofit2:converter-gson:$squareupRetrofit2Version"
+    squareupRetrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava2:$squareupRetrofit2Version"
+    squareupOkio = "com.squareup.okio:okio:$squareupOkioVersion"
+    //glide
+    glide = "com.github.bumptech.glide:glide:$glideVersion"
+    glideCompiler = "com.github.bumptech.glide:compiler:$glideVersion"
+    glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:$glideVersion"/*支持ok*/
+    glideTransf = "jp.wasabeef:glide-transformations:$glideTransformVersion"/*高斯模糊*/
+    banner = "com.youth.banner:banner:$bannerVersion"
+    //rom
+    archRoom = "android.arch.persistence.room:runtime:$archVersion"
+    archRoomCompiler = "android.arch.persistence.room:compiler:$archVersion"
+    archLifecycle = "android.arch.lifecycle:extensions:$archVersion"
+    archLifecycleCompiler = "android.arch.lifecycle:compiler:$archVersion"
+    //rxjava2
+    rxjava2 =  "io.reactivex.rxjava2:rxjava:$rxjava2Version"
+    rxandroid = "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+    rxbinding2 = "com.jakewharton.rxbinding2:rxbinding:$rxbinding2Version"
+    //arouter
+    arouter = "com.alibaba:arouter-api:$arouterVersion"
+    arouterCompiler =  "com.alibaba:arouter-compiler:$arouterCompilerVersion"
+    //arouter-路由http://m.macyer.com
+    schemeFilterHost = "m.macyer.com"
+}

@@ -1,16 +1,28 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.compileAndTargetVersion
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersionVersion
+        targetSdkVersion rootProject.ext.compileAndTargetVersion
+        versionCode rootProject.ext.versionCodeLibrary
+        versionName rootProject.ext.versionNameLibrary
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
 
     }
     buildTypes {
@@ -33,4 +45,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     implementation 'com.google.code.gson:gson:2.8.1'
+
+    api rootProject.ext.arouter
+    annotationProcessor rootProject.ext.arouterCompiler
 }

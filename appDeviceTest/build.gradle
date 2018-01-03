@@ -17,6 +17,14 @@ android {
         vectorDrawables.useSupportLibrary = true
         buildConfigField "boolean", "LOG_DEBUG", "false" //默认渠道不输出log
         multiDexEnabled true
+        
+        vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     /**
      * 关闭静态检测
@@ -139,6 +147,9 @@ dependencies {
     implementation 'com.umeng.analytics:analytics:latest.integration'
     //预约时段选择列表的自定义view
     implementation (name:'indexview',ext:'aar')
+
+    api rootProject.ext.arouter
+    annotationProcessor rootProject.ext.arouterCompiler
 }
 /**
  * 打包命名

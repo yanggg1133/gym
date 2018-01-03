@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Fitness.iml" filepath="$PROJECT_DIR$/Fitness.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Fitness.iml" filepath="$PROJECT_DIR$/.idea/Fitness.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\Fitness.iml" filepath="C:\workspace\fitness-lastest\Fitness\Fitness.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\app\app.iml" filepath="C:\workspace\fitness-lastest\Fitness\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/appDeviceTest/appDeviceTest.iml" filepath="$PROJECT_DIR$/appDeviceTest/appDeviceTest.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\appDeviceTest\appDeviceTest.iml" filepath="C:\workspace\fitness-lastest\Fitness\appDeviceTest\appDeviceTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_codescan/module_codescan.iml" filepath="$PROJECT_DIR$/module_codescan/module_codescan.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\module_codescan\module_codescan.iml" filepath="C:\workspace\fitness-lastest\Fitness\module_codescan\module_codescan.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" filepath="$PROJECT_DIR$/module_sharesdk/module_sharesdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module_xingesdk/module_singesdk.iml" filepath="$PROJECT_DIR$/module_xingesdk/module_singesdk.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\module_sharesdk\module_sharesdk.iml" filepath="C:\workspace\fitness-lastest\Fitness\module_sharesdk\module_sharesdk.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\module_xingesdk\module_singesdk.iml" filepath="C:\workspace\fitness-lastest\Fitness\module_xingesdk\module_singesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_xingesdk/module_xingesdk.iml" filepath="$PROJECT_DIR$/module_xingesdk/module_xingesdk.iml" />
+      <module fileurl="file://C:\workspace\fitness-lastest\Fitness\module_xingesdk\module_xingesdk.iml" filepath="C:\workspace\fitness-lastest\Fitness\module_xingesdk\module_xingesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
     </modules>
   </component>
 </project>

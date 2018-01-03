@@ -1,0 +1,89 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileAndTargetVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersionVersion
+        targetSdkVersion rootProject.ext.compileAndTargetVersion
+        versionCode rootProject.ext.versionCodeLibrary
+        versionName rootProject.ext.versionNameLibrary
+
+        /*编译api降低到对应版本*/
+        renderscriptTargetApi rootProject.ext.minSdkVersionVersion
+        renderscriptSupportModeEnabled true
+
+        manifestPlaceholders = [
+                Gradle_SchemeFilter_Host : rootProject.ext.schemeFilterHost
+        ]
+        
+        /*so依赖*/
+        ndk {
+            abiFilters "armeabi"
+        }
+        
+        /*编译版本*/
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api rootProject.ext.supportV7
+    api rootProject.ext.supportV4
+    api rootProject.ext.supportDesign
+    api rootProject.ext.supportConstraint
+    api rootProject.ext.supportVector
+    api rootProject.ext.supportRecyclerview
+    api rootProject.ext.gsonGoogle
+    
+    //Room
+    api rootProject.ext.archRoom
+    annotationProcessor rootProject.ext.archRoomCompiler
+    //observerable
+    api rootProject.ext.archLifecycle
+    annotationProcessor rootProject.ext.archLifecycleCompiler
+
+    //图片浏览
+    api rootProject.ext.photoView
+    //glide
+    api rootProject.ext.glide
+    annotationProcessor rootProject.ext.glideCompiler
+    api rootProject.ext.glideOkhttp3
+    api rootProject.ext.glideTransf
+    api rootProject.ext.banner
+    
+    //http
+    api rootProject.ext.squareupOkhttp3
+    api rootProject.ext.squareupOkhttp3Logging
+    api rootProject.ext.squareupRetrofit2
+    api rootProject.ext.squareupRetrofit2Gson
+    api rootProject.ext.squareupRetrofit2Adapter
+    api rootProject.ext.squareupOkio
+
+    //rxjava2
+    api rootProject.ext.rxjava2
+    api rootProject.ext.rxandroid
+    api rootProject.ext.rxbinding2
+    
+    //arouter
+    api rootProject.ext.arouter
+    annotationProcessor rootProject.ext.arouterCompiler
+}

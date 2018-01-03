@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!--自动滚动txtview-->
+    <declare-styleable name="type_text">
+        <attr name="type" format="integer" />
+    </declare-styleable>
+</resources>

@@ -5,16 +5,36 @@ repositories {
     maven { url 'http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/' }
 }
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.ext.compileAndTargetVersion
+    
     defaultConfig {
         applicationId "com.hxs.fitnessroom"
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 2
-        versionName "1.1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion rootProject.ext.minSdkVersionVersion
+        targetSdkVersion rootProject.ext.compileAndTargetVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        /*有时model中的包和app引入冲突*/
+        packagingOptions {
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE.txt'
+        }
+        /*编译api降低到对应版本*/
+        renderscriptTargetApi rootProject.ext.minSdkVersionVersion
+        renderscriptSupportModeEnabled true
+        /*so依赖*/
+        ndk {
+            abiFilters "armeabi"
+        }
+        /*支持vector*/
         vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "boolean", "LOG_DEBUG", "false" //默认渠道不输出log
         multiDexEnabled true
     }
@@ -78,8 +98,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     repositories{flatDir{dirs 'libs'}}
@@ -94,13 +114,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:' + SUPPORT_LIB_VERSION
-    implementation 'com.android.support:design:' + SUPPORT_LIB_VERSION
-    implementation 'com.android.support:support-vector-drawable:'
     implementation 'com.android.support:gridlayout-v7:'+ SUPPORT_LIB_VERSION
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.google.code.gson:gson:2.8.1'
     //依赖冲突解决  强制使用统一版本
     configurations.all {
         resolutionStrategy {
@@ -110,24 +125,20 @@ dependencies {
         }
     }
     /** 第三方类库*************************************************************/
-    //图片加载
-    implementation 'com.github.bumptech.glide:glide:4.0.0'
-    implementation 'jp.wasabeef:glide-transformations:3.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
-
+    
     //二维码扫描
     implementation project(':module_codescan')
     //友盟第三方登录及分享
     implementation project(':module_sharesdk')
     //信鸽推送sdk
     implementation project(':module_xingesdk')
+    //工具
+    implementation project(':utils')
 
     //上下滚动选择器
     implementation 'cn.carbswang.android:NumberPickerView:1.1.1'
     //阿里云图片上传
     implementation 'com.aliyun.dpa:oss-android-sdk:2.4.3'
-    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
-    implementation 'com.squareup.okio:okio:1.9.0'
     //阿里IM
     implementation 'com.alibaba.mobileim:IMCore:2.0.2.1@aar'
     //阿里IM UI
@@ -139,6 +150,9 @@ dependencies {
     implementation 'com.umeng.analytics:analytics:latest.integration'
     //预约时段选择列表的自定义view
     implementation (name:'indexview',ext:'aar')
+
+    api rootProject.ext.arouter
+    annotationProcessor rootProject.ext.arouterCompiler
 }
 /**
  * 打包命名
